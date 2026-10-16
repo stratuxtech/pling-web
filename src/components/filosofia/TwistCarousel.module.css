@@ -1,0 +1,126 @@
+.section {
+  padding: var(--section-space) 0 0;
+  overflow-x: clip;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: var(--container-content);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+@media (min-width: 64rem) {
+  .head {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+}
+
+.title {
+  max-width: 16ch;
+  font-size: var(--text-display-sm);
+  line-height: var(--text-display-sm--line-height);
+}
+
+@media (min-width: 64rem) {
+  .title {
+    font-size: var(--text-display-md);
+    line-height: var(--text-display-md--line-height);
+  }
+}
+
+.text {
+  max-width: 40ch;
+  font-size: var(--text-body-lg);
+  line-height: 1.65;
+  color: var(--color-on-surface-variant);
+}
+
+/* Sin JS: fila deslizable a mano */
+.viewport {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 4rem 0 3rem;
+  scrollbar-width: none;
+  border-radius: var(--radius-lg);
+}
+.viewport:focus-visible {
+  outline-offset: -4px;
+}
+
+/* Con JS: el scroll vertical mueve la fila */
+.viewport[data-driven] {
+  overflow: visible;
+  scroll-snap-type: none;
+  padding-block: 5rem 4rem;
+}
+
+.track {
+  display: flex;
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+  width: max-content;
+  padding: 0 calc(50vw - clamp(7rem, 10vw, 10rem));
+  list-style: none;
+  will-change: transform;
+}
+
+.slide {
+  --ry: 0deg;
+  --s: 1;
+  width: clamp(14rem, 20vw, 20rem);
+  scroll-snap-align: center;
+  perspective: 1200px;
+  z-index: var(--z, 0);
+  position: relative;
+}
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin: 0;
+  transform: rotateY(var(--ry)) scale(var(--s));
+  transform-origin: 50% 50%;
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-3);
+}
+
+.img {
+  object-fit: cover;
+}
+
+.caption {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-md);
+  line-height: var(--text-title-md--line-height);
+  color: var(--color-on-surface);
+}
+
+.step {
+  font-size: var(--text-title-sm);
+  color: var(--color-primary);
+}
+
+.credits {
+  width: calc(100% - 2 * var(--gutter));
+  max-width: var(--container-content);
+  margin: 0 auto;
+  font-size: var(--text-body-sm);
+  line-height: var(--text-body-sm--line-height);
+  color: var(--color-on-surface-variant);
+}

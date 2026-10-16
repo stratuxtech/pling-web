@@ -1,0 +1,7 @@
+.env*.local
+node_modules
+.next
+docs
+public/screens app
+public/fonts
+.impeccable

@@ -1,0 +1,214 @@
+.section {
+  position: relative;
+  padding: var(--section-space) 0;
+}
+
+.section[data-pinned] {
+  height: 320vh;
+  padding: 0;
+}
+
+.sticky {
+  position: relative;
+}
+
+.section[data-pinned] .sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.inner {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+  width: 100%;
+  max-width: var(--container-content);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+@media (min-width: 64rem) {
+  .inner {
+    grid-template-columns: 1.1fr 1fr;
+    gap: 4rem;
+    padding-top: 4rem;
+  }
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.title {
+  font-size: var(--text-display-sm);
+  line-height: var(--text-display-sm--line-height);
+  max-width: 16ch;
+}
+
+@media (min-width: 64rem) {
+  .title {
+    font-size: var(--text-display-md);
+    line-height: var(--text-display-md--line-height);
+  }
+}
+
+.tabs {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0.25rem;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-1);
+}
+
+.tab {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 0.5rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-label-lg);
+  line-height: var(--text-label-lg--line-height);
+  color: var(--color-on-surface-variant);
+  cursor: pointer;
+  transition: color var(--duration-medium) var(--ease-standard);
+}
+
+@media (min-width: 40rem) {
+  .tab {
+    font-size: var(--text-title-md);
+  }
+}
+
+.tab[aria-selected="true"] {
+  color: var(--color-on-primary);
+}
+
+.tabIndex {
+  display: none;
+  font-family: var(--font-mono);
+  font-size: var(--text-label-md);
+  opacity: 0.7;
+}
+
+@media (min-width: 40rem) {
+  .tabIndex {
+    display: inline;
+  }
+}
+
+/* Píldora activa que se desliza */
+.progress {
+  position: absolute;
+  top: 0.25rem;
+  bottom: 0.25rem;
+  left: 0.25rem;
+  width: calc((100% - 0.5rem) / 3);
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  box-shadow: var(--shadow-glow-primary);
+  transform: translateX(calc(var(--i) * 100%));
+  transition: transform var(--duration-long) var(--ease-out-expo);
+}
+
+.panel {
+  min-height: 17rem;
+}
+
+.panelInner {
+  animation: enter var(--duration-long) var(--ease-out-expo);
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+.panelTitle {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-headline-md);
+  line-height: var(--text-headline-md--line-height);
+  color: var(--color-on-surface);
+}
+
+.panelText {
+  max-width: 34rem;
+  margin-top: 0.75rem;
+  font-size: var(--text-body-lg);
+  line-height: 1.65;
+  color: var(--color-on-surface-variant);
+}
+
+.points {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.points li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-body-lg);
+  color: var(--color-on-surface);
+}
+
+.check {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-full);
+  background: var(--color-success-container);
+  color: var(--color-success);
+}
+
+.visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.phone {
+  position: relative;
+  width: min(60vw, 18rem);
+}
+
+@media (min-width: 64rem) {
+  .phone {
+    width: min(24vw, 19.5rem);
+  }
+}
+
+.glow {
+  position: absolute;
+  width: 80%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  filter: blur(50px);
+  opacity: 0.55;
+  transition: background-color 900ms var(--ease-standard);
+  background: var(--color-primary-300);
+}
+.glow[data-stage="1"] {
+  background: var(--color-secondary-300);
+}
+.glow[data-stage="2"] {
+  background: var(--color-success-container);
+}

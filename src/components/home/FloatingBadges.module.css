@@ -1,0 +1,193 @@
+.layer {
+  --mx: 0;
+  --my: 0;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.badge {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  translate: calc(var(--mx) * var(--d) * 14px) calc(var(--my) * var(--d) * 14px);
+  transition: translate 900ms var(--ease-out-expo);
+  animation: float 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--r, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(calc(var(--r, 0deg) * -0.6));
+  }
+}
+
+/* ● LIVE — Rojo coral, texto blanco (brief) */
+.live {
+  --r: -6deg;
+  top: 6%;
+  left: 4%;
+  padding: 0.375rem 0.875rem 0.375rem 0.75rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-coral);
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-md);
+  letter-spacing: 0.06em;
+  box-shadow: var(--shadow-glow-secondary);
+  animation-duration: 6.2s;
+}
+
+.liveDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* CÓDIGO #A1B2 — sticker de la Ticketera */
+.code {
+  --r: 5deg;
+  top: 30%;
+  right: -2%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.125rem;
+  padding: 0.625rem 1rem 0.75rem;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-3);
+  animation-duration: 8.4s;
+  animation-delay: -2s;
+}
+.code::before {
+  content: "";
+  position: absolute;
+  inset: 0.25rem;
+  border-radius: 8px;
+  border: 1px dashed var(--color-primary-200);
+}
+
+.codeLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-label-sm);
+  letter-spacing: 0.14em;
+  color: var(--color-on-surface-variant);
+}
+
+.codeValue {
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-headline-sm);
+  line-height: 1.1;
+  color: var(--color-on-surface);
+}
+
+/* ¡Pling! +Bs 120 */
+.sale {
+  --r: -3deg;
+  bottom: 22%;
+  left: -6%;
+  padding: 0.625rem 1rem 0.625rem 0.625rem;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-3);
+  animation-duration: 7.6s;
+  animation-delay: -4s;
+}
+
+.saleIcon {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-full);
+  background: var(--color-success-container);
+  color: var(--color-success);
+}
+
+.saleTitle {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-md);
+  color: var(--color-primary);
+}
+
+.saleAmount {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-md);
+  color: var(--color-success);
+}
+
+/* Burbuja de compradora (WhatsApp) */
+.bubble {
+  --r: 4deg;
+  top: 58%;
+  right: -4%;
+  padding: 0.625rem 0.875rem;
+  border-radius: 1rem 1rem 0.25rem 1rem;
+  background: var(--color-success-container);
+  color: var(--color-on-surface);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-body-md);
+  box-shadow: var(--shadow-2);
+  animation-duration: 6.8s;
+  animation-delay: -1s;
+}
+
+.ticks {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: -0.15em;
+}
+
+/* QR verificado ✓ */
+.qr {
+  --r: -4deg;
+  bottom: 16%;
+  right: -8%;
+  padding: 0.5rem 0.875rem 0.5rem 0.625rem;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-body-md);
+  box-shadow: var(--shadow-glow-primary);
+  animation-duration: 9s;
+  animation-delay: -3s;
+}
+
+@media (max-width: 40rem) {
+  .badge {
+    scale: 0.82;
+  }
+  .sale {
+    left: -2%;
+  }
+  .code,
+  .bubble {
+    right: -1%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge,
+  .liveDot {
+    animation: none;
+  }
+}

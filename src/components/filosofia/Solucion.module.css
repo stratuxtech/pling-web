@@ -1,0 +1,115 @@
+.section {
+  max-width: var(--container-content);
+  margin: 0 auto;
+  padding: var(--section-space) var(--gutter) 0;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 3.5rem;
+  text-align: center;
+}
+
+.title {
+  font-size: var(--text-display-sm);
+  line-height: var(--text-display-sm--line-height);
+}
+
+@media (min-width: 64rem) {
+  .title {
+    font-size: var(--text-display-md);
+    line-height: var(--text-display-md--line-height);
+  }
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+@media (min-width: 48rem) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem 1.75rem 2.5rem;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-2);
+  transition:
+    transform var(--duration-long) var(--ease-out-expo),
+    box-shadow var(--duration-long) var(--ease-out-expo);
+}
+
+/* Base iluminada: halo de marca que se enciende bajo la tarjeta */
+.card::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 12%;
+  right: 12%;
+  bottom: -6px;
+  height: 40%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--color-primary-500), var(--color-primary-300), var(--color-coral));
+  filter: blur(26px);
+  opacity: 0;
+  transition: opacity var(--duration-long) var(--ease-standard);
+}
+
+.card:hover {
+  transform: scale(1.06);
+  box-shadow: var(--shadow-3);
+}
+.card:hover::after {
+  opacity: 0.7;
+}
+
+.icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-lg);
+  background: var(--color-primary-container);
+  color: var(--color-primary-700);
+}
+.card[data-id="pago"] .icon {
+  background: var(--color-secondary-container);
+  color: var(--color-secondary-500);
+}
+
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-headline-md);
+  line-height: var(--text-headline-md--line-height);
+  color: var(--color-on-surface);
+}
+
+.text {
+  font-size: var(--text-body-lg);
+  line-height: 1.65;
+  color: var(--color-on-surface-variant);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card:hover {
+    transform: none;
+  }
+}

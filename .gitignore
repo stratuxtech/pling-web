@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+.vercel/
+*.tsbuildinfo
+next-env.d.ts
+.env*.local
+.impeccable/review/
+
+.vercel
+
+# Originales de trabajo (no se publican; ya excluidos en .vercelignore)
+public/screens app/
+public/fonts/

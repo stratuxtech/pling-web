@@ -1,0 +1,185 @@
+.footer {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-surface);
+  border-top-left-radius: var(--radius-xl);
+  border-top-right-radius: var(--radius-xl);
+  box-shadow: 0 -1px 0 rgb(69 77 244 / 0.08);
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container-content);
+  margin: 0 auto;
+  padding: clamp(3.5rem, 8vw, 6rem) var(--gutter) 0;
+}
+
+.grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 48rem) {
+  .grid {
+    grid-template-columns: 1fr 1.4fr 1fr;
+    align-items: start;
+  }
+}
+
+.links {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-lg);
+  line-height: var(--text-title-lg--line-height);
+  color: var(--color-on-surface);
+  text-decoration: none;
+  border-radius: var(--radius-xs);
+  transition: color var(--duration-short) var(--ease-standard);
+}
+.link:hover {
+  color: var(--color-primary);
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+@media (min-width: 48rem) {
+  .side {
+    align-items: flex-end;
+  }
+}
+
+.socials {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.social {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-full);
+  color: var(--color-on-surface);
+  background: var(--color-primary-50);
+  transition:
+    background-color var(--duration-short) var(--ease-standard),
+    color var(--duration-short) var(--ease-standard),
+    transform var(--duration-medium) var(--ease-out-expo);
+}
+.social:hover {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  transform: translateY(-2px);
+}
+
+/* Enlace gigante con cambio de label (make-b.studio) */
+.big {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: clamp(4rem, 10vw, 7.5rem);
+  padding-bottom: 0.25em;
+  color: var(--color-on-surface);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-display-xl);
+  line-height: var(--text-display-xl--line-height);
+  letter-spacing: var(--text-display-xl--letter-spacing);
+  box-shadow: inset 0 -3px 0 currentColor;
+  transition: color var(--duration-medium) var(--ease-standard);
+}
+
+.bigLabel {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.24em;
+  margin-bottom: -0.16em;
+}
+
+.bigMain,
+.bigLabel::after {
+  display: block;
+  transition: transform var(--duration-long) var(--ease-label);
+}
+
+.bigLabel::after {
+  content: attr(data-alt);
+  position: absolute;
+  inset: 0 0 0.24em;
+  color: var(--color-primary);
+  transform: translateY(140%);
+  white-space: nowrap;
+  font-size: 0.52em;
+  display: flex;
+  align-items: flex-end;
+}
+
+.big:hover .bigMain,
+.big:focus-visible .bigMain {
+  transform: translateY(-140%);
+}
+.big:hover .bigLabel::after,
+.big:focus-visible .bigLabel::after {
+  transform: translateY(0);
+}
+
+.big:hover {
+  color: var(--color-primary);
+}
+
+.bigArrow {
+  flex: none;
+  width: 0.7em;
+  height: 0.7em;
+  margin-bottom: 0.12em;
+  stroke-width: 1.5;
+  color: var(--color-coral);
+  transition: transform var(--duration-long) var(--ease-out-expo);
+}
+.big:hover .bigArrow {
+  transform: translate(0.06em, -0.06em) rotate(45deg);
+}
+
+.legal {
+  padding: 1.5rem 0 clamp(9rem, 22vw, 15rem);
+  font-size: var(--text-body-md);
+  line-height: var(--text-body-md--line-height);
+  color: var(--color-on-surface-variant);
+}
+.legal a {
+  color: var(--color-on-surface);
+  font-weight: var(--font-weight-medium);
+}
+
+.liquid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: clamp(10rem, 26vw, 19rem);
+  pointer-events: none;
+}
+
+.liquid[data-fallback] {
+  background: linear-gradient(to top, var(--color-primary) 0%, var(--color-coral) 40%, transparent 100%);
+  opacity: 0.6;
+}

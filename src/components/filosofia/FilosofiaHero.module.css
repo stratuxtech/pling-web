@@ -1,0 +1,152 @@
+.hero {
+  max-width: var(--container-content);
+  margin: 0 auto;
+  padding: 7rem var(--gutter) 0;
+}
+
+.grid {
+  display: grid;
+  gap: 3rem;
+  margin-top: 3rem;
+}
+
+@media (min-width: 64rem) {
+  .grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 4rem;
+    min-height: calc(min(100svh, 56rem) - 11rem);
+  }
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.title {
+  font-size: var(--text-display-sm);
+  line-height: var(--text-display-sm--line-height);
+}
+
+@media (min-width: 64rem) {
+  .title {
+    font-size: var(--text-display-lg);
+    line-height: var(--text-display-lg--line-height);
+  }
+}
+
+.text {
+  max-width: 44ch;
+  font-size: var(--text-body-lg);
+  line-height: 1.65;
+  color: var(--color-on-surface-variant);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1.25rem 0 0;
+}
+
+/* Dato gigante: única cifra en escala display-xl fuera del footer */
+.value {
+  display: flex;
+  align-items: baseline;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: clamp(4.5rem, 12vw, 8.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-primary);
+}
+
+.suffix {
+  margin-left: 0.08em;
+  color: var(--color-coral);
+}
+
+.caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.label {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-lg);
+  line-height: var(--text-title-lg--line-height);
+  color: var(--color-on-surface);
+}
+
+.source {
+  font-size: var(--text-body-sm);
+  line-height: var(--text-body-sm--line-height);
+  color: var(--color-on-surface-variant);
+}
+.source a {
+  color: inherit;
+}
+
+.photos {
+  position: relative;
+  aspect-ratio: 1 / 1.05;
+}
+
+.photo {
+  position: absolute;
+  margin: 0;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-3);
+  animation: enter 1200ms var(--ease-out-expo) backwards;
+}
+
+.photo[data-i="0"] {
+  left: 0;
+  top: 0;
+  width: 62%;
+  rotate: -3deg;
+  animation-name: enterLeft;
+}
+.photo[data-i="1"] {
+  right: 0;
+  bottom: 0;
+  width: 52%;
+  rotate: 4deg;
+  animation-delay: 180ms;
+  animation-name: enterRight;
+}
+
+.img {
+  object-fit: cover;
+}
+
+@keyframes enterLeft {
+  from {
+    opacity: 0;
+    translate: -14% 10%;
+    rotate: -14deg;
+    scale: 0.8;
+  }
+}
+@keyframes enterRight {
+  from {
+    opacity: 0;
+    translate: 18% 16%;
+    rotate: 16deg;
+    scale: 0.8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo {
+    animation: none;
+  }
+}

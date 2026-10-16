@@ -1,0 +1,135 @@
+/* La foto gigante se recorta al ancho de la pantalla, sin scroll horizontal */
+.section {
+  overflow-x: clip;
+}
+
+.inner {
+  max-width: var(--container-content);
+  margin: 0 auto;
+  padding: var(--section-space) var(--gutter) 0;
+}
+
+.grid {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 48rem) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  /* Cajas asimétricas: Visión baja */
+  .box[data-block="vision"] {
+    margin-top: 9rem;
+  }
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0.75rem;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-2);
+}
+
+.media {
+  position: relative;
+  z-index: 3;
+  aspect-ratio: 4 / 3.4;
+  overflow: hidden;
+  border-radius: var(--radius-lg-plus);
+}
+
+/* Cada foto crece hacia su propio lado y nunca tapa la otra caja */
+.box[data-block="mision"] .media {
+  transform-origin: 100% 0%;
+}
+.box[data-block="vision"] .media {
+  transform-origin: 0% 100%;
+}
+
+.img {
+  object-fit: cover;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem 1.25rem;
+}
+.box[data-block="vision"] .body {
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-display-sm);
+  line-height: var(--text-display-sm--line-height);
+  color: var(--color-on-surface);
+}
+.box[data-block="vision"] .title {
+  color: var(--color-primary);
+}
+
+.text {
+  font-size: var(--text-title-lg);
+  line-height: 1.55;
+  color: var(--color-on-surface-variant);
+}
+
+.credits {
+  margin-top: 1.5rem;
+  font-size: var(--text-body-sm);
+  line-height: var(--text-body-sm--line-height);
+  color: var(--color-on-surface-variant);
+}
+.credits a {
+  color: inherit;
+}
+
+/* Escala inversa ligada al scroll (noth.in): 1.8 → 1, la imagen interior 1.25 → 1 */
+@supports (animation-timeline: view()) {
+  .media {
+    animation: shrink linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 50%;
+  }
+  .img {
+    animation: settle linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 50%;
+  }
+}
+
+@keyframes shrink {
+  from {
+    transform: scale(1.8);
+    border-radius: 6px;
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes settle {
+  from {
+    transform: scale(1.25);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .media,
+  .img {
+    animation: none !important;
+  }
+}

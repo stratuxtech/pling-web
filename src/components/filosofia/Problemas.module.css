@@ -1,0 +1,243 @@
+.section {
+  position: relative;
+  padding: var(--section-space) 0 0;
+}
+
+.section[data-pinned] {
+  height: 300vh;
+  margin-top: var(--section-space);
+  padding: 0;
+}
+
+.section[data-pinned] .sticky {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
+.inner {
+  display: grid;
+  gap: 2rem;
+  width: 100%;
+  max-width: var(--container-content);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+@media (min-width: 64rem) {
+  .inner {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+    padding-top: 4rem;
+  }
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.title {
+  font-size: var(--text-display-sm);
+  line-height: var(--text-display-sm--line-height);
+}
+
+@media (min-width: 64rem) {
+  .title {
+    font-size: var(--text-display-md);
+    line-height: var(--text-display-md--line-height);
+  }
+}
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 0.75rem;
+}
+
+.tab {
+  display: flex;
+  align-items: baseline;
+  gap: 0.875rem;
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-lg);
+  text-align: left;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-lg);
+  line-height: var(--text-title-lg--line-height);
+  color: var(--color-neutral-600);
+  cursor: pointer;
+  transition:
+    color var(--duration-medium) var(--ease-standard),
+    background-color var(--duration-medium) var(--ease-standard);
+}
+
+.tab:hover {
+  color: var(--color-on-surface);
+}
+
+.tab[aria-selected="true"] {
+  color: var(--color-on-surface);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-1);
+}
+
+.step {
+  flex: none;
+  font-size: var(--text-title-sm);
+  color: var(--color-neutral-600);
+}
+.tab[aria-selected="true"] .step {
+  color: var(--color-secondary-500);
+}
+
+.panel {
+  min-height: 6.5rem;
+}
+
+.panelText {
+  max-width: 46ch;
+  font-size: var(--text-body-lg);
+  line-height: 1.65;
+  color: var(--color-on-surface-variant);
+  animation: fadeUp 500ms var(--ease-out-expo);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+}
+
+.stage {
+  position: relative;
+  aspect-ratio: 4 / 4.2;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-3);
+  background: var(--color-neutral-100);
+}
+
+@media (min-width: 64rem) {
+  .stage {
+    aspect-ratio: auto;
+    height: min(72vh, 40rem);
+  }
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  scale: 1.08;
+  transition:
+    opacity 700ms var(--ease-standard),
+    scale 1400ms var(--ease-out-expo);
+}
+
+.media[data-active] {
+  opacity: 1;
+  scale: 1;
+}
+
+/* Velo para que las evidencias se lean sobre la foto */
+.media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(27 27 33 / 0) 40%, rgb(27 27 33 / 0.45));
+}
+
+.img {
+  object-fit: cover;
+}
+
+.evidence {
+  position: absolute;
+  inset: 0;
+  list-style: none;
+  pointer-events: none;
+}
+
+/* Evidencias del caos: notas que caen torcidas sobre la foto */
+.chip {
+  position: absolute;
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-3);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-label-lg);
+  line-height: var(--text-label-lg--line-height);
+  color: var(--color-error);
+  animation: drop 800ms var(--ease-out-expo) backwards;
+}
+
+.chip::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-coral);
+  vertical-align: 0.05em;
+}
+
+.chip[data-i="0"] {
+  left: 7%;
+  top: 9%;
+  rotate: -4deg;
+}
+.chip[data-i="1"] {
+  right: 7%;
+  top: 34%;
+  rotate: 3deg;
+  animation-delay: 140ms;
+}
+.chip[data-i="2"] {
+  left: 12%;
+  bottom: 14%;
+  rotate: -2deg;
+  animation-delay: 280ms;
+}
+
+@keyframes drop {
+  from {
+    opacity: 0;
+    translate: 0 -18px;
+    scale: 0.9;
+  }
+}
+
+.credit {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: rgb(27 27 33 / 0.6);
+  font-size: var(--text-body-sm);
+  line-height: var(--text-body-sm--line-height);
+  color: var(--color-white);
+}
+.credit a {
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .media {
+    transition: none;
+  }
+  .chip,
+  .panelText {
+    animation: none;
+  }
+}

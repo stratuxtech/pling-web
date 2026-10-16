@@ -1,0 +1,300 @@
+@import "tailwindcss";
+
+/*
+ * Pling! — tokens de diseño (Material Design 3, Light Mode únicamente).
+ * Fuente: docs/bible_brand_system_pling_v2.md §3–5 y docs/01-BRIEF.md §4.
+ * Los valores por defecto de Tailwind se anulan (`initial`) para que solo
+ * existan los tokens de marca: nada de colores, fuentes o radios arbitrarios.
+ */
+@theme {
+  /* ── Color ─────────────────────────────────────────────── */
+  --color-*: initial;
+
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* Azul Pling (Primary) 50–900, base 500 */
+  --color-primary-50: #efeffe;
+  --color-primary-100: #e0e0ff;
+  --color-primary-200: #bfc2ff;
+  --color-primary-300: #9ca0ff;
+  --color-primary-400: #7076fa;
+  --color-primary-500: #454df4;
+  --color-primary-600: #3b42d9;
+  --color-primary-700: #2e36bb;
+  --color-primary-800: #192095;
+  --color-primary-900: #00055f;
+
+  /* Rojo Pling (Secondary) 50–900, base M3 500 + acento lumínico 400 */
+  --color-secondary-50: #fff0ed;
+  --color-secondary-100: #ffdad4;
+  --color-secondary-200: #ffb4a7;
+  --color-secondary-300: #ff8975;
+  --color-secondary-400: #ff4a3d;
+  --color-secondary-500: #b23119;
+  --color-secondary-600: #9e2a14;
+  --color-secondary-700: #8c1a04;
+  --color-secondary-800: #640f00;
+  --color-secondary-900: #3d0700;
+
+  /* Roles semánticos M3 Light */
+  --color-primary: #454df4;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #e0e0ff;
+  --color-secondary: #b23119;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #ffdad4;
+  --color-coral: #ff4a3d; /* acento lumínico: glow, LIVE, "!" del logo. Texto blanco encima solo ≥24px (3.33:1) */
+  --color-tertiary: #a0008a;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #ffd7f3;
+  --color-success: #2e6b36;
+  --color-success-container: #b4f1bc;
+  --color-warning: #8a5300;
+  --color-warning-container: #ffddb6;
+  --color-error: #b3261e;
+  --color-error-container: #f9dedc;
+
+  /*
+   * Neutros 50–900 (gris frío de la familia M3 de Pling). Sin negro absoluto:
+   * el más oscuro es #1B1B21 (On Surface). El blanco puro sí se usa.
+   * Contraste sobre blanco: 600 = 5.1:1, 700 = 7.2:1 → aptos para texto desde 600.
+   */
+  --color-neutral-50: #f7f7fa;
+  --color-neutral-100: #efeff4;
+  --color-neutral-200: #e3e3ea;
+  --color-neutral-300: #c8c7d1;
+  --color-neutral-400: #a9a8b4;
+  --color-neutral-500: #8d8c98;
+  --color-neutral-600: #6e6d79;
+  --color-neutral-700: #57565f;
+  --color-neutral-800: #46464f;
+  --color-neutral-900: #1b1b21;
+
+  /* Superficies y texto */
+  --color-surface: #ffffff; /* contenedores sobre el fondo orgánico (On Primary) */
+  --color-on-surface: var(--color-neutral-900); /* titulares y lectura principal */
+  --color-on-surface-variant: var(--color-neutral-800); /* subtítulos y metadatos */
+  --color-mesh-lavender: #fbf8ff;
+  --color-mesh-peach: #fff5f3;
+
+  /* ── Tipografía ────────────────────────────────────────── */
+  --font-*: initial;
+  --font-display: var(--font-fredoka), ui-rounded, system-ui, sans-serif;
+  --font-body: var(--font-manrope), system-ui, sans-serif;
+  --font-accent: var(--font-cormorant), Georgia, serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --font-weight-*: initial;
+  --font-weight-regular: 400; /* Manrope */
+  --font-weight-medium: 500; /* Manrope · Cormorant Garamond Italic */
+  --font-weight-title: 500; /* Fredoka Medium: todos los titulares, cifras y títulos de tarjeta */
+  --font-weight-semibold: 600; /* Fredoka SemiBold: solo botones y controles */
+
+  /* Escala M3 adaptada a web (base 16px) — bible §4 */
+  --text-*: initial;
+  /* Única excepción fuera de M3: el enlace gigante del footer (make-b.studio, 207px / -0.035em). */
+  --text-display-xl: clamp(3.5rem, 11.5vw, 10.5rem);
+  --text-display-xl--line-height: 0.95;
+  --text-display-xl--letter-spacing: -0.035em;
+  --text-display-lg: 3.5625rem;
+  --text-display-lg--line-height: 4rem;
+  --text-display-lg--letter-spacing: -0.015625rem;
+  --text-display-md: 2.8125rem;
+  --text-display-md--line-height: 3.25rem;
+  --text-display-sm: 2.25rem;
+  --text-display-sm--line-height: 2.75rem;
+  --text-headline-lg: 2rem;
+  --text-headline-lg--line-height: 2.5rem;
+  --text-headline-md: 1.75rem;
+  --text-headline-md--line-height: 2.25rem;
+  --text-headline-sm: 1.5rem;
+  --text-headline-sm--line-height: 2rem;
+  --text-title-lg: 1.375rem;
+  --text-title-lg--line-height: 1.75rem;
+  --text-title-md: 1rem;
+  --text-title-md--line-height: 1.5rem;
+  --text-title-md--letter-spacing: 0.009375rem;
+  --text-title-sm: 0.875rem;
+  --text-title-sm--line-height: 1.25rem;
+  --text-title-sm--letter-spacing: 0.00625rem;
+  --text-body-lg: 1rem;
+  --text-body-lg--line-height: 1.5rem;
+  --text-body-lg--letter-spacing: 0.03125rem;
+  --text-body-md: 0.875rem;
+  --text-body-md--line-height: 1.25rem;
+  --text-body-md--letter-spacing: 0.015625rem;
+  --text-body-sm: 0.75rem;
+  --text-body-sm--line-height: 1rem;
+  --text-body-sm--letter-spacing: 0.025rem;
+  --text-label-lg: 0.875rem;
+  --text-label-lg--line-height: 1.25rem;
+  --text-label-lg--letter-spacing: 0.00625rem;
+  --text-label-md: 0.75rem;
+  --text-label-md--line-height: 1rem;
+  --text-label-md--letter-spacing: 0.03125rem;
+  --text-label-sm: 0.6875rem;
+  --text-label-sm--line-height: 1rem;
+  --text-label-sm--letter-spacing: 0.03125rem;
+
+  /* ── Forma (M3 shape) ──────────────────────────────────── */
+  --radius-*: initial;
+  --radius-none: 0;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-lg-plus: 20px;
+  --radius-xl: 28px;
+  --radius-full: 1000px;
+
+  /* ── Elevación y luz ───────────────────────────────────── */
+  --shadow-*: initial;
+  --shadow-1: 0 1px 2px rgb(27 27 33 / 0.06), 0 2px 6px rgb(27 27 33 / 0.05);
+  --shadow-2: 0 2px 4px rgb(27 27 33 / 0.06), 0 8px 24px -6px rgb(27 27 33 / 0.1);
+  --shadow-3: 0 4px 8px rgb(27 27 33 / 0.06), 4px 28px 40px -16px rgb(27 27 33 / 0.2);
+  /* Clockwise Glow en reposo: resplandor inferior del color del elemento */
+  --shadow-glow-primary: 0 10px 24px -8px rgb(69 77 244 / 0.55);
+  --shadow-glow-secondary: 0 10px 24px -8px rgb(255 74 61 / 0.55);
+
+  /* ── Movimiento (M3 + curvas medidas en las referencias) ── */
+  --ease-*: initial;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --ease-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1); /* anubi.io: hover de tarjetas */
+  --ease-label: cubic-bezier(0.11, 0.72, 0, 1); /* make-b.studio: rotador de labels */
+
+  --animate-*: initial;
+
+  /* ── Layout ────────────────────────────────────────────── */
+  --breakpoint-*: initial;
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+
+  --container-*: initial;
+  --container-prose: 68ch;
+  --container-content: 80rem; /* 1280px */
+  --container-narrow: 58rem;
+}
+
+/* ── Duraciones (no son tema de Tailwind; se usan vía var()) ── */
+:root {
+  --duration-short: 150ms;
+  --duration-medium: 300ms;
+  --duration-long: 550ms;
+  --gutter: clamp(1rem, 4vw, 3rem);
+  --section-space: clamp(5rem, 12vw, 9rem);
+  color-scheme: light;
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    scrollbar-color: var(--color-primary-200) transparent;
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    font-family: var(--font-body);
+    font-size: var(--text-body-lg);
+    line-height: var(--text-body-lg--line-height);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-title);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /*
+   * Palabra de énfasis dentro de titulares: Cormorant Garamond Medium Italic.
+   * Su altura de x es menor que la de Fredoka: se compensa ópticamente.
+   */
+  em.accent,
+  .accent {
+    font-family: var(--font-accent);
+    font-weight: var(--font-weight-medium);
+    font-style: italic;
+    font-size: 1.14em;
+    letter-spacing: -0.005em;
+  }
+
+  ::selection {
+    background-color: var(--color-primary-100);
+    color: var(--color-primary-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: var(--radius-xs);
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: from-font;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-primary-200);
+    border-radius: var(--radius-full);
+    border: 2px solid var(--color-white);
+  }
+}
+
+/* Lenis (smooth scroll, flexion.ai) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* El cursor CTA sustituye al puntero solo cuando su JS está activo */
+.cursor-cta [data-cursor] {
+  cursor: none;
+}
+.cursor-cta [data-cursor] :is(a, button) {
+  cursor: pointer;
+}
+
+/* Hueco de contenido pendiente: visible a propósito en la vista previa. */
+.pendiente {
+  outline: 1.5px dashed var(--color-warning);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

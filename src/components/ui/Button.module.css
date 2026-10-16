@@ -1,0 +1,166 @@
+/*
+ * Botón Pling con "Clockwise Glow" (bible §5.1).
+ * Reposo: resplandor inferior del color del botón.
+ * Hover / focus / click: un aro cónico azul↔rojo gira en sentido horario.
+ * Estructura: .btn (capa de luz) > .face (la cara visible del botón).
+ */
+@property --glow-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.btn {
+  --glow: conic-gradient(
+    from var(--glow-angle),
+    var(--color-primary-500),
+    var(--color-primary-300),
+    var(--color-coral),
+    var(--color-secondary-500),
+    var(--color-primary-500)
+  );
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  padding: 2px;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+.btn::before,
+.btn::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  background: var(--glow);
+  opacity: 0;
+  transition: opacity var(--duration-medium) var(--ease-standard);
+  animation: spin 2.6s linear infinite paused;
+  pointer-events: none;
+}
+
+/* halo difuso */
+.btn::before {
+  inset: -3px;
+  filter: blur(12px);
+}
+
+/* aro nítido (visible en los 2px de padding) */
+.btn::after {
+  inset: 0;
+}
+
+.btn:hover::before,
+.btn:focus-visible::before,
+.btn:active::before {
+  opacity: 0.75;
+  animation-play-state: running;
+}
+
+.btn:hover::after,
+.btn:focus-visible::after,
+.btn:active::after {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+.btn:focus-visible {
+  outline: none;
+}
+
+.face {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: inherit;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+  transition:
+    transform var(--duration-short) var(--ease-standard),
+    box-shadow var(--duration-medium) var(--ease-standard),
+    background-color var(--duration-medium) var(--ease-standard);
+}
+
+.btn:active .face {
+  transform: scale(0.97);
+}
+
+/* Tamaños */
+.sm .face {
+  padding: 0.5rem 1.125rem;
+  font-size: var(--text-label-lg);
+  line-height: var(--text-label-lg--line-height);
+}
+.md .face {
+  padding: 0.8125rem 1.5rem;
+  font-size: var(--text-title-md);
+  line-height: var(--text-title-md--line-height);
+}
+.lg .face {
+  padding: 1rem 2rem;
+  font-size: var(--text-title-lg);
+  line-height: var(--text-title-lg--line-height);
+}
+
+/* Variantes */
+.primary .face {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  box-shadow: var(--shadow-glow-primary);
+}
+.primary:hover .face {
+  background: var(--color-primary-600);
+}
+
+.secondary .face {
+  background: var(--color-secondary);
+  color: var(--color-on-secondary);
+  box-shadow: var(--shadow-glow-secondary);
+}
+.secondary:hover .face {
+  background: var(--color-secondary-600);
+}
+
+/* Sobre fondo blanco u orgánico, acción secundaria */
+.outline .face {
+  background: var(--color-surface);
+  color: var(--color-primary);
+  box-shadow: inset 0 0 0 1.5px var(--color-primary-200), var(--shadow-1);
+}
+.outline:hover .face {
+  box-shadow: inset 0 0 0 1.5px var(--color-primary-300), var(--shadow-2);
+}
+
+/* Sobre bloques Azul Pling */
+.inverse .face {
+  background: var(--color-white);
+  color: var(--color-primary-700);
+  box-shadow: 0 10px 28px -10px rgb(0 5 95 / 0.55);
+}
+.ghost .face {
+  background: transparent;
+  color: var(--color-white);
+  box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.55);
+}
+.ghost:hover .face {
+  background: rgb(255 255 255 / 0.1);
+}
+
+@keyframes spin {
+  to {
+    --glow-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn::before,
+  .btn::after {
+    animation: none;
+  }
+}

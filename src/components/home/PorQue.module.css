@@ -1,0 +1,128 @@
+.section {
+  max-width: var(--container-content);
+  margin: 0 auto;
+  padding: var(--section-space) var(--gutter) 0;
+}
+
+.title {
+  max-width: 22ch;
+  margin-bottom: 3rem;
+  font-size: var(--text-display-sm);
+  line-height: var(--text-display-sm--line-height);
+}
+
+@media (min-width: 64rem) {
+  .title {
+    font-size: var(--text-display-md);
+    line-height: var(--text-display-md--line-height);
+  }
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 48rem) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  /* Ritmo asimétrico: la segunda columna baja */
+  .card[data-side="1"] {
+    margin-top: 6rem;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-2);
+  overflow: hidden;
+  transition:
+    box-shadow var(--duration-long) var(--ease-out-expo),
+    transform var(--duration-long) var(--ease-out-expo);
+}
+
+/* Brillo en hover: resplandor inferior de marca */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 2px 4px rgb(27 27 33 / 0.06),
+    0 30px 50px -22px rgb(69 77 244 / 0.55),
+    0 18px 40px -26px rgb(255 74 61 / 0.6);
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 4 / 4.4;
+  overflow: hidden;
+  margin: 0.75rem 0.75rem 0;
+  border-radius: var(--radius-lg-plus);
+}
+
+.img {
+  object-fit: cover;
+  transition: transform 1200ms var(--ease-out-expo);
+}
+
+.card:hover .img {
+  transform: scale(1.04);
+}
+
+/* Aparición scale-up al hacer scroll (make-b.studio) */
+@supports (animation-timeline: view()) {
+  .media {
+    animation: grow linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 35%;
+  }
+}
+
+@keyframes grow {
+  from {
+    transform: scale(0.82);
+    border-radius: 48px;
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.5rem 1.75rem 1.75rem;
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-headline-md);
+  line-height: var(--text-headline-md--line-height);
+  color: var(--color-on-surface);
+}
+
+.text {
+  font-size: var(--text-body-lg);
+  line-height: 1.65;
+  color: var(--color-on-surface-variant);
+}
+
+.credit {
+  font-size: var(--text-body-sm);
+  line-height: var(--text-body-sm--line-height);
+  color: var(--color-on-surface-variant);
+}
+.credit a {
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .media {
+    animation: none !important;
+  }
+}

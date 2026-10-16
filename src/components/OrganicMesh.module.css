@@ -1,0 +1,98 @@
+/*
+ * Pling Organic Mesh — fondo vivo global.
+ * Mecánica tomada de palo-seco.com (manchas radiales con órbitas de 20–40s
+ * sobre transform-origin desplazado), adaptada a Light Mode: base blanca y
+ * siluetas Azul/Rojo Pling a opacidad muy baja. Sin seguimiento de ratón
+ * (el brief pide movimiento autónomo). Solo CSS: no depende de JS.
+ */
+.mesh {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background-color: var(--color-surface);
+  contain: strict;
+}
+
+.blob {
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  top: calc(50% - var(--size) / 2);
+  left: calc(50% - var(--size) / 2);
+  border-radius: 50%;
+  will-change: transform;
+  animation-iteration-count: infinite;
+}
+
+/* Azul Pling — órbita vertical lenta, arriba a la izquierda */
+.b1 {
+  --size: 95vmax;
+  background: radial-gradient(circle at center, rgb(69 77 244 / 0.13) 0, rgb(69 77 244 / 0) 50%);
+  transform-origin: 50% 50%;
+  animation: meshVertical 34s ease-in-out infinite;
+  translate: -28% -18%;
+}
+
+/* Rojo coral — órbita circular inversa */
+.b2 {
+  --size: 85vmax;
+  background: radial-gradient(circle at center, rgb(255 74 61 / 0.1) 0, rgb(255 74 61 / 0) 50%);
+  transform-origin: calc(50% - 22vmax) 50%;
+  animation: meshCircle 26s linear infinite reverse;
+  translate: 24% 10%;
+}
+
+/* Azul profundo — órbita circular amplia */
+.b3 {
+  --size: 80vmax;
+  background: radial-gradient(circle at center, rgb(59 66 217 / 0.09) 0, rgb(59 66 217 / 0) 50%);
+  transform-origin: calc(50% + 24vmax) 50%;
+  animation: meshCircle 40s linear infinite;
+  translate: 20% 30%;
+}
+
+/* Rojo Pling M3 — deriva horizontal */
+.b4 {
+  --size: 70vmax;
+  background: radial-gradient(circle at center, rgb(178 49 25 / 0.07) 0, rgb(178 49 25 / 0) 50%);
+  transform-origin: calc(50% - 12vmax) 50%;
+  animation: meshHorizontal 40s ease-in-out infinite;
+  translate: -20% 34%;
+}
+
+@keyframes meshVertical {
+  0%,
+  100% {
+    transform: translateY(-22%);
+  }
+  50% {
+    transform: translateY(22%);
+  }
+}
+
+@keyframes meshHorizontal {
+  0%,
+  100% {
+    transform: translateX(-30%) translateY(-6%);
+  }
+  50% {
+    transform: translateX(30%) translateY(6%);
+  }
+}
+
+@keyframes meshCircle {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blob {
+    animation: none !important;
+  }
+}

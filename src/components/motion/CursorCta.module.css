@@ -1,0 +1,33 @@
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.875rem 1.375rem;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-title-md);
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: var(--shadow-glow-primary);
+  transform: translate(-50%, -50%) scale(0.3);
+  opacity: 0;
+  transition:
+    transform var(--duration-medium) var(--ease-out-expo),
+    opacity var(--duration-short) var(--ease-standard);
+}
+
+.cursor[data-visible] .pill {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}

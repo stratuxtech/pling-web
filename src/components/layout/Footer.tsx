@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { footer, routes, socials } from "@/content/site";
+import { contact, footer, routes, socials, whatsappCards, whatsappHref } from "@/content/site";
 import { Logo } from "@/components/Logo";
-import { Button } from "@/components/ui/Button";
-import { IconArrowUpRight, socialIcons } from "@/components/icons";
+import { IconArrowUpRight, IconMail, IconPin, IconWhatsapp, socialIcons } from "@/components/icons";
 import { LiquidCanvas } from "./LiquidCanvas";
 import styles from "./Footer.module.css";
 
@@ -15,6 +14,7 @@ export function Footer() {
             <Link href={routes.home} aria-label="Pling!, ir al inicio" className="inline-flex rounded-sm">
               <Logo height={40} />
             </Link>
+            <p className={styles.description}>{footer.description}</p>
           </div>
 
           <nav aria-label="Pie de página">
@@ -54,7 +54,21 @@ export function Footer() {
                 );
               })}
             </ul>
-            <Button action={footer.cta} variant="primary" />
+            <address className={styles.contact}>
+              <p className={styles.contactTitle}>{footer.contactTitle}</p>
+              <a href={whatsappHref(whatsappCards[0].message)} target="_blank" rel="noopener" className={styles.contactItem}>
+                <IconWhatsapp className="size-4" />
+                {contact.phoneDisplay}
+              </a>
+              <a href={`mailto:${contact.email}`} className={styles.contactItem}>
+                <IconMail className="size-4" />
+                {contact.email}
+              </a>
+              <span className={styles.contactItem}>
+                <IconPin className="size-4" />
+                {contact.city}
+              </span>
+            </address>
           </div>
         </div>
 
@@ -65,13 +79,15 @@ export function Footer() {
           <IconArrowUpRight className={styles.bigArrow} />
         </a>
 
-        <p className={styles.legal}>
-          {footer.legalPrefix}{" "}
-          <a href={footer.legalLink.href} target="_blank" rel="noopener">
-            {footer.legalLink.label}
-          </a>{" "}
-          · {footer.legalSuffix}
-        </p>
+        <div className={styles.legal}>
+          <p>{footer.copyright}</p>
+          <p>
+            {footer.credit.prefix}{" "}
+            <a href={footer.credit.href} target="_blank" rel="noopener">
+              {footer.credit.label}
+            </a>
+          </p>
+        </div>
       </div>
       <LiquidCanvas className={styles.liquid} />
     </footer>

@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { home, stores } from "@/content/site";
 import { Subline } from "@/components/ui/Title";
+import { IconStore } from "@/components/icons";
 import styles from "./Tiendas.module.css";
 
 /*
@@ -94,7 +95,7 @@ export function Tiendas() {
   return (
     <section className={styles.section} aria-labelledby="tiendas-title">
       <div className={styles.head}>
-        <Subline>
+        <Subline icon={<IconStore />}>
           <span id="tiendas-title">{home.tiendas.subline}</span>
         </Subline>
       </div>

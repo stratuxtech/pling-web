@@ -1,15 +1,14 @@
 import styles from "./Rotator.module.css";
 
 /**
- * Rotador de labels (make-b.studio "Staggered Cycle"): una copia invisible de
- * la frase más larga reserva la altura, así el bloque no salta; cada letra
- * entra desde +110% y sale a -110% con la curva (.11,.72,0,1), escalonada.
+ * Rotador de labels (make-b.studio "Staggered Cycle"): todas las frases
+ * comparten la misma celda de una cuadrícula, así el bloque mide lo que la
+ * frase más alta (en líneas reales, a cualquier ancho) y nunca invade lo que
+ * viene debajo. Cada letra entra desde +115% y sale a -115% con (.11,.72,0,1).
  */
 export function Rotator({ phrases, index, className = "" }: { phrases: readonly string[]; index: number; className?: string }) {
-  const longest = phrases.reduce((a, b) => (b.length > a.length ? b : a), "");
   return (
     <span className={`${styles.rotator} ${className}`} aria-hidden>
-      <span className={styles.sizer}>{longest}</span>
       {phrases.map((phrase, p) => {
         const state = p === index ? "in" : p === (index - 1 + phrases.length) % phrases.length ? "out" : "idle";
         let c = 0;

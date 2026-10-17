@@ -224,7 +224,8 @@
   gap: 1.25rem;
   padding: 2rem;
   border-radius: var(--radius-xl);
-  background: var(--color-primary);
+  background: var(--color-surface);
+  box-shadow: inset 0 0 0 1.5px var(--color-primary-100), var(--shadow-2);
 }
 
 @media (min-width: 48rem) {
@@ -240,7 +241,7 @@
   font-weight: var(--font-weight-title);
   font-size: var(--text-headline-md);
   line-height: var(--text-headline-md--line-height);
-  color: var(--color-white);
+  color: var(--color-on-surface);
 }
 
 @media (prefers-reduced-motion: reduce) {

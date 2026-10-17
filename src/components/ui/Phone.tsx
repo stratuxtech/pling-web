@@ -3,12 +3,14 @@
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import type { Img } from "@/content/site";
+import { autoDrift } from "@/components/motion/usePointerVars";
 import styles from "./Phone.module.css";
 
 /**
  * Celular 3D con las capturas reales de Pling. Se inclina siguiendo al ratón
  * (valores medidos en anubi.io: ±7° X, ±9° Y, imagen ±3px; entra en .45s y
- * vuelve en .65s). `screens` + `active` hacen fundido entre pantallas.
+ * vuelve en .65s). En táctil se balancea solo, despacio. `screens` + `active`
+ * hacen fundido entre pantallas.
  */
 export function Phone({
   screens,
@@ -34,7 +36,6 @@ export function Phone({
     const el = ref.current;
     const zone = zoneRef?.current ?? el;
     if (!tilt || !el || !zone) return;
-    if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const set = (x: number, y: number, ms: number) => {
@@ -45,6 +46,9 @@ export function Phone({
       el.style.setProperty("--img-y", `${(-3 * y).toFixed(2)}px`);
       el.style.setProperty("--light-x", `${(50 + 30 * x).toFixed(1)}%`);
     };
+    if (!matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      return autoDrift(el, (t) => set(Math.sin(t * 0.5) * 0.55, Math.cos(t * 0.37) * 0.4, 1200));
+    }
     const clamp = (v: number) => Math.max(-1, Math.min(1, v));
     const onMove = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;

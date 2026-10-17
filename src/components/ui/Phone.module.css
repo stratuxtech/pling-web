@@ -5,8 +5,8 @@
   --img-y: 0px;
   --light-x: 50%;
   --tilt-dur: 650ms;
-  --w: 100%;
-  width: var(--w);
+  /* El ancho lo fija quien lo usa con --w (independiente del orden de los estilos) */
+  width: var(--w, 100%);
   aspect-ratio: 9 / 19.2;
   perspective: 1100px;
 }
@@ -21,7 +21,7 @@
   box-shadow:
     inset 0 0 0 1.5px rgb(255 255 255 / 0.14),
     inset 0 0 0 4px var(--color-neutral-900),
-    0 2px 4px rgb(27 27 33 / 0.1),
+    0 2px 4px rgb(29 32 51 / 0.1),
     6px 34px 60px -18px rgb(0 5 95 / 0.38),
     0 18px 40px -20px rgb(69 77 244 / 0.4);
   transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));

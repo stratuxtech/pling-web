@@ -234,10 +234,7 @@
 }
 
 .heroNote {
-  margin-top: 1.25rem;
-  font-size: var(--text-body-md);
-  line-height: var(--text-body-md--line-height);
-  color: var(--color-white);
+  margin-top: 1.5rem;
 }
 
 .card {

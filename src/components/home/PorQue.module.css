@@ -1,12 +1,32 @@
+/* La foto gigante se recorta al ancho de pantalla, sin scroll horizontal */
 .section {
+  overflow-x: clip;
+}
+
+.inner {
   max-width: var(--container-content);
   margin: 0 auto;
   padding: var(--section-space) var(--gutter) 0;
 }
 
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+  margin-bottom: 3rem;
+}
+
+.headCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
 .title {
   max-width: 22ch;
-  margin-bottom: 3rem;
   font-size: var(--text-display-sm);
   line-height: var(--text-display-sm--line-height);
 }
@@ -40,7 +60,6 @@
   border-radius: var(--radius-xl);
   background: var(--color-surface);
   box-shadow: var(--shadow-2);
-  overflow: hidden;
   transition:
     box-shadow var(--duration-long) var(--ease-out-expo),
     transform var(--duration-long) var(--ease-out-expo);
@@ -50,17 +69,25 @@
 .card:hover {
   transform: translateY(-4px);
   box-shadow:
-    0 2px 4px rgb(27 27 33 / 0.06),
+    0 2px 4px rgb(29 32 51 / 0.06),
     0 30px 50px -22px rgb(69 77 244 / 0.55),
     0 18px 40px -26px rgb(255 74 61 / 0.6);
 }
 
 .media {
   position: relative;
+  z-index: 2;
   aspect-ratio: 4 / 4.4;
   overflow: hidden;
-  margin: 0.75rem 0.75rem 0;
+  margin: 0 0.75rem 0.75rem;
   border-radius: var(--radius-lg-plus);
+}
+/* Crece hacia abajo y hacia fuera (nunca sobre el texto de arriba) */
+.card[data-side="0"] .media {
+  transform-origin: 100% 0%;
+}
+.card[data-side="1"] .media {
+  transform-origin: 0% 0%;
 }
 
 .img {
@@ -72,19 +99,19 @@
   transform: scale(1.04);
 }
 
-/* Aparición scale-up al hacer scroll (make-b.studio) */
+/* Escala inversa ligada al scroll (noth.in, como Misión): 1.5 → 1 */
 @supports (animation-timeline: view()) {
   .media {
-    animation: grow linear both;
+    animation: shrink linear both;
     animation-timeline: view();
-    animation-range: entry 0% cover 35%;
+    animation-range: entry 0% cover 45%;
   }
 }
 
-@keyframes grow {
+@keyframes shrink {
   from {
-    transform: scale(0.82);
-    border-radius: 48px;
+    transform: scale(1.5);
+    border-radius: 6px;
   }
   to {
     transform: scale(1);
@@ -95,7 +122,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  padding: 1.5rem 1.75rem 1.75rem;
+  padding: 1.75rem 1.75rem 1.5rem;
 }
 
 .cardTitle {
@@ -110,15 +137,6 @@
   font-size: var(--text-body-lg);
   line-height: 1.65;
   color: var(--color-on-surface-variant);
-}
-
-.credit {
-  font-size: var(--text-body-sm);
-  line-height: var(--text-body-sm--line-height);
-  color: var(--color-on-surface-variant);
-}
-.credit a {
-  color: inherit;
 }
 
 @media (prefers-reduced-motion: reduce) {

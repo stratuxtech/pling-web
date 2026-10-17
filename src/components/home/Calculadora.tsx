@@ -1,10 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import { businessModel, calculator, home } from "@/content/site";
+import { calculator, home } from "@/content/site";
 import { formatBs, formatInt } from "@/lib/savings";
 import { Subline, Title } from "@/components/ui/Title";
-import { IconArrowRight } from "@/components/icons";
+import { Button } from "@/components/ui/Button";
+import { IconCalculator } from "@/components/icons";
+import { CalcNote } from "@/components/calc/CalcNote";
 import { useCalculator, useTween } from "@/components/calc/useCalculator";
 import { CalcSliders, PresetChips, TariffToggle } from "@/components/calc/CalcControls";
 import styles from "./Calculadora.module.css";
@@ -19,9 +20,11 @@ export function Calculadora() {
   return (
     <section className={styles.section} aria-labelledby="ahorro-title">
       <div className={styles.head}>
-        <Subline>{home.ahorro.subline}</Subline>
-        <Title id="ahorro-title" parts={home.ahorro.title} className={styles.title} />
-        <p className={styles.rule}>{businessModel.goldenRule}</p>
+        <div className={styles.headCopy}>
+          <Subline icon={<IconCalculator />}>{home.ahorro.subline}</Subline>
+          <Title id="ahorro-title" parts={home.ahorro.title} className={styles.title} />
+        </div>
+        <Button action={home.ahorro.link} variant="outline" />
       </div>
 
       <div className={styles.grid}>
@@ -46,11 +49,7 @@ export function Calculadora() {
               <dd>{formatBs(costo)}</dd>
             </div>
           </dl>
-          <p className={styles.note}>{businessModel.note}</p>
-          <Link href={home.ahorro.link.href} className={styles.more}>
-            {home.ahorro.link.label}
-            <IconArrowRight className="size-4" />
-          </Link>
+          <CalcNote className={styles.note} />
         </div>
       </div>
       <p className={styles.disclaimer}>{calculator.disclaimer}</p>

@@ -1,7 +1,8 @@
 /*
  * Botón Pling con "Clockwise Glow" (bible §5.1).
  * Reposo: resplandor inferior del color del botón.
- * Hover / focus / click: un aro cónico azul↔rojo gira en sentido horario.
+ * Hover / focus / click: el azul en un lado y el rojo en el opuesto giran en
+ * sentido horario (aro nítido de 3px + halo difuso).
  * Estructura: .btn (capa de luz) > .face (la cara visible del botón).
  */
 @property --glow-angle {
@@ -11,18 +12,21 @@
 }
 
 .btn {
+  /* Dos lóbulos opuestos: Azul Pling a un lado, Rojo Pling al otro */
   --glow: conic-gradient(
     from var(--glow-angle),
-    var(--color-primary-500),
-    var(--color-primary-300),
-    var(--color-coral),
-    var(--color-secondary-500),
-    var(--color-primary-500)
+    var(--color-primary-500) 0deg,
+    var(--color-primary-400) 70deg,
+    rgb(255 255 255 / 0) 110deg,
+    var(--color-coral) 180deg,
+    var(--color-secondary-500) 250deg,
+    rgb(255 255 255 / 0) 290deg,
+    var(--color-primary-500) 360deg
   );
   position: relative;
   isolation: isolate;
   display: inline-flex;
-  padding: 2px;
+  padding: 3px;
   border-radius: var(--radius-full);
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
@@ -37,14 +41,14 @@
   background: var(--glow);
   opacity: 0;
   transition: opacity var(--duration-medium) var(--ease-standard);
-  animation: spin 2.6s linear infinite paused;
+  animation: spin 1.6s linear infinite paused;
   pointer-events: none;
 }
 
 /* halo difuso */
 .btn::before {
-  inset: -3px;
-  filter: blur(12px);
+  inset: -6px;
+  filter: blur(14px);
 }
 
 /* aro nítido (visible en los 2px de padding) */
@@ -55,7 +59,7 @@
 .btn:hover::before,
 .btn:focus-visible::before,
 .btn:active::before {
-  opacity: 0.75;
+  opacity: 0.95;
   animation-play-state: running;
 }
 
@@ -109,6 +113,7 @@
 }
 
 /* Variantes */
+/* Azul: siempre con iluminación azul suave debajo */
 .primary .face {
   background: var(--color-primary);
   color: var(--color-on-primary);

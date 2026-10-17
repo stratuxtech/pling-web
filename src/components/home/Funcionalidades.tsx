@@ -2,9 +2,9 @@
 
 import { useRef } from "react";
 import { home } from "@/content/site";
-import { Title } from "@/components/ui/Title";
+import { Subline, Title } from "@/components/ui/Title";
 import { Phone } from "@/components/ui/Phone";
-import { IconCheck } from "@/components/icons";
+import { IconCheck, IconLayers } from "@/components/icons";
 import { useScrollSteps } from "@/components/motion/useScrollSteps";
 import styles from "./Funcionalidades.module.css";
 
@@ -29,6 +29,7 @@ export function Funcionalidades() {
       <div className={styles.sticky}>
         <div className={styles.inner}>
           <div className={styles.copy}>
+            <Subline icon={<IconLayers />}>{funcionalidades.subline}</Subline>
             <Title id="func-title" parts={funcionalidades.title} className={styles.title} />
             <div role="tablist" aria-label="Etapas del live" className={styles.tabs} onKeyDown={onKeyDown}>
               {tabs.map((t, i) => (

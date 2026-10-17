@@ -1,48 +1,51 @@
 import styles from "./Title.module.css";
 
-type Parts = { lead: string; accent?: string; tail?: string };
+/**
+ * Partes de un titular. Regla de marca (cliente, 2026-10-17): el titular va
+ * siempre en tinta oscura; el primer énfasis en Azul Pling y, si hay un
+ * segundo, en Rojo Pling. `red` pinta de rojo un énfasis único (p. ej. "caos").
+ */
+export type TitleParts = { lead: string; accent?: string; tail?: string; accent2?: string; tail2?: string; red?: boolean };
 type Level = "h1" | "h2" | "h3";
 
-/**
- * Titular de Pling: Fredoka Medium + palabra de énfasis en
- * Cormorant Garamond Medium Italic (Azul Pling), sin subrayado.
- */
-export function Title({
-  as: Tag = "h2",
-  parts,
-  className = "",
-  tone = "light",
-  id,
-}: {
-  as?: Level;
-  parts: Parts;
-  className?: string;
-  tone?: "light" | "onBlue";
-  id?: string;
-}) {
+export function Title({ as: Tag = "h2", parts, className = "", id }: { as?: Level; parts: TitleParts; className?: string; id?: string }) {
   return (
-    <Tag id={id} className={`${styles.title} ${tone === "onBlue" ? styles.onBlue : ""} ${className}`}>
+    <Tag id={id} className={`${styles.title} ${className}`}>
       {parts.lead}
       {parts.accent ? (
         <>
           {" "}
-          <Accent>{parts.accent}</Accent>
+          <Accent red={parts.red}>{parts.accent}</Accent>
         </>
       ) : null}
       {parts.tail ? <> {parts.tail}</> : null}
+      {parts.accent2 ? (
+        <>
+          {" "}
+          <Accent red>{parts.accent2}</Accent>
+        </>
+      ) : null}
+      {parts.tail2 ? <> {parts.tail2}</> : null}
     </Tag>
   );
 }
 
-export function Accent({ children }: { children: React.ReactNode }) {
-  return <em className={`accent ${styles.accent}`}>{children}</em>;
+/** Palabra de énfasis en la tipografía caligráfica (Cookie). Azul por defecto; `red` para el segundo énfasis. */
+export function Accent({ children, red = false }: { children: React.ReactNode; red?: boolean }) {
+  return <em className={`accent ${red ? styles.accentRed : styles.accent}`}>{children}</em>;
 }
 
-/** Subline de sección (fijada por el brief en cada bloque). */
-export function Subline({ children, className = "", tone = "light" }: { children: React.ReactNode; className?: string; tone?: "light" | "onBlue" }) {
+/** Subline de sección con icono (o punto coral si no lleva). `alert` la pinta en rojo de alarma. */
+export function Subline({ children, icon, className = "", tone }: { children: React.ReactNode; icon?: React.ReactNode; className?: string; tone?: "alert" }) {
   return (
-    <p className={`${styles.subline} ${tone === "onBlue" ? styles.sublineOnBlue : ""} ${className}`}>
-      <span className={styles.dot} aria-hidden />
+    <p className={`${styles.subline} ${tone === "alert" ? styles.sublineAlert : ""} ${className}`}>
+      {icon ? (
+        <span className={styles.icon} aria-hidden>
+          {icon}
+        </span>
+      ) : (
+        <span className={styles.dot} aria-hidden />
+      )}
       {children}
     </p>
   );

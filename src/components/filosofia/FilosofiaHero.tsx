@@ -5,9 +5,19 @@ import { useEffect, useRef } from "react";
 import { filosofiaPage } from "@/content/site";
 import { Title, Subline } from "@/components/ui/Title";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import { Rich } from "@/components/ui/Rich";
+import { usePointerVars } from "@/components/motion/usePointerVars";
+import { EmojiField, type FloatingEmoji } from "@/components/ornaments/EmojiField";
+import { IconTrendUp } from "@/components/icons";
 import styles from "./FilosofiaHero.module.css";
 
 const { hero } = filosofiaPage;
+const emojis: FloatingEmoji[] = [
+  { e: "💖", x: "88%", y: "4%", depth: "mid" },
+  { e: "🛍️", x: "-4%", y: "58%", depth: "mid" },
+  { e: "✨", x: "58%", y: "92%", depth: "far" },
+  { e: "📦", x: "-8%", y: "-8%", depth: "edge" },
+];
 const fmt = new Intl.NumberFormat("es-BO", { minimumFractionDigits: hero.stat.decimals, maximumFractionDigits: hero.stat.decimals });
 
 /**
@@ -16,6 +26,8 @@ const fmt = new Intl.NumberFormat("es-BO", { minimumFractionDigits: hero.stat.de
  */
 export function FilosofiaHero() {
   const numRef = useRef<HTMLSpanElement>(null);
+  const photosRef = useRef<HTMLDivElement>(null);
+  usePointerVars(photosRef);
 
   useEffect(() => {
     const el = numRef.current;
@@ -51,9 +63,11 @@ export function FilosofiaHero() {
       <Breadcrumbs items={filosofiaPage.breadcrumbs} />
       <div className={styles.grid}>
         <div className={styles.copy}>
-          <Subline>{hero.subline}</Subline>
+          <Subline icon={<IconTrendUp />}>{hero.subline}</Subline>
           <Title as="h1" id="filosofia-title" parts={hero.title} className={styles.title} />
-          <p className={styles.text}>{hero.text}</p>
+          <p className={styles.text}>
+            <Rich text={hero.text} />
+          </p>
 
           <figure className={styles.stat}>
             <p className={styles.value}>
@@ -77,10 +91,13 @@ export function FilosofiaHero() {
           </figure>
         </div>
 
-        <div className={styles.photos}>
+        <div ref={photosRef} className={styles.photos}>
+          <EmojiField items={emojis} />
           {hero.images.map((img, i) => (
             <figure key={img.src} className={styles.photo} data-i={i}>
-              <Image src={img.src} alt={img.alt} fill priority sizes="(min-width: 64rem) 24vw, 46vw" className={styles.img} />
+              <div className={styles.float}>
+                <Image src={img.src} alt={img.alt} fill priority sizes="(min-width: 64rem) 24vw, 46vw" className={styles.img} />
+              </div>
             </figure>
           ))}
         </div>

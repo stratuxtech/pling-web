@@ -20,56 +20,29 @@
   }
 }
 
-/*
- * Halo de color vivo detrás de la palabra (flexion.ai /news): degradado de
- * 300% que recorre 0%→50%→100%, desenfocado 12px, opacidad .55, 9s en bucle.
- * Paleta Pling: azul, lavanda, coral, rojo.
- */
-.glow {
-  position: relative;
-  isolation: isolate;
-  display: inline-block;
+/* Palabras de énfasis: Cookie, azul la primera y rojo la segunda (regla de titulares) */
+.accent,
+.accent2 {
   font-family: var(--font-accent);
-  font-weight: var(--font-weight-medium);
-  font-style: italic;
-  font-size: 1.14em;
+  font-weight: var(--font-weight-regular);
+  font-size: 1.32em;
+  line-height: 0.9;
 }
 
-.glow::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: 30% -0.1em 4% -0.1em;
-  border-radius: 0.2em;
-  background: linear-gradient(90deg, #454df4, #9ca0ff, #ff4a3d, #ff8975, #b23119, #7076fa);
-  background-size: 300% 300%;
-  filter: blur(12px);
-  opacity: 0.55;
-  animation: drift 9s linear infinite;
-  animation-delay: calc(var(--g, 0) * -3s);
+/* El énfasis no se "carga": ya está encendido mientras el resto se ilumina */
+.word.accent,
+.word.accent2 {
+  animation: none;
 }
-
-@keyframes drift {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  25% {
-    background-position: 50% 100%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  75% {
-    background-position: 50% 0%;
-  }
+.accent {
+  color: var(--color-primary);
+}
+.accent2 {
+  color: var(--color-coral);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .word {
     animation: none !important;
-  }
-  .glow::before {
-    animation: none;
   }
 }

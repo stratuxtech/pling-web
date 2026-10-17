@@ -44,8 +44,11 @@ El live, las capturas, el QR, las bolsas, la ticketera y los envíos. Flujo de 8
 - Logo oficial siempre como gráfico (campana coral + "Pling" azul + "!" coral, o versión blanca sobre Azul Pling), nunca texto HTML.
 - Material Design 3, **solo Light Mode** (sin dark mode ni toggle). Fondo vivo "Pling Organic Mesh".
 - Footer con fondo **blanco** (decisión del cliente 2026-10-15; sustituye el "footer oscuro" del brief).
-- Tipografías (decisión del cliente 2026-10-16, sustituye al brief): titulares en Fredoka **Medium 500** (nunca bold; SemiBold 600 solo en botones y controles), Manrope 400/500, énfasis en **Cormorant Garamond Medium Italic** (sustituye a Exo 2) **sin subrayado**, monospace solo para códigos físicos.
-- Escala neutral 50–900 sin negro absoluto (900 = #1B1B21); el blanco puro sí se usa.
+- Tipografías (decisiones del cliente 2026-10-16/17, sustituyen al brief): titulares en Fredoka **Medium 500** (nunca bold; SemiBold 600 solo en botones y controles), Manrope 400/500 (+ Bold 700 solo para frases destacadas en párrafos), énfasis en **Cookie** (caligráfica; sustituye a Exo 2 y a Cormorant) **sin subrayado**, monospace solo para códigos físicos.
+- **Regla de titulares (siempre):** el titular en tinta oscura; el primer énfasis en Azul Pling y, si hay un segundo, en Rojo Pling. Ningún titular en blanco ni en color.
+- Escala neutral 50–900 con leve tinte azul, sin negro absoluto (900 = #1D2033); el blanco puro sí se usa.
+- Ornamentación levitante: más piezas de UI que emojis, pero siempre con algún emoji (regla de profundidad de campo). En táctil, todo lo que flota deriva solo.
+- Navbar siempre visible, con tres contenedores propios (logo · enlaces · Probar Pling). Sin créditos de Pexels visibles.
 - Sin fondos de partículas; iconos en SVG; emojis permitidos solo con la regla de profundidad de campo y la zona central despejada.
 - Respaldo institucional: creado por Growists (https://growists.com).
 

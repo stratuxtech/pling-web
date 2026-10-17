@@ -1,6 +1,4 @@
 .layer {
-  --mx: 0;
-  --my: 0;
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -170,6 +168,46 @@
   box-shadow: var(--shadow-glow-primary);
   animation-duration: 9s;
   animation-delay: -3s;
+}
+
+/* Comentario del live (TikTok) */
+.comment {
+  --r: 3deg;
+  top: 13%;
+  right: 2%;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem 0.5rem 0.5rem;
+  border-radius: var(--radius-lg);
+  background: rgb(255 255 255 / 0.92);
+  box-shadow: var(--shadow-2);
+  animation-duration: 7.2s;
+  animation-delay: -5s;
+}
+
+.commentIcon {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-full);
+  background: var(--color-on-surface);
+  color: var(--color-white);
+}
+
+.commentName {
+  display: block;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-label-sm);
+  line-height: var(--text-label-sm--line-height);
+  color: var(--color-on-surface-variant);
+}
+
+.commentText {
+  display: block;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-body-md);
+  line-height: var(--text-body-md--line-height);
+  color: var(--color-on-surface);
 }
 
 @media (max-width: 40rem) {

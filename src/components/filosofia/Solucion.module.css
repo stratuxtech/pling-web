@@ -1,15 +1,39 @@
 .section {
+  position: relative;
+  padding: var(--section-space) 0 0;
+}
+
+.section[data-pinned] {
+  height: 280vh;
+  margin-top: calc(var(--section-space) / 2);
+  padding: 0;
+}
+
+.section[data-pinned] .sticky {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
+.inner {
+  width: 100%;
   max-width: var(--container-content);
   margin: 0 auto;
-  padding: var(--section-space) var(--gutter) 0;
+  padding: 0 var(--gutter);
+}
+
+.section[data-pinned] .inner {
+  padding-top: 4.5rem;
 }
 
 .head {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 3.5rem;
+  gap: 0.875rem;
+  margin-bottom: 2.5rem;
   text-align: center;
 }
 
@@ -25,9 +49,17 @@
   }
 }
 
+.intro {
+  max-width: 52ch;
+  font-size: var(--text-body-lg);
+  line-height: 1.6;
+  color: var(--color-on-surface-variant);
+}
+
 .grid {
+  --gap: 1.5rem;
   display: grid;
-  gap: 1.5rem;
+  gap: var(--gap);
   list-style: none;
 }
 
@@ -37,13 +69,29 @@
   }
 }
 
+/* Anclada: el grupo visible se centra; las que faltan esperan a la derecha */
+.slot {
+  transition:
+    transform 900ms var(--ease-out-expo),
+    opacity 600ms var(--ease-standard);
+}
+
+.section[data-pinned] .slot {
+  transform: translateX(calc(var(--shift) * (100% + var(--gap))));
+}
+
+.section[data-pinned] .slot:not([data-shown]) {
+  opacity: 0;
+  transform: translateX(calc((var(--shift) + 0.35) * (100% + var(--gap)))) translateY(2rem) scale(0.94);
+  pointer-events: none;
+}
+
 .card {
   position: relative;
   isolation: isolate;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 2rem 1.75rem 2.5rem;
+  height: 100%;
   border-radius: var(--radius-xl);
   background: var(--color-surface);
   box-shadow: var(--shadow-2);
@@ -76,25 +124,63 @@
   opacity: 0.7;
 }
 
-.icon {
-  display: grid;
-  flex: none;
-  place-items: center;
-  width: 3rem;
-  height: 3rem;
-  border-radius: var(--radius-lg);
-  background: var(--color-primary-container);
-  color: var(--color-primary-700);
+/* Captura de la app que asoma como un celular */
+.media {
+  position: relative;
+  height: clamp(9rem, 22vh, 13rem);
+  margin: 0.75rem 0.75rem 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg-plus);
+  background:
+    radial-gradient(70% 90% at 50% 100%, rgb(69 77 244 / 0.18), transparent 70%),
+    var(--color-primary-50);
 }
-.card[data-id="pago"] .icon {
-  background: var(--color-secondary-container);
-  color: var(--color-secondary-500);
+.card[data-id="pago"] .media {
+  background:
+    radial-gradient(70% 90% at 50% 100%, rgb(255 74 61 / 0.16), transparent 70%),
+    var(--color-secondary-50);
 }
 
-.cardTitle {
+.screen {
+  position: absolute;
+  left: 50%;
+  top: 1.25rem;
+  width: 58%;
+  height: 140%;
+  overflow: hidden;
+  border: 5px solid var(--color-neutral-900);
+  border-bottom: 0;
+  border-radius: 1.5rem 1.5rem 0 0;
+  background: var(--color-surface);
+  box-shadow: 0 18px 40px -16px rgb(0 5 95 / 0.45);
+  transform: translateX(-50%);
+  transition: transform var(--duration-long) var(--ease-out-expo);
+}
+.card:hover .screen {
+  transform: translateX(-50%) translateY(-6px);
+}
+
+.img {
+  object-fit: cover;
+  object-position: top;
+}
+
+.body {
   display: flex;
-  align-items: center;
-  gap: 0.875rem;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: 1.5rem 1.75rem 1.75rem;
+}
+
+.stepNum {
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-label-lg);
+  line-height: var(--text-label-lg--line-height);
+  color: var(--color-primary-700);
+}
+
+/* Título principal: la etapa del live */
+.stage {
   font-family: var(--font-display);
   font-weight: var(--font-weight-title);
   font-size: var(--text-headline-md);
@@ -102,13 +188,31 @@
   color: var(--color-on-surface);
 }
 
+/* Título secundario: qué resuelve Pling */
+.cardTitle {
+  margin-bottom: 0.375rem;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-lg);
+  line-height: var(--text-title-lg--line-height);
+  color: var(--color-primary);
+}
+.card[data-id="pago"] .cardTitle {
+  color: var(--color-secondary-500);
+}
+
 .text {
-  font-size: var(--text-body-lg);
-  line-height: 1.65;
+  font-size: var(--text-body-md);
+  line-height: 1.6;
   color: var(--color-on-surface-variant);
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .slot,
+  .card,
+  .screen {
+    transition: none;
+  }
   .card:hover {
     transform: none;
   }

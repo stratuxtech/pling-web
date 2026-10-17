@@ -5,6 +5,7 @@ import { formatBs, formatBsCents, formatInt } from "@/lib/savings";
 import { IconPlus } from "@/components/icons";
 import { useCalculator, useTween } from "@/components/calc/useCalculator";
 import { CalcSliders, PresetChips, TariffToggle } from "@/components/calc/CalcControls";
+import { CalcNote } from "@/components/calc/CalcNote";
 import styles from "./AhorroCalculator.module.css";
 
 const p = ahorroPage;
@@ -92,7 +93,7 @@ export function AhorroCalculator() {
               <dd>{formatBs(r.costo)}</dd>
             </div>
           </dl>
-          <p className={styles.heroNote}>{businessModel.note}</p>
+          <CalcNote className={styles.heroNote} />
         </section>
 
         <section className={styles.card} aria-labelledby="ahorro-desglose">

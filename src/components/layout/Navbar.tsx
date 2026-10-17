@@ -2,28 +2,24 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { navbar, routes } from "@/content/site";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/Button";
 import { IconArrowUpRight, IconClose, IconMenu } from "@/components/icons";
 import styles from "./Navbar.module.css";
 
+/**
+ * Navbar siempre visible: una barra transparente con tres contenedores
+ * propios (logo · enlaces centrados · Probar Pling).
+ */
 export function Navbar() {
   const pathname = usePathname();
-  const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const lastY = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY;
-      setScrolled(y > 8);
-      setHidden(y > 240 && y > lastY.current + 4);
-      if (y < lastY.current - 4) setHidden(false);
-      lastY.current = y;
-    };
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -44,7 +40,7 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <header className={styles.wrap} data-hidden={hidden && !open ? "" : undefined} data-scrolled={scrolled ? "" : undefined}>
+    <header className={styles.wrap} data-scrolled={scrolled ? "" : undefined}>
       <nav className={styles.bar} aria-label="Principal">
         <Link href={routes.home} className={styles.logo} aria-label="Pling!, ir al inicio">
           <Logo height={30} priority />

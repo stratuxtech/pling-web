@@ -53,6 +53,16 @@
   }
 }
 
+.alarm {
+  max-width: 46ch;
+  padding: 0.875rem 1.125rem;
+  border-radius: var(--radius-lg);
+  background: var(--color-error-container);
+  font-size: var(--text-body-lg);
+  line-height: 1.55;
+  color: var(--color-on-surface);
+}
+
 .tabs {
   display: flex;
   flex-direction: column;
@@ -117,6 +127,8 @@
 }
 
 .stage {
+  --mx: 0;
+  --my: 0;
   position: relative;
   aspect-ratio: 4 / 4.2;
   border-radius: var(--radius-xl);
@@ -152,7 +164,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgb(27 27 33 / 0) 40%, rgb(27 27 33 / 0.45));
+  background: linear-gradient(180deg, rgb(29 32 51 / 0) 40%, rgb(29 32 51 / 0.45));
 }
 
 .img {
@@ -167,8 +179,12 @@
 }
 
 /* Evidencias del caos: notas que caen torcidas sobre la foto */
+/* Siguen al ratón (transform); la caída usa translate/scale */
 .chip {
+  --d: 1;
   position: absolute;
+  transform: translate(calc(var(--mx) * var(--d) * 18px), calc(var(--my) * var(--d) * 14px));
+  transition: transform 1100ms var(--ease-out-expo);
   padding: 0.5rem 0.875rem;
   border-radius: var(--radius-md);
   background: var(--color-surface);
@@ -192,17 +208,20 @@
 }
 
 .chip[data-i="0"] {
+  --d: 1.4;
   left: 7%;
   top: 9%;
   rotate: -4deg;
 }
 .chip[data-i="1"] {
+  --d: 0.8;
   right: 7%;
   top: 34%;
   rotate: 3deg;
   animation-delay: 140ms;
 }
 .chip[data-i="2"] {
+  --d: 1.1;
   left: 12%;
   bottom: 14%;
   rotate: -2deg;
@@ -217,19 +236,24 @@
   }
 }
 
-.credit {
+/* Emoji del momento: nítido, en órbita media, sigue al ratón con más profundidad */
+.emoji {
   position: absolute;
-  right: 0.75rem;
-  bottom: 0.75rem;
-  padding: 0.125rem 0.5rem;
-  border-radius: var(--radius-sm);
-  background: rgb(27 27 33 / 0.6);
-  font-size: var(--text-body-sm);
-  line-height: var(--text-body-sm--line-height);
-  color: var(--color-white);
+  right: 9%;
+  bottom: 9%;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  line-height: 1;
+  filter: drop-shadow(0 10px 18px rgb(29 32 51 / 0.3));
+  transform: translate(calc(var(--mx) * 26px), calc(var(--my) * 20px));
+  transition: transform 1100ms var(--ease-out-expo);
+  animation: drop 900ms var(--ease-out-expo) 300ms backwards, bob 5.5s ease-in-out 1.2s infinite;
 }
-.credit a {
-  color: inherit;
+
+@keyframes bob {
+  50% {
+    rotate: 8deg;
+    scale: 1.06;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -237,7 +261,8 @@
     transition: none;
   }
   .chip,
-  .panelText {
+  .panelText,
+  .emoji {
     animation: none;
   }
 }

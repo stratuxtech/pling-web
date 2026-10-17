@@ -143,3 +143,61 @@ export const IconPlus = (p: IconProps) => (
     <path d="M12 5v14M5 12h14" />
   </Line>
 );
+export const IconShield = (p: IconProps) => (
+  <Line {...p}>
+    <path d="M12 3.5 19 6v5.5c0 4.3-3 7.7-7 9-4-1.3-7-4.7-7-9V6z" />
+    <path d="m9 12 2.2 2.2L15.5 10" />
+  </Line>
+);
+export const IconCalculator = (p: IconProps) => (
+  <Line {...p}>
+    <rect x="5" y="3" width="14" height="18" rx="3" />
+    <path d="M8.5 7.5h7M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 16h.01M12 16h.01M15.5 16h.01" />
+  </Line>
+);
+export const IconLayers = (p: IconProps) => (
+  <Line {...p}>
+    <path d="m12 4 8.5 4.5L12 13 3.5 8.5z" />
+    <path d="m3.5 12.5 8.5 4.5 8.5-4.5M3.5 16.5 12 21l8.5-4.5" />
+  </Line>
+);
+export const IconLink = (p: IconProps) => (
+  <Line {...p}>
+    <path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1" />
+    <path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" />
+  </Line>
+);
+export const IconHeart = (p: IconProps) => (
+  <Line {...p}>
+    <path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z" />
+  </Line>
+);
+export const IconAlert = (p: IconProps) => (
+  <Line {...p}>
+    <path d="M12 4 21 19.5H3z" />
+    <path d="M12 10v4.5M12 17.2h.01" />
+  </Line>
+);
+export const IconTrendUp = (p: IconProps) => (
+  <Line {...p}>
+    <path d="m4 16.5 5.5-5.5 4 4L20 8.5" />
+    <path d="M14.5 8.5H20V14" />
+  </Line>
+);
+export const IconUsers = (p: IconProps) => (
+  <Line {...p}>
+    <circle cx="9" cy="8.5" r="3.5" />
+    <path d="M3 19.5c.8-3.2 3.2-5 6-5s5.2 1.8 6 5M15.5 5.2a3.5 3.5 0 0 1 0 6.6M18 14.8c1.6.7 2.6 2.4 3 4.7" />
+  </Line>
+);
+export const IconPhone = (p: IconProps) => (
+  <Line {...p}>
+    <rect x="6.5" y="2.5" width="11" height="19" rx="2.5" />
+    <path d="M10.5 18.5h3" />
+  </Line>
+);
+export const IconBolt = (p: IconProps) => (
+  <Line {...p}>
+    <path d="M13 3 5 13.5h6L10 21l8-10.5h-6z" />
+  </Line>
+);

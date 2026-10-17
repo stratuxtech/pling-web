@@ -44,12 +44,9 @@
   border-radius: var(--radius-lg-plus);
 }
 
-/* Cada foto crece hacia su propio lado y nunca tapa la otra caja */
+/* La foto de Misión crece hacia fuera y nunca tapa la otra caja */
 .box[data-block="mision"] .media {
   transform-origin: 100% 0%;
-}
-.box[data-block="vision"] .media {
-  transform-origin: 0% 100%;
 }
 
 .img {
@@ -74,9 +71,6 @@
   line-height: var(--text-display-sm--line-height);
   color: var(--color-on-surface);
 }
-.box[data-block="vision"] .title {
-  color: var(--color-primary);
-}
 
 .text {
   font-size: var(--text-title-lg);
@@ -84,24 +78,14 @@
   color: var(--color-on-surface-variant);
 }
 
-.credits {
-  margin-top: 1.5rem;
-  font-size: var(--text-body-sm);
-  line-height: var(--text-body-sm--line-height);
-  color: var(--color-on-surface-variant);
-}
-.credits a {
-  color: inherit;
-}
-
-/* Escala inversa ligada al scroll (noth.in): 1.8 → 1, la imagen interior 1.25 → 1 */
+/* Escala inversa ligada al scroll (noth.in), solo en Misión: 1.8 → 1, la imagen interior 1.25 → 1 */
 @supports (animation-timeline: view()) {
-  .media {
+  .box[data-block="mision"] .media {
     animation: shrink linear both;
     animation-timeline: view();
     animation-range: entry 0% cover 50%;
   }
-  .img {
+  .box[data-block="mision"] .img {
     animation: settle linear both;
     animation-timeline: view();
     animation-range: entry 0% cover 50%;

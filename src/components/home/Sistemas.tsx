@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { home } from "@/content/site";
-import { Title } from "@/components/ui/Title";
+import { Subline, Title } from "@/components/ui/Title";
 import { Logo } from "@/components/Logo";
-import { IconBox, IconTiktok, IconWhatsapp } from "@/components/icons";
+import { IconBox, IconLink, IconTiktok, IconWhatsapp } from "@/components/icons";
+import { useScrollSteps } from "@/components/motion/useScrollSteps";
+import { usePointerVars } from "@/components/motion/usePointerVars";
 import styles from "./Sistemas.module.css";
 
 const { sistemas } = home;
@@ -21,66 +23,47 @@ const icons = {
   inventario: <IconBox className="size-6" />,
 };
 
+/**
+ * Escritorio: la sección se ancla y el scroll pasa de "Sin Pling" a "Con
+ * Pling"; los toggles desplazan hasta ese tramo, así el scroll siempre manda
+ * (no se puede subir desde "Con Pling" sin pasar por "Sin Pling").
+ * Móvil: se conectan solos al entrar en pantalla y los toggles cambian el estado.
+ */
 export function Sistemas() {
-  const [connected, setConnected] = useState(false);
-  const [manual, setManual] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const { active, pinned, select } = useScrollSteps(sectionRef, 2);
+  const [mobileOn, setMobileOn] = useState(false);
+  const [manual, setManual] = useState(false);
+  const connected = pinned ? active === 1 : mobileOn;
 
-  // Escritorio: la sección se ancla y el scroll conecta los sistemas.
-  // Móvil: se conectan solos al entrar en pantalla.
   useEffect(() => {
-    if (manual) return;
-    const el = sectionRef.current;
-    if (!el) return;
-    const desktop = matchMedia("(min-width: 64rem)").matches;
-    if (desktop) {
-      const onScroll = () => {
-        const r = el.getBoundingClientRect();
-        const total = el.offsetHeight - window.innerHeight;
-        const p = -r.top / Math.max(1, total);
-        setConnected(p > 0.38);
-      };
-      onScroll();
-      window.addEventListener("scroll", onScroll, { passive: true });
-      return () => window.removeEventListener("scroll", onScroll);
-    }
+    if (pinned || manual || !stageRef.current) return;
     let t = 0;
     const io = new IntersectionObserver(
       ([e]) => {
         window.clearTimeout(t);
-        if (e.isIntersecting) t = window.setTimeout(() => setConnected(true), 1400);
+        if (e.isIntersecting) t = window.setTimeout(() => setMobileOn(true), 1400);
       },
       { threshold: 0.5 },
     );
-    io.observe(stageRef.current!);
+    io.observe(stageRef.current);
     return () => {
       io.disconnect();
       window.clearTimeout(t);
     };
-  }, [manual]);
+  }, [pinned, manual]);
 
-  // Los nodos levitan y siguen sutilmente al cursor
-  useEffect(() => {
-    const stage = stageRef.current;
-    if (!stage || !matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const onMove = (e: PointerEvent) => {
-      const r = stage.getBoundingClientRect();
-      stage.style.setProperty("--mx", (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(3));
-      stage.style.setProperty("--my", (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(3));
-    };
-    const onLeave = () => {
-      stage.style.setProperty("--mx", "0");
-      stage.style.setProperty("--my", "0");
-    };
-    stage.addEventListener("pointermove", onMove, { passive: true });
-    stage.addEventListener("pointerleave", onLeave);
-    return () => {
-      stage.removeEventListener("pointermove", onMove);
-      stage.removeEventListener("pointerleave", onLeave);
-    };
-  }, []);
+  // Los nodos levitan y siguen al cursor (o derivan solos en táctil)
+  usePointerVars(stageRef);
+
+  function choose(on: boolean) {
+    if (pinned) select(on ? 1 : 0);
+    else {
+      setManual(true);
+      setMobileOn(on);
+    }
+  }
 
   const pos = connected ? POS.on : POS.off;
   const state = connected ? sistemas.conPling : sistemas.sinPling;
@@ -90,6 +73,7 @@ export function Sistemas() {
       <div className={styles.sticky}>
         <div className={styles.inner}>
           <div className={styles.head}>
+            <Subline icon={<IconLink />}>{sistemas.subline}</Subline>
             <Title id="sistemas-title" parts={sistemas.title} className={styles.title} />
             <div className={styles.switch} role="radiogroup" aria-label="Comparar">
               {[false, true].map((on) => (
@@ -100,10 +84,7 @@ export function Sistemas() {
                   aria-checked={connected === on}
                   className={styles.switchBtn}
                   data-on={on ? "" : undefined}
-                  onClick={() => {
-                    setManual(true);
-                    setConnected(on);
-                  }}
+                  onClick={() => choose(on)}
                 >
                   {on ? sistemas.conPling.label : sistemas.sinPling.label}
                 </button>

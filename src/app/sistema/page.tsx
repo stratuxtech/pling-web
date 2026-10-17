@@ -27,7 +27,7 @@ const scales = [
     })),
   },
   {
-    name: "Neutros · sin negro absoluto (900 = #1B1B21)",
+    name: "Neutros · tinte azul, sin negro absoluto (900 = #1D2033)",
     steps: ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900"].map((s) => ({
       step: s,
       cls: `bg-neutral-${s}`,
@@ -71,16 +71,16 @@ const swatchClasses: Record<string, string> = {
 
 /* Hex de la escala neutral para mostrarlos junto al swatch. */
 const neutralHex: Record<string, string> = {
-  "50": "#F7F7FA",
-  "100": "#EFEFF4",
-  "200": "#E3E3EA",
-  "300": "#C8C7D1",
-  "400": "#A9A8B4",
-  "500": "#8D8C98",
-  "600": "#6E6D79",
-  "700": "#57565F",
-  "800": "#46464F",
-  "900": "#1B1B21",
+  "50": "#F7F7FB",
+  "100": "#EFF0F5",
+  "200": "#E2E3EB",
+  "300": "#C7C8D3",
+  "400": "#A8AAB8",
+  "500": "#8C8E9E",
+  "600": "#6C6F82",
+  "700": "#565A6D",
+  "800": "#45475A",
+  "900": "#1D2033",
 };
 
 const roles = [
@@ -136,7 +136,7 @@ export default function SistemaPage() {
         </h1>
         <p className="max-w-prose text-body-lg text-on-surface-variant">
           Sistema de diseño: tokens Material Design 3 Light, tipografías de marca y el fondo vivo
-          de Pling. Titulares en Fredoka Medium, énfasis en Cormorant Garamond Italic sin subrayado.
+          de Pling. Titulares en Fredoka Medium, énfasis en Cookie (azul; el segundo, en rojo), sin subrayado.
           Esta hoja solo sirve para validar el sistema; no es una página del sitio.
         </p>
       </header>
@@ -173,7 +173,7 @@ export default function SistemaPage() {
 
         <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
           <div className="rounded-lg bg-surface p-5 shadow-2">
-            <p className="text-title-sm font-display font-title text-on-surface">On Surface #1B1B21</p>
+            <p className="text-title-sm font-display font-title text-on-surface">On Surface #1D2033</p>
             <p className="text-body-md text-on-surface-variant">On Surface Variant #46464F</p>
           </div>
           <div className="rounded-lg bg-mesh-lavender p-5">
@@ -212,9 +212,9 @@ export default function SistemaPage() {
             <span className="text-label-md font-medium text-on-surface-variant">
               accent
               <br />
-              Cormorant Garamond Medium Italic 500 · 1.14em
+              Cookie Regular 400 · 1.32em · azul / segundo énfasis rojo
             </span>
-            <em className="accent text-headline-lg text-primary">Una compradora, un paquete.</em>
+            <span className="text-headline-lg font-display font-title text-on-surface">Una compradora, <em className="accent text-primary">un paquete.</em> <em className="accent text-coral">Siempre.</em></span>
           </li>
           <li className="grid grid-cols-1 items-baseline gap-2 py-4 md:grid-cols-[10rem_1fr]">
             <span className="text-label-md font-medium text-on-surface-variant">

@@ -68,7 +68,6 @@ export function PlingModal() {
         <h2 id="pling-modal-title" className={styles.title}>
           {modal.title}
         </h2>
-        <p className={styles.intro}>{modal.intro}</p>
         <WhatsAppCards compact />
       </div>
     </dialog>

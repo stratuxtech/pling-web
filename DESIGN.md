@@ -20,12 +20,13 @@ Los valores por defecto de Tailwind están anulados (`--color-*: initial`); solo
 | Secondary (Rojo Pling) | `secondary` / `secondary-500` | `#B23119` | iconos y números de acento |
 | Coral (acento lumínico) | `coral` | `#FF4A3D` | glow, LIVE, "!" del logo, puntos de subline. Texto blanco encima solo ≥24px o decorativo |
 | Superficie | `surface` | `#FFFFFF` | tarjetas, navbar, footer |
-| Texto principal | `on-surface` = `neutral-900` | `#1B1B21` | titulares y lectura |
-| Texto secundario | `on-surface-variant` = `neutral-800` | `#46464F` | párrafos y metadatos |
+| Texto principal | `on-surface` = `neutral-900` | `#1D2033` | titulares (siempre) y lectura |
+| Texto secundario | `on-surface-variant` = `neutral-800` | `#45475A` | párrafos y metadatos |
 | Estados | `success`, `warning`, `error` (+ `-container`) | M3 | validación QR, avisos de borrador, "caos" |
 
 - Escalas completas `primary-50…900`, `secondary-50…900` y **`neutral-50…900`** (gris frío M3).
-- **Sin negro absoluto**: el tono más oscuro es `#1B1B21`. El blanco puro sí se usa.
+- **Sin negro absoluto**: el tono más oscuro es `#1D2033`, tinta con leve tinte azul que se lee como negro. El blanco puro sí se usa.
+- **Titulares**: siempre en `on-surface`; énfasis 1 en `primary`, énfasis 2 (o de alarma) en `coral`.
 - Texto gris solo desde `neutral-600` (5.1:1 sobre blanco).
 
 ## Tipografía
@@ -33,8 +34,8 @@ Los valores por defecto de Tailwind están anulados (`--color-*: initial`); solo
 | Familia | Token | Pesos | Uso |
 |---|---|---|---|
 | Fredoka | `font-display` | **500** (`--font-weight-title`), 600 | Titulares, cifras, títulos de tarjeta en Medium 500; SemiBold 600 **solo** en botones y controles. Nunca bold. |
-| Manrope | `font-body` | 400, 500 | Párrafos, chips, etiquetas |
-| Cormorant Garamond Italic | `font-accent` | 500 | Palabra de énfasis dentro del titular (`<Accent>`, clase `.accent`, 1.14em, Azul Pling). **Sin subrayado.** |
+| Manrope | `font-body` | 400, 500, 700 | Párrafos, chips, etiquetas; 700 solo en `<strong>` (marca `**frase**` vía `<Rich>`) |
+| Cookie | `font-accent` | 400 | Palabra de énfasis dentro del titular (`<Accent>`, clase `.accent`, 1.32em). Primer énfasis Azul Pling, segundo Rojo Pling (`accent2` / `red`). **Sin subrayado.** |
 | JetBrains Mono | `font-mono` | 400, 500 | Solo códigos físicos (`#A1B2`) |
 
 - **Escala M3 web:** display 57/45/36, headline 32/28/24, title 22/16/14, body 16/14/12, label 14/12/11.
@@ -77,11 +78,14 @@ Los valores por defecto de Tailwind están anulados (`--color-*: initial`); solo
 | Nodos que levitan y siguen al ratón (`usePointerVars`) | Sistemas, Growists, hero Nosotros | anubi |
 | Scale-up al entrar | Por qué queremos ayudarte | make-b |
 | Scale-down 1.8 → 1 | Misión y Visión | noth.in |
-| Carrusel con torsión (centro 1.25×, laterales ±32°) | CTA final, Filosofía | anubi |
+| Carrusel con torsión ligado al scroll (`ScrollTwist`: centro 1.25×, laterales ±32°, espaciado visual constante) | CTA final, Filosofía | anubi |
 | Conteo veloz de cifra | Hero Filosofía | brief |
 | Clockwise Glow en botones | `Button` | brief |
 | Cursor CTA magnético | zonas `data-cursor` | make-b |
-| Líquido WebGL | footer | make-b |
+| Líquido WebGL: shader "Warp" de Paper Shaders con el preset Lava de make-b (Edge, swirl 18×20, rotación 114°), en Azul Pling → coral → blanco | footer | make-b |
+| Emojis con profundidad de campo (`EmojiField`: media nítida, borde grande con blur 10px, lejos pequeña con blur 2.5px) | Hero, Nosotros, Filosofía | brief §5 |
+| Deriva autónoma en táctil (`usePointerVars` / `autoDrift`) | todo lo que sigue al ratón | cliente |
+| Tarjetas que aparecen de una en una por scroll | Por qué nace Pling, Pling como solución | cliente |
 
 - **`prefers-reduced-motion`:** desactiva todos los patrones anteriores. El contenido queda completo y estático; los carruseles pasan a ser deslizables a mano.
 

@@ -39,6 +39,7 @@
 
 /* Móvil: tira de fotos inclinadas bajo el texto */
 .photos {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.75rem;

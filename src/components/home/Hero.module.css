@@ -73,6 +73,8 @@
 }
 
 .visual {
+  --mx: 0;
+  --my: 0;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -95,12 +97,12 @@
 
 .phone {
   position: relative;
-  width: min(62vw, 20rem);
+  --w: min(62vw, 20rem);
 }
 
 @media (min-width: 64rem) {
   .phone {
-    width: min(22vw, 18rem, 34vh);
+    --w: min(22vw, 18rem, 34vh);
   }
 }
 

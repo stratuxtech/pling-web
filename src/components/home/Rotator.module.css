@@ -1,16 +1,9 @@
 .rotator {
-  position: relative;
-  display: block;
-}
-
-.sizer {
-  display: block;
-  visibility: hidden;
+  display: grid;
 }
 
 .phrase {
-  position: absolute;
-  inset: 0;
+  grid-area: 1 / 1;
   display: block;
 }
 

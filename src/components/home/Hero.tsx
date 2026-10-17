@@ -5,9 +5,10 @@ import { home } from "@/content/site";
 import { Button } from "@/components/ui/Button";
 import { Accent, Subline } from "@/components/ui/Title";
 import { Phone } from "@/components/ui/Phone";
-import { IconPause, IconPlay } from "@/components/icons";
+import { IconPause, IconPlay, IconTiktok } from "@/components/icons";
 import { FloatingBadges } from "./FloatingBadges";
 import { Rotator } from "./Rotator";
+import { usePointerVars } from "@/components/motion/usePointerVars";
 import styles from "./Hero.module.css";
 
 const { hero } = home;
@@ -19,7 +20,6 @@ export function Hero() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const visualRef = useRef<HTMLDivElement>(null);
-  const badgesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (paused) return;
@@ -27,28 +27,8 @@ export function Hero() {
     return () => window.clearInterval(id);
   }, [paused]);
 
-  // Parallax de profundidad de los badges con el ratón
-  useEffect(() => {
-    const zone = visualRef.current;
-    const layer = badgesRef.current?.firstElementChild as HTMLElement | null;
-    if (!zone || !layer || !matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const onMove = (e: PointerEvent) => {
-      const r = zone.getBoundingClientRect();
-      layer.style.setProperty("--mx", (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(3));
-      layer.style.setProperty("--my", (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(3));
-    };
-    const onLeave = () => {
-      layer.style.setProperty("--mx", "0");
-      layer.style.setProperty("--my", "0");
-    };
-    zone.addEventListener("pointermove", onMove, { passive: true });
-    zone.addEventListener("pointerleave", onLeave);
-    return () => {
-      zone.removeEventListener("pointermove", onMove);
-      zone.removeEventListener("pointerleave", onLeave);
-    };
-  }, []);
+  // Parallax de profundidad de lo que flota (ratón) o deriva autónoma (táctil)
+  usePointerVars(visualRef);
 
   const current = hero.rotator[index];
   const activeView = viewKeys.indexOf(current.view);
@@ -56,7 +36,7 @@ export function Hero() {
   return (
     <section className={styles.hero} aria-labelledby="hero-title">
       <div className={styles.copy}>
-        <Subline>{hero.subline}</Subline>
+        <Subline icon={<IconTiktok />}>{hero.subline}</Subline>
         <h1 id="hero-title" className={styles.title}>
           {hero.title.lead} <Accent>{hero.title.accent}</Accent> <span className={styles.tail}>{hero.title.tail}</span>
           <span className="sr-only"> {hero.rotator.map((r) => r.text).join(", ")}.</span>
@@ -70,7 +50,7 @@ export function Hero() {
 
       <div ref={visualRef} className={styles.visual} data-cursor="Probar Pling" data-cursor-modal>
         <div className={styles.halo} aria-hidden />
-        <div ref={badgesRef} className={styles.badges}>
+        <div className={styles.badges}>
           <FloatingBadges />
         </div>
         <Phone screens={viewScreens} active={activeView} priority zoneRef={visualRef} className={styles.phone} sizes="(min-width: 1024px) 340px, 62vw" />

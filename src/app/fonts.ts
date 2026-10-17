@@ -1,5 +1,5 @@
 import localFont from "next/font/local";
-import { Cormorant_Garamond, JetBrains_Mono } from "next/font/google";
+import { Cookie, JetBrains_Mono } from "next/font/google";
 
 /* Subconjuntos latinos en WOFF2 generados desde public/fonts (solo los pesos en uso). */
 
@@ -18,18 +18,18 @@ export const manrope = localFont({
   src: [
     { path: "../fonts/manrope-400.woff2", weight: "400", style: "normal" },
     { path: "../fonts/manrope-500.woff2", weight: "500", style: "normal" },
+    { path: "../fonts/manrope-700.woff2", weight: "700", style: "normal" },
   ],
   variable: "--font-manrope",
   display: "swap",
   fallback: ["system-ui", "sans-serif"],
 });
 
-/** Énfasis editorial dentro de titulares: Cormorant Garamond Medium Italic. */
-export const cormorant = Cormorant_Garamond({
+/** Énfasis dentro de titulares: Cookie (caligráfica), decisión del cliente 2026-10-17. */
+export const cookie = Cookie({
   subsets: ["latin"],
-  weight: ["500"],
-  style: ["italic"],
-  variable: "--font-cormorant",
+  weight: ["400"],
+  variable: "--font-cookie",
   display: "swap",
 });
 
@@ -41,4 +41,4 @@ export const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
-export const fontVariables = [fredoka.variable, manrope.variable, cormorant.variable, jetbrains.variable].join(" ");
+export const fontVariables = [fredoka.variable, manrope.variable, cookie.variable, jetbrains.variable].join(" ");

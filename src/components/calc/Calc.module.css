@@ -131,3 +131,45 @@
   outline-offset: 6px;
 }
 
+
+/* Notificación (crédito prepago) dentro de la tarjeta azul */
+.note {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: 0 10px 24px -12px rgb(0 5 95 / 0.55);
+}
+
+.noteIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-success-container);
+  color: var(--color-success);
+}
+
+.noteBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.noteTitle {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-sm);
+  line-height: var(--text-title-sm--line-height);
+  color: var(--color-on-surface);
+}
+
+.noteText {
+  font-size: var(--text-body-sm);
+  line-height: var(--text-body-sm--line-height);
+  color: var(--color-on-surface-variant);
+}

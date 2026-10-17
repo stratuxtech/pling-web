@@ -55,7 +55,7 @@ export default function Page() {
             <h2 id="faq-contacto" className={styles.contactTitle}>
               {faqPage.contacto.title}
             </h2>
-            <Button action={faqPage.contacto.cta} variant="inverse" size="lg" />
+            <Button action={faqPage.contacto.cta} size="lg" />
           </aside>
         </div>
       </div>

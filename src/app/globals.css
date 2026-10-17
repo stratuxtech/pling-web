@@ -57,20 +57,21 @@
   --color-error-container: #f9dedc;
 
   /*
-   * Neutros 50–900 (gris frío de la familia M3 de Pling). Sin negro absoluto:
-   * el más oscuro es #1B1B21 (On Surface). El blanco puro sí se usa.
-   * Contraste sobre blanco: 600 = 5.1:1, 700 = 7.2:1 → aptos para texto desde 600.
+   * Neutros 50–900: gris frío con un leve tinte azul Pling. Sin negro absoluto:
+   * el más oscuro es #1D2033 (tinta azul profunda que se lee como negro). El
+   * blanco puro sí se usa. Contraste sobre blanco: 600 = 5.0:1, 700 = 7.0:1,
+   * 900 = 16:1 → aptos para texto desde 600.
    */
-  --color-neutral-50: #f7f7fa;
-  --color-neutral-100: #efeff4;
-  --color-neutral-200: #e3e3ea;
-  --color-neutral-300: #c8c7d1;
-  --color-neutral-400: #a9a8b4;
-  --color-neutral-500: #8d8c98;
-  --color-neutral-600: #6e6d79;
-  --color-neutral-700: #57565f;
-  --color-neutral-800: #46464f;
-  --color-neutral-900: #1b1b21;
+  --color-neutral-50: #f7f7fb;
+  --color-neutral-100: #eff0f5;
+  --color-neutral-200: #e2e3eb;
+  --color-neutral-300: #c7c8d3;
+  --color-neutral-400: #a8aab8;
+  --color-neutral-500: #8c8e9e;
+  --color-neutral-600: #6c6f82;
+  --color-neutral-700: #565a6d;
+  --color-neutral-800: #45475a;
+  --color-neutral-900: #1d2033;
 
   /* Superficies y texto */
   --color-surface: #ffffff; /* contenedores sobre el fondo orgánico (On Primary) */
@@ -83,14 +84,15 @@
   --font-*: initial;
   --font-display: var(--font-fredoka), ui-rounded, system-ui, sans-serif;
   --font-body: var(--font-manrope), system-ui, sans-serif;
-  --font-accent: var(--font-cormorant), Georgia, serif;
+  --font-accent: var(--font-cookie), "Brush Script MT", cursive;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 
   --font-weight-*: initial;
   --font-weight-regular: 400; /* Manrope */
-  --font-weight-medium: 500; /* Manrope · Cormorant Garamond Italic */
+  --font-weight-medium: 500; /* Manrope */
   --font-weight-title: 500; /* Fredoka Medium: todos los titulares, cifras y títulos de tarjeta */
   --font-weight-semibold: 600; /* Fredoka SemiBold: solo botones y controles */
+  --font-weight-bold: 700; /* Manrope Bold: frases destacadas dentro de párrafos (<strong>) */
 
   /* Escala M3 adaptada a web (base 16px) — bible §4 */
   --text-*: initial;
@@ -151,12 +153,12 @@
 
   /* ── Elevación y luz ───────────────────────────────────── */
   --shadow-*: initial;
-  --shadow-1: 0 1px 2px rgb(27 27 33 / 0.06), 0 2px 6px rgb(27 27 33 / 0.05);
-  --shadow-2: 0 2px 4px rgb(27 27 33 / 0.06), 0 8px 24px -6px rgb(27 27 33 / 0.1);
-  --shadow-3: 0 4px 8px rgb(27 27 33 / 0.06), 4px 28px 40px -16px rgb(27 27 33 / 0.2);
+  --shadow-1: 0 1px 2px rgb(29 32 51 / 0.06), 0 2px 6px rgb(29 32 51 / 0.05);
+  --shadow-2: 0 2px 4px rgb(29 32 51 / 0.06), 0 8px 24px -6px rgb(29 32 51 / 0.1);
+  --shadow-3: 0 4px 8px rgb(29 32 51 / 0.06), 4px 28px 40px -16px rgb(29 32 51 / 0.2);
   /* Clockwise Glow en reposo: resplandor inferior del color del elemento */
-  --shadow-glow-primary: 0 10px 24px -8px rgb(69 77 244 / 0.55);
-  --shadow-glow-secondary: 0 10px 24px -8px rgb(255 74 61 / 0.55);
+  --shadow-glow-primary: 0 16px 36px -10px rgb(69 77 244 / 0.75), 0 6px 16px -6px rgb(69 77 244 / 0.5);
+  --shadow-glow-secondary: 0 12px 30px -8px rgb(255 74 61 / 0.65), 0 4px 12px -4px rgb(255 74 61 / 0.4);
 
   /* ── Movimiento (M3 + curvas medidas en las referencias) ── */
   --ease-*: initial;
@@ -201,6 +203,11 @@
     scrollbar-color: var(--color-primary-200) transparent;
   }
 
+  /* Lo que flota o deriva nunca genera scroll horizontal (clip no rompe sticky) */
+  main {
+    overflow-x: clip;
+  }
+
   body {
     min-height: 100dvh;
     background-color: var(--color-surface);
@@ -224,16 +231,24 @@
   }
 
   /*
-   * Palabra de énfasis dentro de titulares: Cormorant Garamond Medium Italic.
+   * Palabra de énfasis dentro de titulares: Cookie (caligráfica), azul; el segundo énfasis, en rojo.
    * Su altura de x es menor que la de Fredoka: se compensa ópticamente.
    */
   em.accent,
   .accent {
+    /* Cookie tiene ojo pequeño: se compensa el tamaño para igualar a Fredoka */
     font-family: var(--font-accent);
-    font-weight: var(--font-weight-medium);
-    font-style: italic;
-    font-size: 1.14em;
-    letter-spacing: -0.005em;
+    font-weight: var(--font-weight-regular);
+    font-style: normal;
+    font-size: 1.32em;
+    line-height: 0.9;
+    letter-spacing: 0;
+  }
+
+  /* Frases destacadas en párrafos: Manrope Bold en tinta principal */
+  strong {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-on-surface);
   }
 
   ::selection {

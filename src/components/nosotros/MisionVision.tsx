@@ -1,11 +1,13 @@
 import Image from "next/image";
 import { nosotrosPage } from "@/content/site";
+import { Rich } from "@/components/ui/Rich";
 import styles from "./MisionVision.module.css";
 
 /**
  * Misión (imagen arriba, texto abajo) y Visión (texto arriba, imagen abajo).
- * Las fotos entran gigantes y se achican al hacer scroll hasta encajar en su
- * caja (noth.in: escala 1.8 → 1).
+ * La foto de Misión entra gigante y se achica al hacer scroll hasta encajar
+ * en su caja (noth.in: 1.8 → 1). Visión no escala: su foto quedaría sobre el
+ * texto mientras se lee.
  */
 export function MisionVision() {
   const { mision, vision } = nosotrosPage;
@@ -42,24 +44,15 @@ export function MisionVision() {
                   <h2 id={`${b.id}-title`} className={styles.title}>
                     {b.title}
                   </h2>
-                  <p className={styles.text}>{b.text}</p>
+                  <p className={styles.text}>
+                  <Rich text={b.text} />
+                </p>
                 </div>
                 {b.imageFirst ? null : media}
               </article>
             );
           })}
         </div>
-        <p className={styles.credits}>
-          Fotos:{" "}
-          {blocks.map((b, i) => (
-            <span key={b.id}>
-              <a href={b.img.credit.url} target="_blank" rel="noopener">
-                {b.img.credit.by}
-              </a>
-              {i < blocks.length - 1 ? " · " : null}
-            </span>
-          ))}
-        </p>
       </div>
     </section>
   );

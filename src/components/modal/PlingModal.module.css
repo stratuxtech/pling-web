@@ -20,7 +20,7 @@
 }
 
 .dialog::backdrop {
-  background: rgb(27 27 33 / 0.42);
+  background: rgb(29 32 51 / 0.42);
 }
 
 .dialog[open] {
@@ -85,11 +85,9 @@
   }
 }
 
-.intro {
-  margin: 0.375rem 0 1.25rem;
-  font-size: var(--text-body-lg);
-  line-height: var(--text-body-lg--line-height);
-  color: var(--color-on-surface-variant);
+/* Sin párrafo: el título da paso directo a las tarjetas */
+.title + * {
+  margin-top: 1.25rem;
 }
 
 @keyframes fade {

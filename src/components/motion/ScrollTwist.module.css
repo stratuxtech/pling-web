@@ -1,0 +1,71 @@
+/* Ancho de slide configurable desde fuera con --twist-w */
+.root {
+  --slide-w: var(--twist-w, clamp(14rem, 20vw, 20rem));
+  overflow-x: clip;
+}
+
+/* Sin JS: fila deslizable a mano */
+.viewport {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 4rem 0 3rem;
+  scrollbar-width: none;
+  border-radius: var(--radius-lg);
+}
+.viewport:focus-visible {
+  outline-offset: -4px;
+}
+
+/* Con JS: el scroll vertical mueve la fila */
+.viewport[data-driven] {
+  overflow: visible;
+  scroll-snap-type: none;
+  padding-block: 5rem 4rem;
+}
+
+.track {
+  display: flex;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  width: max-content;
+  padding: 0 calc(50vw - var(--slide-w) / 2);
+  list-style: none;
+  will-change: transform;
+}
+
+.slide {
+  --tx: 0px;
+  --ry: 0deg;
+  --s: 1;
+  position: relative;
+  z-index: var(--z, 0);
+  width: var(--slide-w);
+  flex: none;
+  scroll-snap-align: center;
+  perspective: 1200px;
+  transform: translateX(var(--tx));
+}
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin: 0;
+  transform: rotateY(var(--ry)) scale(var(--s));
+  transform-origin: 50% 50%;
+}
+
+.caption {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-md);
+  line-height: var(--text-title-md--line-height);
+  color: var(--color-on-surface);
+}
+
+.step {
+  font-size: var(--text-title-sm);
+  color: var(--color-primary);
+}

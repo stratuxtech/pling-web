@@ -22,9 +22,60 @@
 
 @media (min-width: 48rem) {
   .grid {
-    grid-template-columns: 1fr 1.4fr 1fr;
+    grid-template-columns: 1.3fr 1fr 1fr;
     align-items: start;
   }
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.description {
+  max-width: 34ch;
+  font-size: var(--text-body-lg);
+  line-height: 1.6;
+  color: var(--color-on-surface-variant);
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-style: normal;
+}
+
+@media (min-width: 48rem) {
+  .contact {
+    align-items: flex-end;
+  }
+}
+
+.contactTitle {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-md);
+  line-height: var(--text-title-md--line-height);
+  color: var(--color-on-surface);
+}
+
+.contactItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--text-body-md);
+  line-height: var(--text-body-md--line-height);
+  color: var(--color-on-surface-variant);
+  text-decoration: none;
+}
+a.contactItem:hover {
+  color: var(--color-primary);
+}
+.contactItem :global(svg) {
+  color: var(--color-primary);
 }
 
 .links {
@@ -102,7 +153,6 @@
   font-size: var(--text-display-xl);
   line-height: var(--text-display-xl--line-height);
   letter-spacing: var(--text-display-xl--letter-spacing);
-  box-shadow: inset 0 -3px 0 currentColor;
   transition: color var(--duration-medium) var(--ease-standard);
 }
 
@@ -145,6 +195,8 @@
   color: var(--color-primary);
 }
 
+/* La flecha acompaña al label activo: grande con "Adquirir Pling", y al
+   cambiar a "Hablemos por WhatsApp" (0.52em) se reduce y baja a su línea. */
 .bigArrow {
   flex: none;
   width: 0.7em;
@@ -152,14 +204,21 @@
   margin-bottom: 0.12em;
   stroke-width: 1.5;
   color: var(--color-coral);
-  transition: transform var(--duration-long) var(--ease-out-expo);
+  transform-origin: 100% 100%;
+  transition: transform var(--duration-long) var(--ease-label);
 }
-.big:hover .bigArrow {
-  transform: translate(0.06em, -0.06em) rotate(45deg);
+.big:hover .bigArrow,
+.big:focus-visible .bigArrow {
+  transform: translateY(0.1em) scale(0.52) rotate(45deg);
 }
 
 .legal {
-  padding: 1.5rem 0 clamp(9rem, 22vw, 15rem);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  /* deja libre la altura del líquido (clamp(10rem, 26vw, 19rem)) */
+  padding: 1.5rem 0 clamp(11.5rem, 29vw, 21rem);
   font-size: var(--text-body-md);
   line-height: var(--text-body-md--line-height);
   color: var(--color-on-surface-variant);

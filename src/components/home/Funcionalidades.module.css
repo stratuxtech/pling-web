@@ -185,14 +185,15 @@
   place-items: center;
 }
 
+/* Tamaño contenido: el celular acompaña al texto, no lo domina */
 .phone {
   position: relative;
-  width: min(60vw, 18rem);
+  --w: min(52vw, 15rem);
 }
 
 @media (min-width: 64rem) {
   .phone {
-    width: min(24vw, 19.5rem);
+    --w: min(16vw, 15rem, 29vh);
   }
 }
 

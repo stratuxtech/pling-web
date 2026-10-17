@@ -10,9 +10,9 @@
 .word {
   display: inline-flex;
   overflow: hidden;
-  /* deja respirar descendentes e itálicas al recortar */
-  padding-block: 0.06em 0.12em;
-  margin-block: -0.06em -0.12em;
+  /* deja respirar ascendentes, descendentes y trazos caligráficos al recortar */
+  padding: 0.08em 0.08em 0.22em;
+  margin: -0.08em -0.08em -0.22em;
   vertical-align: top;
 }
 

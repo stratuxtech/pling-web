@@ -38,30 +38,38 @@
 }
 
 /* El rotador continúa la frase del H1, en Rojo coral */
+/*
+ * El rotador continúa la frase del H1 en la tipografía de énfasis (Cookie),
+ * en Rojo Pling: es el segundo énfasis del titular. Tamaño ×1.32, como .accent.
+ */
 .rotator {
   margin-top: -1rem;
   width: 100%;
-  font-family: var(--font-display);
-  font-weight: var(--font-weight-title);
-  font-size: var(--text-display-sm);
-  line-height: var(--text-display-sm--line-height);
+  font-family: var(--font-accent);
+  font-weight: var(--font-weight-regular);
+  font-size: calc(var(--text-display-sm) * 1.32);
+  line-height: 1.05;
   color: var(--color-coral);
 }
 
 @media (min-width: 40rem) {
-  .title,
-  .rotator {
+  .title {
     font-size: var(--text-display-md);
     line-height: var(--text-display-md--line-height);
+  }
+  .rotator {
+    font-size: calc(var(--text-display-md) * 1.32);
   }
 }
 
 @media (min-width: 80rem) {
-  .title,
-  .rotator {
+  .title {
     font-size: var(--text-display-lg);
     line-height: var(--text-display-lg--line-height);
     letter-spacing: var(--text-display-lg--letter-spacing);
+  }
+  .rotator {
+    font-size: calc(var(--text-display-lg) * 1.32);
   }
 }
 

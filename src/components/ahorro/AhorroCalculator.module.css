@@ -1,0 +1,464 @@
+.layout {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 64rem) {
+  .layout {
+    grid-template-columns: minmax(21rem, 0.85fr) 1.15fr;
+    align-items: start;
+    gap: 2rem;
+  }
+  /* Columna izquierda fija; si no cabe, se desplaza por dentro */
+  .side {
+    position: sticky;
+    top: 6.5rem;
+    max-height: calc(100svh - 7.5rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    padding: 0.25rem;
+    margin: -0.25rem;
+  }
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-2);
+}
+
+.panelTitle {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-lg);
+  line-height: var(--text-title-lg--line-height);
+  color: var(--color-on-surface);
+}
+
+.toggle {
+  align-self: flex-start;
+}
+
+/* Acordeón de tareas */
+.acc {
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-1);
+  interpolate-size: allow-keywords;
+}
+
+.acc[open] {
+  box-shadow: inset 0 0 0 1.5px var(--color-primary-200), var(--shadow-2);
+}
+
+.acc::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition:
+    block-size var(--duration-long) var(--ease-out-expo),
+    content-visibility var(--duration-long) allow-discrete;
+}
+.acc[open]::details-content {
+  block-size: auto;
+}
+
+.accSummary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.125rem 1.25rem 1.125rem 1.5rem;
+  border-radius: var(--radius-xl);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-md);
+  line-height: var(--text-title-md--line-height);
+  color: var(--color-on-surface);
+  cursor: pointer;
+  list-style: none;
+}
+.accSummary::-webkit-details-marker {
+  display: none;
+}
+
+.accIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-50);
+  color: var(--color-primary-700);
+  transition:
+    transform var(--duration-long) var(--ease-out-expo),
+    background-color var(--duration-medium) var(--ease-standard);
+}
+.acc[open] .accIcon {
+  transform: rotate(45deg);
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 1.5rem 1.5rem;
+  list-style: none;
+}
+
+.task {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-top: 1rem;
+  box-shadow: inset 0 1px 0 var(--color-neutral-200);
+}
+
+.taskHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+}
+
+.taskLabel {
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-body-lg);
+  line-height: var(--text-body-lg--line-height);
+  color: var(--color-on-surface);
+}
+
+.taskTime {
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-label-lg);
+  line-height: var(--text-label-lg--line-height);
+  color: var(--color-primary-700);
+}
+
+.taskDetail {
+  font-size: var(--text-body-md);
+  line-height: 1.55;
+  color: var(--color-on-surface-variant);
+}
+
+/* Columna derecha */
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+/* Hero card: Azul Pling con glow (misma familia que la calculadora de la Home) */
+.hero {
+  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  border-radius: var(--radius-xl);
+  color: var(--color-on-primary);
+  background:
+    radial-gradient(80% 60% at 100% 0%, rgb(255 74 61 / 0.45), transparent 70%),
+    radial-gradient(70% 60% at 0% 100%, rgb(156 160 255 / 0.25), transparent 70%),
+    var(--color-primary);
+  box-shadow: 0 28px 50px -24px rgb(69 77 244 / 0.75);
+}
+
+.heroGrid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 40rem) {
+  .heroGrid {
+    grid-template-columns: 1.3fr 1fr;
+  }
+}
+
+.heroLabel {
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-body-lg);
+  line-height: var(--text-body-lg--line-height);
+  color: var(--color-white);
+}
+
+.heroBig {
+  margin-top: 0.375rem;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-display-sm);
+  line-height: var(--text-display-sm--line-height);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 80rem) {
+  .heroBig {
+    font-size: var(--text-display-md);
+    line-height: var(--text-display-md--line-height);
+  }
+}
+
+.heroStats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 1rem;
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgb(255 255 255 / 0.25);
+}
+
+.heroStats dt {
+  font-size: var(--text-body-md);
+  line-height: var(--text-body-md--line-height);
+  color: var(--color-white);
+}
+
+.heroStats dd {
+  margin-top: 0.25rem;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-lg);
+  line-height: var(--text-title-lg--line-height);
+  font-variant-numeric: tabular-nums;
+}
+
+.heroNote {
+  margin-top: 1.25rem;
+  font-size: var(--text-body-md);
+  line-height: var(--text-body-md--line-height);
+  color: var(--color-white);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-2);
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-headline-sm);
+  line-height: var(--text-headline-sm--line-height);
+  color: var(--color-on-surface);
+}
+
+.cardSub,
+.cardText {
+  font-size: var(--text-body-lg);
+  line-height: 1.6;
+  color: var(--color-on-surface-variant);
+}
+
+/* Barras del desglose: crecen con transform (sin animar width) */
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  list-style: none;
+}
+
+.bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.barHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: var(--text-body-md);
+  line-height: var(--text-body-md--line-height);
+  color: var(--color-on-surface);
+}
+
+.barValue {
+  flex: none;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary-700);
+  font-variant-numeric: tabular-nums;
+}
+
+.barTrack {
+  display: block;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-50);
+  overflow: hidden;
+}
+
+.barFill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-300));
+  transform-origin: left center;
+  transition: transform var(--duration-long) var(--ease-out-expo);
+}
+
+.totals {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+}
+
+.totals > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.875rem 0;
+  box-shadow: inset 0 -1px 0 var(--color-neutral-200);
+}
+
+.totals dt {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  font-size: var(--text-body-lg);
+  line-height: var(--text-body-lg--line-height);
+  color: var(--color-on-surface);
+}
+
+.math {
+  font-size: var(--text-body-sm);
+  line-height: var(--text-body-sm--line-height);
+  color: var(--color-on-surface-variant);
+}
+
+.totals dd {
+  flex: none;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-lg);
+  line-height: var(--text-title-lg--line-height);
+  color: var(--color-success);
+  font-variant-numeric: tabular-nums;
+}
+
+.totals dd.minus {
+  color: var(--color-secondary-500);
+}
+
+.totals > .total {
+  box-shadow: none;
+  padding-top: 1.25rem;
+}
+.total dt {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-lg);
+}
+.total dd {
+  font-size: var(--text-headline-md);
+  line-height: var(--text-headline-md--line-height);
+  color: var(--color-primary);
+}
+
+/* Tabla de tarifas */
+.tarifaHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.375rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.table thead th {
+  padding: 0 1rem 0.25rem;
+  text-align: left;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-label-lg);
+  line-height: var(--text-label-lg--line-height);
+  color: var(--color-on-surface-variant);
+}
+.table thead th:last-child,
+.table td {
+  text-align: right;
+}
+
+.table tbody th,
+.table td {
+  padding: 0.875rem 1rem;
+  background: var(--color-neutral-50);
+  font-size: var(--text-body-lg);
+  line-height: var(--text-body-lg--line-height);
+  color: var(--color-on-surface);
+  transition: background-color var(--duration-medium) var(--ease-standard);
+}
+.table tbody th {
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+  font-weight: var(--font-weight-regular);
+  text-align: left;
+}
+.table td {
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-lg);
+}
+
+.table tr[data-current] th,
+.table tr[data-current] td {
+  background: var(--color-primary-container);
+  color: var(--color-primary-800);
+}
+
+.badge {
+  display: inline-block;
+  margin-left: 0.625rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-label-md);
+  line-height: var(--text-label-md--line-height);
+  vertical-align: 0.1em;
+}
+
+.tarifaNote {
+  font-size: var(--text-body-md);
+  line-height: 1.55;
+  color: var(--color-on-surface-variant);
+}
+.tarifaNote strong {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-on-surface);
+}
+
+.disclaimer {
+  font-size: var(--text-body-sm);
+  line-height: var(--text-body-sm--line-height);
+  color: var(--color-warning);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .acc::details-content,
+  .barFill {
+    transition: none;
+  }
+}

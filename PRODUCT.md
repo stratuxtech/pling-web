@@ -34,7 +34,7 @@ El live, las capturas, el QR, las bolsas, la ticketera y los envíos. Flujo de 8
 
 - Páginas: `/`, `/cuanto-te-ahorra`, `/nosotros`, `/filosofia`, `/faq`, `/contacto` (sin navbar, footer ni breadcrumbs), `/politicas-de-privacidad`, más el Modal Adquirir/Probar Pling transversal.
 - No hay página "Adquirir Pling", ni formularios de contacto con campos, ni pantalla de demo propia.
-- Calculadora de ahorro con tarifas Pionera / Estándar: **las cifras de tarifas por tramo aún no están definidas** (en `04`: "Desde Bs X por prenda").
+- Calculadora de ahorro con tarifas Pionera / Estándar: **las cifras reales de tarifas por tramo aún no están definidas** (en `04`: "Desde Bs X por prenda"). Hasta entonces, `/cuanto-te-ahorra` y la Home usan 4 tramos y tiempos por tarea **de ejemplo** (`ejemplo: true` en `site.ts`), con aviso visible.
 - Todo el contenido vive en un único archivo (`src/content/site.ts`).
 
 ## Brand Commitments

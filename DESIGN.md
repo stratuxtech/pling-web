@@ -95,6 +95,7 @@ Los valores por defecto de Tailwind están anulados (`--color-*: initial`); solo
 - **`Phone`:** carcasa 3D CSS con fundido entre capturas.
 - **`WhatsAppCards`:** las 4 tarjetas con mensaje precargado, navegables con flechas.
 - **Layout:** `Navbar` (píldora fija que se oculta al bajar), `Footer` blanco con enlace gigante, `CtaFinal`, `PlingModal` (`<dialog>` nativo).
+- **Calculadora (`components/calc`):** `useCalculator` + `TariffToggle`, `PresetChips`, `CalcSliders`; la misma lógica y supuestos en la Home y en `/cuanto-te-ahorra` (`lib/savings.ts`, tramos por volumen mensual).
 - **FAQ:** `<details name>` nativos (uno abierto por categoría) con apertura animada vía `::details-content`.
 
 ## Reglas que no se rompen

@@ -150,8 +150,22 @@ export const businessModel = {
     ] as { id: TariffId; label: string }[],
     /** Ejemplo de 04: "Bs 180 al mes · 72 prendas por semana · Desde Bs X por prenda". */
     example: { monthlyBs: 180, garmentsPerWeek: 72, fromBsPerGarment: PENDIENTE as Pendiente },
-    /** Tabla real de tarifas por tramos: aún sin cifras. */
-    tiers: PENDIENTE as Pendiente,
+    /**
+     * Tramos por prendas vendidas al mes (EJEMPLO, `ejemplo: true`): precio por
+     * prenda en Bs según tarifa. Se sustituye por la tabla real de Pling.
+     */
+    ejemplo: true,
+    tiers: [
+      { id: "t1", label: "Hasta 300 prendas", max: 300, price: { pionera: 0.6, estandar: 0.85 } },
+      { id: "t2", label: "301 a 1.000 prendas", max: 1000, price: { pionera: 0.5, estandar: 0.75 } },
+      { id: "t3", label: "1.001 a 3.000 prendas", max: 3000, price: { pionera: 0.4, estandar: 0.65 } },
+      { id: "t4", label: "Más de 3.000 prendas", max: Infinity, price: { pionera: 0.3, estandar: 0.55 } },
+    ] as { id: string; label: string; max: number; price: Record<TariffId, number> }[],
+    /** Qué diferencia a cada tarifa (borrador). */
+    notes: {
+      pionera: "Para las primeras tiendas que confían en Pling: precio preferente mientras sigas activa.",
+      estandar: "La tarifa general para cualquier tienda que vende en vivo.",
+    } as Record<TariffId, string>,
   },
 };
 
@@ -174,12 +188,20 @@ export const calculator = {
     { id: "empezando", label: "Recién empezando", values: { lives: 2, prendas: 15, equipo: 1, precio: 80 } },
     { id: "alto", label: "Alto volumen", values: { lives: 10, prendas: 100, equipo: 5, precio: 150 } },
   ],
-  /** Bs por prenda vendida según tarifa (EJEMPLO). */
-  feePerGarment: { pionera: 0.6, estandar: 0.85 } as Record<TariffId, number>,
-  /** Minutos manuales por prenda vendida que Pling elimina: anotar, validar comprobante, etiquetar, buscar y empacar (EJEMPLO). */
-  minutesSavedPerGarment: 6,
-  /** Horas de coordinación por persona y por live (capturas, cuadernos, cuadrar caja) (EJEMPLO). */
-  coordinationHoursPerPersonPerLive: 0.5,
+  /**
+   * Tareas manuales que Pling elimina (EJEMPLO): minutos por prenda vendida.
+   * Alimentan el acordeón y el desglose de /cuanto-te-ahorra; su suma es el
+   * tiempo ahorrado por prenda (6 min).
+   */
+  tasks: [
+    { id: "anotar", label: "Anotar pedidos a mano", detail: "Copiar del live al cuaderno quién pidió qué prenda, talla y precio.", minutesPerGarment: 1.5 },
+    { id: "comprobantes", label: "Revisar comprobantes de pago", detail: "Abrir cada captura de WhatsApp y comparar el QR con el banco.", minutesPerGarment: 2 },
+    { id: "etiquetar", label: "Etiquetar y separar prendas", detail: "Escribir a mano a quién va cada prenda y apartarla.", minutesPerGarment: 1 },
+    { id: "buscar", label: "Buscar prendas y cuadrar stock", detail: "Encontrar la prenda vendida y descontar el stock en el cuaderno o el Excel.", minutesPerGarment: 0.5 },
+    { id: "envios", label: "Armar paquetes y direcciones", detail: "Juntar las prendas de cada compradora y copiar su dirección de envío.", minutesPerGarment: 1 },
+  ],
+  /** Coordinación del equipo por persona y por live: capturas, cuadernos, cuadrar caja (EJEMPLO). */
+  coordination: { id: "coordinar", label: "Coordinar al equipo y cuadrar caja", detail: "Pasar capturas entre el equipo y cuadrar lo cobrado al cerrar el live.", hoursPerPersonPerLive: 0.5 },
   /** Valor de una hora de trabajo del equipo, en Bs (EJEMPLO). */
   hourValueBs: 15,
   /** Porcentaje de las ventas que hoy se pierde por comprobantes falsos y paquetes confundidos (EJEMPLO). */
@@ -427,14 +449,35 @@ export const home = {
 } as const;
 
 export const ahorroPage = {
-  meta: { title: "Cuánto te ahorra Pling", description: PENDIENTE as Pendiente },
+  meta: {
+    title: "Cuánto te ahorra Pling",
+    description: "Calcula cuántas horas y cuánto dinero recupera tu tienda de TikTok Live con Pling, y consulta las tarifas por prenda vendida.",
+  },
   breadcrumbs: [
     { label: "Inicio", href: routes.home },
     { label: "Cuánto te ahorra", href: routes.ahorro },
   ],
-  presets: ["Recién empezando", "Alto volumen"],
-  accordion: { title: "¿Qué tareas manuales te ahorra Pling?", items: PENDIENTE as Pendiente },
-  heroCard: ["Beneficio Neto Mensual", "Horas Recuperadas"],
+  borrador: true,
+  title: { lead: "Cuánto te", accent: "ahorra", tail: "Pling" },
+  intro: "Mueve los valores de tu tienda y mira en tiempo real las horas y el dinero que recuperas cada mes.",
+  controlsTitle: "Tu tienda",
+  accordion: { title: "¿Qué tareas manuales te ahorra Pling?" },
+  heroCard: { beneficio: "Beneficio Neto Mensual", horas: "Horas Recuperadas" },
+  desglose: {
+    title: "Desglose de ahorros",
+    tareasTitle: "Horas que dejas de dedicar a",
+    tiempo: "Tiempo recuperado",
+    perdidas: "Pérdidas evitadas (comprobantes falsos y paquetes confundidos)",
+    costo: "Costo de Pling",
+    total: "Beneficio neto",
+  },
+  tarifas: {
+    title: "Tarifas por prenda vendida",
+    intro: "Pagas solo por lo que vendes, con crédito prepago. Cuanto más vendes al mes, menos pagas por prenda.",
+    colTramo: "Prendas vendidas al mes",
+    colPrecio: "Precio por prenda",
+    current: "Tu tramo",
+  },
 } as const;
 
 export const nosotrosPage = {

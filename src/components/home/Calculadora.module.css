@@ -61,137 +61,6 @@
   gap: 0.75rem;
 }
 
-.segmented {
-  display: inline-flex;
-  padding: 0.25rem;
-  border-radius: var(--radius-full);
-  background: var(--color-primary-50);
-}
-
-.segment {
-  padding: 0.625rem 1.125rem;
-  border-radius: var(--radius-full);
-  font-family: var(--font-display);
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--text-label-lg);
-  line-height: var(--text-label-lg--line-height);
-  color: var(--color-on-surface-variant);
-  cursor: pointer;
-  transition:
-    background-color var(--duration-medium) var(--ease-standard),
-    color var(--duration-medium) var(--ease-standard),
-    box-shadow var(--duration-medium) var(--ease-standard);
-}
-
-.segment[aria-checked="true"] {
-  background: var(--color-primary);
-  color: var(--color-on-primary);
-  box-shadow: var(--shadow-glow-primary);
-}
-
-.presets {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.chip {
-  padding: 0.5rem 0.875rem;
-  border-radius: var(--radius-full);
-  font-weight: var(--font-weight-medium);
-  font-size: var(--text-label-lg);
-  line-height: var(--text-label-lg--line-height);
-  color: var(--color-primary-700);
-  box-shadow: inset 0 0 0 1px var(--color-primary-200);
-  cursor: pointer;
-  transition: background-color var(--duration-short) var(--ease-standard);
-}
-.chip:hover {
-  background: var(--color-primary-50);
-}
-.chip[aria-pressed="true"] {
-  background: var(--color-primary-container);
-  box-shadow: inset 0 0 0 1px var(--color-primary-300);
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.fieldHead {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.label {
-  font-weight: var(--font-weight-medium);
-  font-size: var(--text-body-lg);
-  line-height: var(--text-body-lg--line-height);
-  color: var(--color-on-surface);
-}
-
-.value {
-  font-family: var(--font-display);
-  font-weight: var(--font-weight-title);
-  font-size: var(--text-title-lg);
-  line-height: var(--text-title-lg--line-height);
-  color: var(--color-primary);
-  font-variant-numeric: tabular-nums;
-}
-
-/* Slider */
-.range {
-  --p: 50%;
-  width: 100%;
-  height: 1.75rem;
-  margin: 0;
-  background: transparent;
-  appearance: none;
-  cursor: pointer;
-}
-.range::-webkit-slider-runnable-track {
-  height: 0.5rem;
-  border-radius: var(--radius-full);
-  background: linear-gradient(90deg, var(--color-primary) var(--p), var(--color-primary-100) var(--p));
-}
-.range::-moz-range-track {
-  height: 0.5rem;
-  border-radius: var(--radius-full);
-  background: linear-gradient(90deg, var(--color-primary) var(--p), var(--color-primary-100) var(--p));
-}
-.range::-webkit-slider-thumb {
-  appearance: none;
-  width: 1.75rem;
-  height: 1.75rem;
-  margin-top: -0.625rem;
-  border-radius: var(--radius-full);
-  background: var(--color-white);
-  box-shadow:
-    inset 0 0 0 6px var(--color-primary),
-    0 6px 16px -4px rgb(69 77 244 / 0.6);
-  transition: transform var(--duration-short) var(--ease-standard);
-}
-.range::-moz-range-thumb {
-  width: 1.75rem;
-  height: 1.75rem;
-  border: 0;
-  border-radius: var(--radius-full);
-  background: var(--color-white);
-  box-shadow:
-    inset 0 0 0 6px var(--color-primary),
-    0 6px 16px -4px rgb(69 77 244 / 0.6);
-}
-.range:active::-webkit-slider-thumb {
-  transform: scale(1.12);
-}
-.range:focus-visible {
-  outline-offset: 6px;
-}
-
 /* Tarjeta de impacto: Azul Pling sólido con glow */
 .result {
   position: relative;
@@ -202,7 +71,7 @@
   color: var(--color-on-primary);
   background:
     radial-gradient(80% 60% at 100% 0%, rgb(255 74 61 / 0.45), transparent 70%),
-    radial-gradient(70% 60% at 0% 100%, rgb(156 160 255 / 0.5), transparent 70%),
+    radial-gradient(70% 60% at 0% 100%, rgb(156 160 255 / 0.25), transparent 70%),
     var(--color-primary);
   box-shadow: 0 28px 50px -24px rgb(69 77 244 / 0.75);
   overflow: hidden;
@@ -211,7 +80,7 @@
 .resultLabel {
   font-weight: var(--font-weight-medium);
   font-size: var(--text-body-lg);
-  color: var(--color-primary-50);
+  color: var(--color-white);
 }
 
 .big {
@@ -242,7 +111,7 @@
 .stats dt {
   font-size: var(--text-body-md);
   line-height: var(--text-body-md--line-height);
-  color: var(--color-primary-50);
+  color: var(--color-white);
 }
 
 .stats dd {
@@ -258,7 +127,7 @@
   margin-top: 1.5rem;
   font-size: var(--text-body-md);
   line-height: var(--text-body-md--line-height);
-  color: var(--color-primary-50);
+  color: var(--color-white);
 }
 
 .more {

@@ -112,6 +112,18 @@
   line-height: var(--text-title-lg--line-height);
 }
 
+/* Móvil: los botones principales ocupan todo el ancho disponible */
+@media (max-width: 39.99rem) {
+  .md,
+  .lg {
+    width: 100%;
+  }
+  .md .face,
+  .lg .face {
+    flex: 1;
+  }
+}
+
 /* Variantes */
 /* Azul: siempre con iluminación azul suave debajo */
 .primary .face {

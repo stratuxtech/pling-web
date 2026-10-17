@@ -218,3 +218,60 @@
 .more {
   align-self: flex-start;
 }
+
+/* Móvil anclado: título y pestañas arriba; celular a la izquierda del texto */
+.section[data-compact] .sticky {
+  height: 100svh;
+}
+.section[data-compact] .inner {
+  grid-template-columns: 38% 1fr;
+  grid-template-areas:
+    "sub sub"
+    "title title"
+    "tabs tabs"
+    "visual panel"
+    "more more";
+  align-items: start;
+  gap: 1rem 1rem;
+  padding-top: 4.25rem;
+}
+.section[data-compact] .copy {
+  display: contents;
+}
+.section[data-compact] .sub {
+  grid-area: sub;
+}
+.section[data-compact] .title {
+  grid-area: title;
+  max-width: none;
+  font-size: var(--text-headline-lg);
+  line-height: 1.2;
+}
+.section[data-compact] .tabs {
+  grid-area: tabs;
+}
+.section[data-compact] .panel {
+  grid-area: panel;
+  min-height: 0;
+}
+.section[data-compact] .panelTitle {
+  font-size: var(--text-title-lg);
+  line-height: var(--text-title-lg--line-height);
+}
+.section[data-compact] .panelText {
+  margin-top: 0.5rem;
+  font-size: var(--text-body-md);
+  line-height: 1.55;
+}
+.section[data-compact] .points {
+  display: none;
+}
+.section[data-compact] .visual {
+  grid-area: visual;
+}
+.section[data-compact] .phone {
+  --w: 100%;
+}
+.section[data-compact] .more {
+  grid-area: more;
+}

@@ -5,7 +5,6 @@ import { useRef } from "react";
 import { nosotrosPage } from "@/content/site";
 import { Title, Subline } from "@/components/ui/Title";
 import { Button } from "@/components/ui/Button";
-import { Rich } from "@/components/ui/Rich";
 import { Logo } from "@/components/Logo";
 import { IconBank, IconBolt, IconCheck, IconShield, IconSpark, IconTrendUp } from "@/components/icons";
 import { usePointerVars } from "@/components/motion/usePointerVars";
@@ -48,12 +47,13 @@ export function Growists() {
         <p className={styles.text}>{growists.intro}</p>
         <ul className={styles.bullets}>
           {growists.bullets.map((b) => (
-            <li key={b} className={styles.bullet}>
+            <li key={b.label} className={styles.bullet}>
               <span className={styles.check} aria-hidden>
                 <IconCheck className="size-4" />
               </span>
               <span>
-                <Rich text={b} />
+                <strong>{b.label}</strong>
+                <span className={styles.bulletText}>: {b.text}</span>
               </span>
             </li>
           ))}

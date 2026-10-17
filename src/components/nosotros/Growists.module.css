@@ -298,3 +298,13 @@
     animation: none;
   }
 }
+
+/* Móvil: sin el diagrama animado y solo el nombre de cada aporte, para no saturar */
+@media (max-width: 39.99rem) {
+  .stage {
+    display: none;
+  }
+  .bulletText {
+    display: none;
+  }
+}

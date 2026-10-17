@@ -190,7 +190,7 @@
   --duration-medium: 300ms;
   --duration-long: 550ms;
   --gutter: clamp(1rem, 4vw, 3rem);
-  --section-space: clamp(5rem, 12vw, 9rem);
+  --section-space: clamp(6.5rem, 14vw, 11rem);
   color-scheme: light;
 }
 

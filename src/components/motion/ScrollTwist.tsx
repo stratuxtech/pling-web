@@ -21,6 +21,13 @@ const shape = (d: number) => {
  * (ancho × escala × cos(giro) + hueco), así el aire entre fotos es el mismo
  * en el centro y en los extremos.
  *
+ * Móvil: la primera foto arranca pegada a la izquierda y la fila recorre
+ * todo su largo mientras la sección está a la vista (avanza más rápido que en
+ * escritorio, para alcanzar a ver todas al bajar).
+ *
+ * Además se puede arrastrar en horizontal (dedo o ratón): el arrastre se suma
+ * al avance del scroll.
+ *
  * Sin JS o con reduced-motion: fila deslizable a mano, sin torsión.
  */
 export function ScrollTwist({ items, label, className = "" }: { items: readonly TwistItem[]; label: string; className?: string }) {
@@ -38,17 +45,23 @@ export function ScrollTwist({ items, label, className = "" }: { items: readonly 
     viewport.dataset.driven = "";
     viewport.tabIndex = -1;
     const slides = Array.from(track.children) as HTMLElement[];
+    const desktop = matchMedia("(min-width: 64rem)");
     let raf = 0;
     let running = false;
+    let drag = 0;
 
     const frame = () => {
       const vh = window.innerHeight;
       const vw = viewport.clientWidth;
       const half = vw / 2;
       const r = section.getBoundingClientRect();
-      const p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+      // Escritorio: de que asoma a que se va. Móvil: recorre toda la fila mientras
+      // las fotos están a la vista (su borde superior baja del 62% al 2% de la pantalla).
+      const raw = desktop.matches ? (vh - r.top) / (vh + r.height) : (vh * 0.62 - r.top) / (vh * 0.6);
+      const p = Math.min(1, Math.max(0, raw));
       const max = Math.max(0, track.scrollWidth - vw);
-      const x = -max * p;
+      drag = Math.min(max * p, Math.max(max * p - max, drag));
+      const x = -max * p + drag;
       track.style.transform = `translate3d(${x.toFixed(1)}px,0,0)`;
 
       const w = slides[0]?.offsetWidth ?? 1;
@@ -80,6 +93,39 @@ export function ScrollTwist({ items, label, className = "" }: { items: readonly 
       if (running) raf = requestAnimationFrame(frame);
     };
 
+    // Arrastre horizontal (el vertical lo sigue haciendo el navegador: touch-action pan-y)
+    let start: { x: number; y: number; drag: number; id: number } | null = null;
+    let horizontal = false;
+    const onDown = (e: PointerEvent) => {
+      if (e.button !== 0) return;
+      start = { x: e.clientX, y: e.clientY, drag, id: e.pointerId };
+      horizontal = false;
+    };
+    const onMove = (e: PointerEvent) => {
+      if (!start || e.pointerId !== start.id) return;
+      const dx = e.clientX - start.x;
+      const dy = e.clientY - start.y;
+      if (!horizontal) {
+        if (Math.abs(dx) < 6 || Math.abs(dx) < Math.abs(dy)) return;
+        horizontal = true;
+        viewport.setPointerCapture(e.pointerId);
+        viewport.dataset.dragging = "";
+      }
+      drag = start.drag + dx * 1.15;
+      if (!running) frame();
+    };
+    const onUp = () => {
+      start = null;
+      delete viewport.dataset.dragging;
+    };
+    viewport.addEventListener("pointerdown", onDown);
+    viewport.addEventListener("pointermove", onMove);
+    viewport.addEventListener("pointerup", onUp);
+    viewport.addEventListener("pointercancel", onUp);
+    // Evita que un arrastre termine "clicando" o arrastrando la imagen
+    const onDragStart = (e: Event) => e.preventDefault();
+    viewport.addEventListener("dragstart", onDragStart);
+
     const io = new IntersectionObserver(([e]) => {
       running = e.isIntersecting;
       cancelAnimationFrame(raf);
@@ -88,6 +134,11 @@ export function ScrollTwist({ items, label, className = "" }: { items: readonly 
     io.observe(section);
     frame();
     return () => {
+      viewport.removeEventListener("pointerdown", onDown);
+      viewport.removeEventListener("pointermove", onMove);
+      viewport.removeEventListener("pointerup", onUp);
+      viewport.removeEventListener("pointercancel", onUp);
+      viewport.removeEventListener("dragstart", onDragStart);
       io.disconnect();
       cancelAnimationFrame(raf);
       delete viewport.dataset.driven;

@@ -101,6 +101,20 @@ a.contactItem:hover {
   color: var(--color-primary);
 }
 
+/* Web: enlaces más pequeños, en dos columnas para no alargar el pie */
+@media (min-width: 48rem) {
+  .links {
+    grid-template-rows: repeat(4, auto);
+    grid-auto-flow: column;
+    column-gap: 2.5rem;
+  }
+  .link {
+    padding: 0.3125rem 0;
+    font-size: var(--text-title-md);
+    line-height: var(--text-title-md--line-height);
+  }
+}
+
 .side {
   display: flex;
   flex-direction: column;

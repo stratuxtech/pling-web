@@ -54,17 +54,26 @@ const ornaments: Record<Stage["id"], { chips: FloatingChip[]; emojis: FloatingEm
   },
 };
 
+/* Móvil anclado: dos piezas de UI en las esquinas de la tarjeta */
+const compactChips: FloatingChip[] = [
+  { kind: "code", x: "66%", y: "97%", d: 1.2, r: 5 },
+  { kind: "bubble", x: "-1%", y: "92%", d: 1, r: -3 },
+];
+
 /**
- * Una etapa del live con todas sus funciones. Escritorio: la sección se ancla
- * y el scroll recorre función por función; la lista se abre en la activa y el
- * celular cambia a su pantalla. Móvil: cada función es una tarjeta con su
- * captura a la izquierda y el texto a la derecha.
+ * Una etapa del live con todas sus funciones, con secuestro de scroll:
+ * - Escritorio: la sección se ancla y el scroll recorre función por función;
+ *   la lista se abre en la activa y el celular cambia a su pantalla.
+ * - Móvil: también anclada; se ve una función a la vez como tarjeta (captura
+ *   a la izquierda, texto a la derecha) y el scroll pasa a la siguiente.
+ * - Pantallas muy bajas: todas las tarjetas apiladas.
  */
 export function FeatureStage({ stage, index }: { stage: Stage; index: number }) {
   const ref = useRef<HTMLElement>(null);
   const visualRef = useRef<HTMLDivElement>(null);
   const n = stage.features.length;
-  const { active, pinned, select } = useScrollSteps(ref, n);
+  const { active, pinned, compact, select } = useScrollSteps(ref, n, { mobile: true });
+  const full = pinned && !compact;
   usePointerVars(visualRef);
   const deco = ornaments[stage.id];
 
@@ -74,6 +83,8 @@ export function FeatureStage({ stage, index }: { stage: Stage; index: number }) 
       id={stage.id}
       className={styles.section}
       data-pinned={pinned ? "" : undefined}
+      data-compact={compact ? "" : undefined}
+      data-full={full ? "" : undefined}
       data-stage={stage.id}
       aria-labelledby={`${stage.id}-title`}
       style={{ "--n": n } as React.CSSProperties}
@@ -90,70 +101,91 @@ export function FeatureStage({ stage, index }: { stage: Stage; index: number }) 
             <Title as="p" parts={stage.title} className={styles.title} />
             <p className={styles.intro}>{stage.intro}</p>
 
-            <ol className={styles.list}>
-              {stage.features.map((f, i) => {
-                const on = !pinned || i === active;
-                return (
-                  <li key={f.id} className={styles.item} data-on={on ? "" : undefined} data-done={pinned && i < active ? "" : undefined}>
-                    {!pinned ? (
-                      <div className={styles.media} aria-hidden>
-                        <Phone screens={[{ ...f.img, alt: "" }]} tilt={false} sizes="40vw" />
+            <div className={styles.listWrap}>
+              <ol className={styles.list}>
+                {stage.features.map((f, i) => {
+                  const on = !pinned || i === active;
+                  return (
+                    <li
+                      key={f.id}
+                      className={styles.item}
+                      data-on={on ? "" : undefined}
+                      data-done={pinned && i < active ? "" : undefined}
+                      data-state={compact ? (i === active ? "in" : i < active ? "past" : "next") : undefined}
+                      aria-hidden={compact && i !== active ? true : undefined}
+                    >
+                      {!full ? (
+                        <div className={styles.media} aria-hidden>
+                          <Phone screens={[{ ...f.img, alt: "" }]} tilt={false} sizes="40vw" />
+                        </div>
+                      ) : null}
+                      <div className={styles.body}>
+                        <h3 className={styles.itemTitle}>
+                          <span className={styles.num} aria-hidden>
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          {full ? (
+                            <button
+                              type="button"
+                              className={styles.itemBtn}
+                              aria-expanded={on}
+                              aria-controls={`${stage.id}-${f.id}`}
+                              onClick={() => select(i)}
+                            >
+                              {f.title}
+                            </button>
+                          ) : (
+                            f.title
+                          )}
+                        </h3>
+                        <div id={`${stage.id}-${f.id}`} className={styles.panel}>
+                          <p className={styles.text}>
+                            <Rich text={f.text} />
+                          </p>
+                        </div>
                       </div>
-                    ) : null}
-                    <div className={styles.body}>
-                      <h3 className={styles.itemTitle}>
-                        <span className={styles.num} aria-hidden>
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        {pinned ? (
-                          <button
-                            type="button"
-                            className={styles.itemBtn}
-                            aria-expanded={on}
-                            aria-controls={`${stage.id}-${f.id}`}
-                            onClick={() => select(i)}
-                          >
-                            {f.title}
-                          </button>
-                        ) : (
-                          f.title
-                        )}
-                      </h3>
-                      <div id={`${stage.id}-${f.id}`} className={styles.panel}>
-                        <p className={styles.text}>
-                          <Rich text={f.text} />
-                        </p>
-                      </div>
-                    </div>
-                  </li>
-                );
-              })}
-            </ol>
+                    </li>
+                  );
+                })}
+              </ol>
+              {compact ? <PlingChips items={compactChips} /> : null}
+            </div>
 
-            {!pinned ? <Button action={queHacePage.cta} className={styles.cta} /> : null}
+            {!full ? (
+              <div className={styles.compactFoot}>
+                {compact ? (
+                  <ol className={styles.dots} aria-hidden>
+                    {stage.features.map((f, i) => (
+                      <li key={f.id} data-on={i === active ? "" : undefined} />
+                    ))}
+                  </ol>
+                ) : null}
+                <Button action={queHacePage.cta} className={styles.cta} />
+              </div>
+            ) : null}
           </div>
 
-          {/* Un único contenedor (mismo nodo en ambos modos) para que la deriva siga activa */}
-          <div ref={visualRef} className={pinned ? styles.visual : styles.mobileDeco} aria-hidden={pinned ? undefined : true}>
-            {pinned ? (
+          {/* Un único contenedor (mismo nodo en todos los modos) para que la deriva siga activa */}
+          <div ref={visualRef} className={full ? styles.visual : styles.mobileDeco} aria-hidden={full ? undefined : true}>
+            {full ? (
               <>
-              <div className={styles.glow} aria-hidden />
-              <Phone screens={stage.features.map((f) => f.img)} active={active} className={styles.phone} sizes="(min-width: 1024px) 300px, 60vw" />
-              <PlingChips items={deco.chips} />
-              <EmojiField items={deco.emojis} />
-              <div className={styles.foot}>
-                <p className={styles.counter} aria-hidden>
-                  Función {active + 1} de {n}
-                </p>
-                <Button action={queHacePage.cta} />
-              </div>
+                <div className={styles.glow} aria-hidden />
+                <Phone screens={stage.features.map((f) => f.img)} active={active} className={styles.phone} sizes="(min-width: 1024px) 300px, 60vw" />
+                <PlingChips items={deco.chips} />
+                <EmojiField items={deco.emojis} />
+                <div className={styles.foot}>
+                  <p className={styles.counter} aria-hidden>
+                    Función {active + 1} de {n}
+                  </p>
+                  <Button action={queHacePage.cta} />
+                </div>
               </>
-            ) : (
+            ) : !compact ? (
               <>
                 <PlingChips items={deco.chips.slice(0, 2)} />
                 <EmojiField items={deco.emojis.slice(0, 2)} />
               </>
-            )}
+            ) : null}
           </div>
         </div>
       </div>

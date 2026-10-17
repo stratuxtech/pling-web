@@ -3,18 +3,46 @@
   padding: var(--section-space) 0;
 }
 
-@media (min-width: 64rem) {
-  .section {
-    height: 230vh;
-    padding: 0;
-  }
-  .sticky {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-  }
+.section[data-pinned] {
+  height: 230vh;
+  padding: 0;
+}
+.section[data-pinned] .sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+/* Móvil anclado: cabecera arriba y el escenario llena el resto de la pantalla */
+.section[data-compact] .sticky {
+  height: 100svh;
+  align-items: stretch;
+}
+.section[data-compact] .inner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+  padding-top: 4.5rem;
+  padding-bottom: 1rem;
+}
+.section[data-compact] .head {
+  gap: 0.875rem;
+}
+.section[data-compact] .title {
+  font-size: var(--text-headline-lg);
+  line-height: 1.2;
+}
+.section[data-compact] .text {
+  min-height: 4.8em;
+  font-size: var(--text-body-md);
+}
+.section[data-compact] .stage {
+  flex: 1;
+  height: auto;
+  min-height: 0;
 }
 
 .inner {
@@ -126,7 +154,11 @@
   stroke-width: 2;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  transition: stroke-dashoffset 900ms var(--ease-out-expo) 250ms;
+  /* Desconectado: invisible del todo (el trazo con non-scaling-stroke deja restos) */
+  opacity: 0;
+  transition:
+    stroke-dashoffset 900ms var(--ease-out-expo) 250ms,
+    opacity 200ms var(--ease-standard);
 }
 
 .flow {
@@ -139,6 +171,13 @@
 
 .stage[data-connected] .line {
   stroke-dashoffset: 0;
+  opacity: 1;
+  transition:
+    stroke-dashoffset 900ms var(--ease-out-expo) 250ms,
+    opacity 200ms var(--ease-standard) 250ms;
+}
+.section[data-compact] .core {
+  scale: 0.8;
 }
 .stage[data-connected] .flow {
   opacity: 1;

@@ -51,12 +51,14 @@ const icons = {
 /**
  * Por qué nace Pling. Escritorio: la sección se ancla con el título a la
  * izquierda y una sola tarjeta a la derecha; al bajar, la primera sale y
- * entra la segunda (y al subir, al revés). Móvil: las dos tarjetas apiladas.
+ * entra la segunda (y al subir, al revés). Móvil: igual, con el título
+ * arriba y la tarjeta debajo (en pantallas muy bajas, apiladas).
  */
 export function PorQueNace() {
   const ref = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const { active, pinned } = useScrollSteps(ref, porQueNace.items.length);
+  const { active, pinned, compact } = useScrollSteps(ref, porQueNace.items.length, { mobile: true });
+  const wide = pinned && !compact;
   usePointerVars(stageRef);
 
   return (
@@ -64,6 +66,7 @@ export function PorQueNace() {
       ref={ref}
       className={styles.section}
       data-pinned={pinned ? "" : undefined}
+      data-compact={compact ? "" : undefined}
       aria-labelledby="nace-title"
     >
       <div className={styles.sticky}>
@@ -80,8 +83,8 @@ export function PorQueNace() {
             </ol>
           </div>
           <div ref={stageRef} className={styles.stage}>
-            <PlingChips items={pinned ? chips : chipsMobile} />
-            <EmojiField items={pinned ? emojis : emojisMobile} />
+            <PlingChips items={wide ? chips : chipsMobile} />
+            <EmojiField items={wide ? emojis : emojisMobile} />
             <ol className={styles.stack}>
               {porQueNace.items.map((it, i) => (
                 <li

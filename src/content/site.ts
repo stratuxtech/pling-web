@@ -86,15 +86,19 @@ export const ctas = {
   adquirir: { label: "Adquirir Pling", kind: "modal" },
 } as const satisfies Record<string, Action>;
 
+/** Orden del cliente (2026-10-17), el mismo en el header y en el footer. */
 export const navbar = {
   links: [
     { label: "Ver demo", href: demoUrl, external: true },
     { label: "Cuánto te ahorra", href: routes.ahorro },
+    { label: "Qué hace Pling", href: routes.queHace },
     { label: "Nosotros", href: routes.nosotros },
-    { label: "FAQ", href: routes.faq },
     { label: "Filosofía", href: routes.filosofia },
+    { label: "FAQ", href: routes.faq },
   ],
   cta: ctas.probar,
+  /** Menú móvil a pantalla completa: botón grande a la portada. */
+  home: { label: "Inicio", href: routes.home },
 } as const;
 
 /* ──────────────── 3. Datos que se repiten (una sola fuente) ───────── */
@@ -318,13 +322,14 @@ export const ctaFinal = {
 } as const;
 
 export const footer = {
+  /** Mismo orden que el header; "Adquirir Pling" (enlace gigante) abre el Modal. */
   links: [
-    { label: "Quiero Pling", kind: "modal" as const },
-    { label: "Ver Demo", href: demoUrl, external: true },
+    { label: "Ver demo", href: demoUrl, external: true },
+    { label: "Cuánto te ahorra", href: routes.ahorro },
     { label: "Qué hace Pling", href: routes.queHace },
     { label: "Nosotros", href: routes.nosotros },
-    { label: "Preguntas frecuentes", href: routes.faq },
-    { label: "Filosofía de emprendedor a empresario", href: routes.filosofia },
+    { label: "Filosofía", href: routes.filosofia },
+    { label: "FAQ", href: routes.faq },
     { label: "Políticas de privacidad", href: routes.privacidad },
   ],
   description: "Pling ordena todo lo que pasa detrás de tu live: cada prenda con su código, cada cobro QR validado con el banco y cada paquete con su compradora.",
@@ -555,11 +560,12 @@ export const nosotrosPage = {
     subline: "¿Quién está detrás de Pling?",
     title: { lead: "Pling está respaldada por", accent: "Growists" },
     intro: "Pling es un producto de Growists, empresa de tecnología que diseña, desarrolla y financia productos digitales. Esto es lo que le da a Pling:",
+    /** En móvil solo se muestra el nombre de cada aporte (sin la explicación). */
     bullets: [
-      "**Estabilidad**: una empresa con estructura y visión a largo plazo detrás de cada tienda.",
-      "**Conexión con los bancos**: la integración que valida cada pago QR en tiempo real.",
-      "**Respaldo tecnológico**: equipo de producto, ingeniería y soporte que acompaña a cada tienda.",
-      "**Financiamiento**: inversión para que Pling crezca al ritmo de sus tiendas.",
+      { label: "Estabilidad", text: "una empresa con estructura y visión a largo plazo detrás de cada tienda." },
+      { label: "Conexión con los bancos", text: "la integración que valida cada pago QR en tiempo real." },
+      { label: "Respaldo tecnológico", text: "equipo de producto, ingeniería y soporte que acompaña a cada tienda." },
+      { label: "Financiamiento", text: "inversión para que Pling crezca al ritmo de sus tiendas." },
     ],
     link: { label: "Conocer Growists", href: parent.url },
     logo: { src: "/logo/growists-color.png", width: 1600, height: 349, alt: "Growists" },

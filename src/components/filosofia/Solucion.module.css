@@ -198,3 +198,41 @@
     transform: none;
   }
 }
+
+/* Móvil anclado: una tarjeta a la vez en la misma celda */
+.section[data-compact] .sticky {
+  height: 100svh;
+}
+.section[data-compact] .head {
+  gap: 0.625rem;
+  margin-bottom: 1.5rem;
+}
+.section[data-compact] .intro {
+  font-size: var(--text-body-md);
+}
+.section[data-compact] .grid {
+  grid-template-columns: 1fr;
+}
+.section[data-compact] .slot {
+  grid-area: 1 / 1;
+}
+.section[data-compact] .slot,
+.section[data-compact] .slot:not([data-shown]) {
+  transform: none;
+}
+.section[data-compact] .slot[data-state="past"] {
+  opacity: 0;
+  transform: translateX(-12%) scale(0.94);
+  pointer-events: none;
+}
+.section[data-compact] .slot[data-state="next"] {
+  opacity: 0;
+  transform: translateX(12%) scale(0.94);
+  pointer-events: none;
+}
+.section[data-compact] .slot[data-state="in"] {
+  opacity: 1;
+}
+.section[data-compact] .card:hover {
+  transform: none;
+}

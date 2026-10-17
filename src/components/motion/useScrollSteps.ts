@@ -4,21 +4,32 @@ import { useEffect, useState } from "react";
 import { scrollToY } from "./lenis";
 
 /**
- * Secuestro de scroll por pasos (escritorio ≥64rem): la sección se ancla y el
- * avance vertical elige el paso activo. En móvil, los pasos son pestañas.
+ * Secuestro de scroll por pasos: la sección se ancla y el avance vertical
+ * elige el paso activo.
+ * - Escritorio (≥64rem): siempre anclada.
+ * - Móvil: anclada solo si `mobile` y la pantalla tiene alto suficiente
+ *   (≥40rem); entonces `compact` es true y la sección usa su maqueta móvil.
+ *   Si no, los pasos son pestañas o tarjetas normales.
  * `select(i)` activa un paso y, si está anclada, desplaza hasta su tramo.
  */
-export function useScrollSteps(sectionRef: React.RefObject<HTMLElement | null>, count: number) {
+export function useScrollSteps(sectionRef: React.RefObject<HTMLElement | null>, count: number, { mobile = false }: { mobile?: boolean } = {}) {
   const [active, setActive] = useState(0);
-  const [pinned, setPinned] = useState(false);
+  const [mode, setMode] = useState<"static" | "full" | "compact">("static");
 
   useEffect(() => {
-    const mq = matchMedia("(min-width: 64rem)");
-    const update = () => setPinned(mq.matches);
+    const wide = matchMedia("(min-width: 64rem)");
+    const tall = matchMedia("(min-height: 40rem)");
+    const update = () => setMode(wide.matches ? "full" : mobile && tall.matches ? "compact" : "static");
     update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
+    wide.addEventListener("change", update);
+    tall.addEventListener("change", update);
+    return () => {
+      wide.removeEventListener("change", update);
+      tall.removeEventListener("change", update);
+    };
+  }, [mobile]);
+
+  const pinned = mode !== "static";
 
   useEffect(() => {
     if (!pinned) return;
@@ -32,7 +43,11 @@ export function useScrollSteps(sectionRef: React.RefObject<HTMLElement | null>, 
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, [pinned, count, sectionRef]);
 
   function select(i: number) {
@@ -55,5 +70,5 @@ export function useScrollSteps(sectionRef: React.RefObject<HTMLElement | null>, 
     document.getElementById(ids[i])?.focus();
   }
 
-  return { active, pinned, select, onTabKey };
+  return { active, pinned, compact: mode === "compact", select, onTabKey };
 }

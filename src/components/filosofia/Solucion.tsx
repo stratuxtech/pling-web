@@ -16,16 +16,17 @@ const count = solucion.items.length;
  * Pling como solución: una tarjeta por etapa del live (antes / en / después).
  * Escritorio: la sección se ancla; primero se ve una tarjeta centrada y, al
  * bajar, aparece la siguiente a su derecha y luego la otra, recentrando el
- * grupo. Las tarjetas crecen en hover e iluminan su base.
+ * grupo. Móvil: también anclada, una tarjeta a la vez (entra la siguiente y
+ * sale la anterior). Las tarjetas crecen en hover e iluminan su base.
  */
 export function Solucion() {
   const ref = useRef<HTMLElement>(null);
-  const { active, pinned } = useScrollSteps(ref, count);
+  const { active, pinned, compact } = useScrollSteps(ref, count, { mobile: true });
   const visible = pinned ? active + 1 : count;
   const shift = (count - visible) / 2;
 
   return (
-    <section ref={ref} className={styles.section} data-pinned={pinned ? "" : undefined} aria-labelledby="solucion-title">
+    <section ref={ref} className={styles.section} data-pinned={pinned ? "" : undefined} data-compact={compact ? "" : undefined} aria-labelledby="solucion-title">
       <div className={styles.sticky}>
         <div className={styles.inner}>
           <div className={styles.head}>
@@ -41,6 +42,7 @@ export function Solucion() {
                 key={it.id}
                 className={styles.slot}
                 data-shown={i < visible ? "" : undefined}
+                data-state={i === active ? "in" : i < active ? "past" : "next"}
                 style={{ "--shift": shift } as React.CSSProperties}
               >
                 <article className={styles.card} data-id={it.id}>

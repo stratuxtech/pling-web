@@ -48,6 +48,20 @@
   margin-top: 0.5rem;
 }
 
+/* Móvil: "Quiero Pling" a la izquierda y "Probar demo" a la derecha */
+@media (max-width: 39.99rem) {
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.625rem;
+    width: 100%;
+  }
+  .buttons a[class] > span[class] {
+    padding-inline: 0.5rem;
+    font-size: var(--text-title-md);
+  }
+}
+
 /* Celulares: algo más estrechos que las fotos de Filosofía */
 .twist {
   --twist-w: clamp(10.5rem, 14vw, 14.5rem);

@@ -27,12 +27,13 @@ const icons = {
  * Escritorio: la sección se ancla y el scroll pasa de "Sin Pling" a "Con
  * Pling"; los toggles desplazan hasta ese tramo, así el scroll siempre manda
  * (no se puede subir desde "Con Pling" sin pasar por "Sin Pling").
- * Móvil: se conectan solos al entrar en pantalla y los toggles cambian el estado.
+ * Móvil: igual, anclada con el escenario ocupando el resto de la pantalla. En
+ * pantallas muy bajas se conectan solos al entrar y los toggles cambian el estado.
  */
 export function Sistemas() {
   const sectionRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const { active, pinned, select } = useScrollSteps(sectionRef, 2);
+  const { active, pinned, compact, select } = useScrollSteps(sectionRef, 2, { mobile: true });
   const [mobileOn, setMobileOn] = useState(false);
   const [manual, setManual] = useState(false);
   const connected = pinned ? active === 1 : mobileOn;
@@ -69,7 +70,13 @@ export function Sistemas() {
   const state = connected ? sistemas.conPling : sistemas.sinPling;
 
   return (
-    <section ref={sectionRef} className={styles.section} aria-labelledby="sistemas-title">
+    <section
+      ref={sectionRef}
+      className={styles.section}
+      data-pinned={pinned ? "" : undefined}
+      data-compact={compact ? "" : undefined}
+      aria-labelledby="sistemas-title"
+    >
       <div className={styles.sticky}>
         <div className={styles.inner}>
           <div className={styles.head}>

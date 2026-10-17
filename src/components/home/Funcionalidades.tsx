@@ -15,22 +15,23 @@ const tabIds = tabs.map((t) => `tab-${t.id}`);
 
 /**
  * Secuestro de scroll (escritorio): la sección se ancla y el scroll vertical
- * recorre Antes / En el live / Después. En móvil son pestañas normales.
+ * recorre Antes / En el live / Después. En móvil también se ancla, con el
+ * celular junto al texto (en pantallas muy bajas, pestañas normales).
  * Las pestañas son un tablist accesible (flechas, Home/End).
  */
 export function Funcionalidades() {
   const sectionRef = useRef<HTMLElement>(null);
-  const { active, pinned, select, onTabKey } = useScrollSteps(sectionRef, tabs.length);
+  const { active, pinned, compact, select, onTabKey } = useScrollSteps(sectionRef, tabs.length, { mobile: true });
   const onKeyDown = (e: React.KeyboardEvent) => onTabKey(e, tabIds);
 
   const tab = tabs[active];
 
   return (
-    <section ref={sectionRef} className={styles.section} data-pinned={pinned ? "" : undefined} aria-labelledby="func-title">
+    <section ref={sectionRef} className={styles.section} data-pinned={pinned ? "" : undefined} data-compact={compact ? "" : undefined} aria-labelledby="func-title">
       <div className={styles.sticky}>
         <div className={styles.inner}>
           <div className={styles.copy}>
-            <Subline as="h2" id="func-title" icon={<IconLayers />}>{funcionalidades.subline}</Subline>
+            <Subline as="h2" id="func-title" icon={<IconLayers />} className={styles.sub}>{funcionalidades.subline}</Subline>
             <Title as="p" parts={funcionalidades.title} className={styles.title} />
             <div role="tablist" aria-label="Etapas del live" className={styles.tabs} onKeyDown={onKeyDown}>
               {tabs.map((t, i) => (

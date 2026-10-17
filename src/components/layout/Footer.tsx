@@ -21,11 +21,7 @@ export function Footer() {
             <ul className={styles.links}>
               {footer.links.map((l) => (
                 <li key={l.label}>
-                  {"kind" in l ? (
-                    <a href={routes.contacto} data-open-modal className={styles.link}>
-                      {l.label}
-                    </a>
-                  ) : "external" in l && l.external ? (
+                  {"external" in l && l.external ? (
                     <a href={l.href} target="_blank" rel="noopener" className={styles.link}>
                       {l.label}
                       <IconArrowUpRight className="size-4" />

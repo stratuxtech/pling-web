@@ -207,3 +207,8 @@ export const IconChat = (p: IconProps) => (
     <path d="M9 9.5h6M9 12.5h4" />
   </Line>
 );
+export const IconHome = (p: IconProps) => (
+  <Line {...p}>
+    <path d="M4 10.5 12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5H15v-5.5h-6v5.5H5.5A1.5 1.5 0 0 1 4 19z" />
+  </Line>
+);

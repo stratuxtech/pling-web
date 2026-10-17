@@ -17,17 +17,18 @@ const tabIds = items.map((it) => `problema-${it.id}`);
 /**
  * Problemas al vender: la sección se ancla y el scroll recorre los 3 momentos
  * de caos en orden (Inventario > Live > Delivery), cambiando la foto de fondo
- * y las evidencias. En móvil son pestañas normales.
+ * y las evidencias. En móvil también se ancla: pestañas numeradas arriba y la
+ * foto con su nota debajo (en pantallas muy bajas, pestañas normales).
  */
 export function Problemas() {
   const sectionRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   usePointerVars(stageRef);
-  const { active, pinned, select, onTabKey } = useScrollSteps(sectionRef, items.length);
+  const { active, pinned, compact, select, onTabKey } = useScrollSteps(sectionRef, items.length, { mobile: true });
   const item = items[active];
 
   return (
-    <section ref={sectionRef} className={styles.section} data-pinned={pinned ? "" : undefined} aria-labelledby="problemas-title">
+    <section ref={sectionRef} className={styles.section} data-pinned={pinned ? "" : undefined} data-compact={compact ? "" : undefined} aria-labelledby="problemas-title">
       <div className={styles.sticky}>
         <div className={styles.inner}>
           <div className={styles.copy}>
@@ -53,7 +54,7 @@ export function Problemas() {
                   onClick={() => select(i)}
                 >
                   <span className={styles.step}>{it.step}</span>
-                  <span>{it.title}</span>
+                  <span className={styles.tabTitle}>{it.title}</span>
                 </button>
               ))}
             </div>

@@ -16,11 +16,17 @@
   outline-offset: -4px;
 }
 
-/* Con JS: el scroll vertical mueve la fila */
+/* Con JS: el scroll vertical mueve la fila; el arrastre horizontal, también */
 .viewport[data-driven] {
   overflow: visible;
   scroll-snap-type: none;
   padding-block: 5rem 4rem;
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+}
+.viewport[data-dragging] {
+  cursor: grabbing;
 }
 
 .track {
@@ -30,6 +36,13 @@
   padding: 0 calc(50vw - var(--slide-w) / 2);
   list-style: none;
   will-change: transform;
+}
+
+/* Móvil: la primera foto empieza pegada a la izquierda y la última termina a la derecha */
+@media (max-width: 63.99rem) {
+  .track {
+    padding: 0 var(--gutter);
+  }
 }
 
 .slide {

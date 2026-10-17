@@ -1,13 +1,14 @@
 import Image from "next/image";
 import { nosotrosPage } from "@/content/site";
 import { Rich } from "@/components/ui/Rich";
+import { Accent } from "@/components/ui/Title";
 import styles from "./MisionVision.module.css";
 
 /**
  * Misión (imagen arriba, texto abajo) y Visión (texto arriba, imagen abajo).
  * La foto de Misión entra gigante y se achica al hacer scroll hasta encajar
  * en su caja (noth.in: 1.8 → 1). Visión no escala: su foto quedaría sobre el
- * texto mientras se lee.
+ * texto mientras se lee. Títulos en énfasis: Misión en azul, Visión en rojo.
  */
 export function MisionVision() {
   const { mision, vision } = nosotrosPage;
@@ -42,7 +43,7 @@ export function MisionVision() {
                 {b.imageFirst ? media : null}
                 <div className={styles.body}>
                   <h2 id={`${b.id}-title`} className={styles.title}>
-                    {b.title}
+                    <Accent red={b.id === "vision"}>{b.title}</Accent>
                   </h2>
                   <p className={styles.text}>
                   <Rich text={b.text} />

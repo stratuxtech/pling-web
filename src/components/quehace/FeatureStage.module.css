@@ -4,7 +4,7 @@
   scroll-margin-top: 0;
 }
 
-/* Anclada: un tramo de scroll por función */
+/* Anclada: un tramo de scroll por función (escritorio y móvil) */
 .section[data-pinned] {
   height: calc(100vh + var(--n) * 55vh);
   padding: 0;
@@ -27,7 +27,7 @@
   padding: 0 var(--gutter);
 }
 
-.section[data-pinned] .inner {
+.section[data-full] .inner {
   grid-template-columns: 1.05fr 1fr;
   align-items: center;
   gap: 3rem;
@@ -72,7 +72,7 @@
   list-style: none;
 }
 
-.section[data-pinned] .list {
+.section[data-full] .list {
   gap: 0.125rem;
   margin-top: 0.5rem;
 }
@@ -145,7 +145,7 @@
 }
 
 /* Escritorio anclado: acordeón guiado por el scroll */
-.section[data-pinned] .item {
+.section[data-full] .item {
   display: block;
   padding: 0;
   border-radius: 0;
@@ -153,7 +153,7 @@
   box-shadow: none;
 }
 
-.section[data-pinned] .itemTitle {
+.section[data-full] .itemTitle {
   flex-direction: row;
   align-items: center;
   gap: 0.875rem;
@@ -175,22 +175,22 @@
 .item[data-done] .num {
   background: var(--color-primary-100);
 }
-.section[data-pinned] .item[data-on] .num {
+.section[data-full] .item[data-on] .num {
   background: var(--color-primary);
   color: var(--color-on-primary);
   box-shadow: var(--shadow-glow-primary);
 }
 
-.section[data-pinned] .panel {
+.section[data-full] .panel {
   display: grid;
   grid-template-rows: 0fr;
   padding-left: 2.875rem;
   transition: grid-template-rows 600ms var(--ease-out-expo);
 }
-.section[data-pinned] .item[data-on] .panel {
+.section[data-full] .item[data-on] .panel {
   grid-template-rows: 1fr;
 }
-.section[data-pinned] .panel > .text {
+.section[data-full] .panel > .text {
   min-height: 0;
   overflow: hidden;
   max-width: 44ch;
@@ -198,7 +198,7 @@
   opacity: 0;
   transition: opacity 400ms var(--ease-standard);
 }
-.section[data-pinned] .item[data-on] .panel > .text {
+.section[data-full] .item[data-on] .panel > .text {
   padding-bottom: 0.75rem;
   opacity: 1;
   transition-delay: 150ms;
@@ -276,17 +276,102 @@
 
 /* Pantallas bajas: se prescinde de la entradilla para que todo quepa */
 @media (max-height: 50rem) {
-  .section[data-pinned] .intro {
+  .section[data-full] .intro {
     display: none;
   }
 }
 
 
 @media (prefers-reduced-motion: reduce) {
-  .section[data-pinned] .panel,
-  .section[data-pinned] .panel > .text,
+  .section[data-full] .panel,
+  .section[data-full] .panel > .text,
   .num,
   .itemBtn {
+    transition: none;
+  }
+}
+
+.listWrap {
+  position: relative;
+  width: 100%;
+}
+
+.compactFoot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.875rem;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+.compactFoot .cta {
+  margin-top: 0;
+}
+
+/* Puntos de avance (móvil anclado) */
+.dots {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+}
+.dots li {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-200);
+  transition:
+    transform var(--duration-long) var(--ease-out-expo),
+    background-color var(--duration-medium) var(--ease-standard);
+}
+.dots li[data-on] {
+  transform: scale(1.4);
+  background: var(--color-primary);
+}
+
+/* Móvil anclado: una función a la vez, en la misma celda */
+.section[data-compact] .sticky {
+  height: 100svh;
+}
+.section[data-compact] .inner {
+  gap: 0;
+  padding-top: 4.25rem;
+}
+.section[data-compact] .copy {
+  gap: 0.5rem;
+}
+.section[data-compact] .title {
+  font-size: var(--text-headline-lg);
+  line-height: 1.2;
+}
+.section[data-compact] .intro,
+.section[data-compact] .mobileDeco {
+  display: none;
+}
+.section[data-compact] .list {
+  margin-top: 1.25rem;
+}
+.section[data-compact] .item {
+  grid-area: 1 / 1;
+  transition:
+    opacity 500ms var(--ease-standard),
+    transform 800ms var(--ease-out-expo);
+}
+.section[data-compact] .item[data-state="past"] {
+  opacity: 0;
+  transform: translateX(-10%) scale(0.95);
+  pointer-events: none;
+}
+.section[data-compact] .item[data-state="next"] {
+  opacity: 0;
+  transform: translateX(10%) scale(0.95);
+  pointer-events: none;
+}
+.section[data-compact] .compactFoot {
+  margin-top: 1.25rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section[data-compact] .item {
     transition: none;
   }
 }

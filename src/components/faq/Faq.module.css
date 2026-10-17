@@ -182,7 +182,7 @@
   font-size: var(--text-title-lg);
   line-height: var(--text-title-lg--line-height);
   color: var(--color-on-surface);
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   list-style: none;
 }
 .q::-webkit-details-marker {

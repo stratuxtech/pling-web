@@ -95,7 +95,7 @@
   height: 2.5rem;
   border-radius: var(--radius-full);
   color: var(--color-on-surface);
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
 }
 .menuBtn:hover {
   background: var(--color-primary-50);

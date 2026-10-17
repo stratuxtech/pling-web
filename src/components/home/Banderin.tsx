@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { home } from "@/content/site";
+import Image from "next/image";
+import { brand, home } from "@/content/site";
 import { Subline, Accent } from "@/components/ui/Title";
 import { IconBox, IconSpark, IconTiktok, IconWhatsapp } from "@/components/icons";
 import styles from "./Banderin.module.css";
@@ -93,6 +94,11 @@ export function Banderin() {
         <div className={styles.close}>
           {banderin.close.map((c) => (
             <p key={c.lead} className={styles.piece} style={step()}>
+              {"logo" in c && c.logo ? (
+                <>
+                  <Image src={brand.logo.color.src} alt="" width={brand.logo.color.width} height={brand.logo.color.height} className={styles.logo} />{" "}
+                </>
+              ) : null}
               {c.lead}
               {"accent2" in c && c.accent2 ? (
                 <>

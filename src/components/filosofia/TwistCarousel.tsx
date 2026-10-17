@@ -1,14 +1,23 @@
 import Image from "next/image";
 import { filosofiaPage } from "@/content/site";
 import { Subline, Title } from "@/components/ui/Title";
-import { IconStore } from "@/components/icons";
+import { IconAlert, IconPhone, IconStore, IconTrendUp } from "@/components/icons";
 import { Rich } from "@/components/ui/Rich";
 import { ScrollTwist } from "@/components/motion/ScrollTwist";
 import styles from "./TwistCarousel.module.css";
 
 const { carrusel } = filosofiaPage;
+const stepIcons = {
+  emprender: <IconPhone className="size-5" />,
+  problemas: <IconAlert className="size-5" />,
+  empresa: <IconTrendUp className="size-5" />,
+};
 
-/** "De emprendedores a empresarios": fotos en el carrusel con torsión ligado al scroll. */
+/**
+ * "De emprendedora a empresaria": TikTok Live democratiza el emprendimiento,
+ * crecer trae problemas y Pling ayuda a dar el salto. Debajo, las fotos del
+ * camino en el carrusel con torsión ligado al scroll.
+ */
 export function TwistCarousel() {
   return (
     <section className={styles.section} aria-labelledby="carrusel-title">
@@ -23,6 +32,24 @@ export function TwistCarousel() {
           <Rich text={carrusel.text} />
         </p>
       </div>
+      <ol className={styles.steps}>
+        {carrusel.steps.map((s, i) => (
+          <li key={s.id} className={styles.step} data-id={s.id}>
+            <span className={styles.stepIcon} aria-hidden>
+              {stepIcons[s.id as keyof typeof stepIcons]}
+            </span>
+            <div>
+              <p className={styles.stepTitle}>
+                <span className="sr-only">Paso {i + 1}: </span>
+                {s.title}
+              </p>
+              <p className={styles.stepText}>
+                <Rich text={s.text} />
+              </p>
+            </div>
+          </li>
+        ))}
+      </ol>
       <ScrollTwist
         label="Fotos del crecimiento de una tienda (desliza para ver más)"
         items={carrusel.slides.map((s) => ({

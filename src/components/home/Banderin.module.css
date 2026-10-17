@@ -164,3 +164,11 @@
     transform: scale(1.2);
   }
 }
+
+/* "Pling" del cierre: el logotipo oficial a la altura de la línea */
+.logo {
+  display: inline-block;
+  width: auto;
+  height: 1.05em;
+  vertical-align: -0.2em;
+}

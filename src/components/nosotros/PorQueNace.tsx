@@ -101,7 +101,7 @@ export function PorQueNace() {
                     <p className={styles.kicker}>
                       Razón {i + 1} de {porQueNace.items.length}
                     </p>
-                    <h3 className={styles.cardTitle}>{it.title}</h3>
+                    <Title as="h3" parts={it.title} className={styles.cardTitle} />
                     <p className={styles.text}>
                       <Rich text={it.text} />
                     </p>

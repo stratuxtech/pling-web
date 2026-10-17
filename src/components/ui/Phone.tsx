@@ -91,6 +91,7 @@ export function Phone({
               sizes={sizes}
               priority={priority && i === 0}
               className={styles.img}
+              style={s.pos ? { objectPosition: s.pos } : undefined}
               data-active={i === active ? "" : undefined}
             />
           ))}

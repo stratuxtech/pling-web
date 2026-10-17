@@ -58,3 +58,71 @@
 .img {
   object-fit: cover;
 }
+
+/* El argumento en tres pasos: emprender → problemas → Pling */
+.steps {
+  display: grid;
+  gap: 0.75rem;
+  max-width: var(--container-content);
+  margin: 2rem auto 0;
+  padding: 0 var(--gutter);
+  list-style: none;
+  counter-reset: paso;
+}
+
+@media (min-width: 48rem) {
+  .steps {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+}
+
+.step {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-1);
+}
+
+.step[data-id="empresa"] {
+  background: var(--color-primary-50);
+  box-shadow: var(--shadow-glow-primary);
+}
+
+.stepIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-container);
+  color: var(--color-primary-700);
+}
+.step[data-id="problemas"] .stepIcon {
+  background: var(--color-error-container);
+  color: var(--color-error);
+}
+.step[data-id="empresa"] .stepIcon {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.stepTitle {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-lg);
+  line-height: var(--text-title-lg--line-height);
+  color: var(--color-on-surface);
+}
+
+.stepText {
+  margin-top: 0.125rem;
+  font-size: var(--text-body-md);
+  line-height: 1.55;
+  color: var(--color-on-surface-variant);
+}

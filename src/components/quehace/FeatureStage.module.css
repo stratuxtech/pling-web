@@ -1,0 +1,292 @@
+.section {
+  position: relative;
+  padding: var(--section-space) 0 0;
+  scroll-margin-top: 0;
+}
+
+/* Anclada: un tramo de scroll por función */
+.section[data-pinned] {
+  height: calc(100vh + var(--n) * 55vh);
+  padding: 0;
+}
+
+.section[data-pinned] .sticky {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
+.inner {
+  display: grid;
+  gap: 2rem;
+  width: 100%;
+  max-width: var(--container-content);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.section[data-pinned] .inner {
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  gap: 3rem;
+  padding-top: 4.5rem;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.875rem;
+}
+
+.kicker {
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-label-lg);
+  line-height: var(--text-label-lg--line-height);
+  color: var(--color-on-surface-variant);
+}
+.kicker span {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+}
+
+.title {
+  font-size: var(--text-display-sm);
+  line-height: var(--text-display-sm--line-height);
+}
+
+.intro {
+  max-width: 40ch;
+  font-size: var(--text-body-lg);
+  line-height: 1.6;
+  color: var(--color-on-surface-variant);
+}
+
+/* Lista de funciones */
+.list {
+  display: grid;
+  gap: 0.75rem;
+  width: 100%;
+  margin-top: 0.75rem;
+  list-style: none;
+}
+
+.section[data-pinned] .list {
+  gap: 0.125rem;
+  margin-top: 0.5rem;
+}
+
+/* Móvil: tarjeta horizontal, captura a la izquierda y texto a la derecha */
+.item {
+  display: grid;
+  grid-template-columns: 34% 1fr;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.875rem;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-1);
+}
+
+.media {
+  padding: 0.375rem;
+  border-radius: var(--radius-lg-plus);
+  background:
+    radial-gradient(80% 60% at 50% 100%, rgb(69 77 244 / 0.2), transparent 70%),
+    var(--color-primary-50);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  min-width: 0;
+}
+
+.itemTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.375rem;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-lg);
+  line-height: var(--text-title-lg--line-height);
+  color: var(--color-on-surface);
+}
+
+.num {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.375rem;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-container);
+  color: var(--color-primary-700);
+  font-family: var(--font-mono);
+  font-size: var(--text-label-md);
+  line-height: 1;
+  transition:
+    background-color var(--duration-medium) var(--ease-standard),
+    color var(--duration-medium) var(--ease-standard);
+}
+
+.text {
+  font-size: var(--text-body-md);
+  line-height: 1.6;
+  color: var(--color-on-surface-variant);
+}
+
+.cta {
+  margin-top: 1rem;
+}
+
+/* Escritorio anclado: acordeón guiado por el scroll */
+.section[data-pinned] .item {
+  display: block;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.section[data-pinned] .itemTitle {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.875rem;
+  font-size: var(--text-title-lg);
+}
+
+.itemBtn {
+  flex: 1;
+  padding: 0.5rem 0;
+  text-align: left;
+  color: var(--color-on-surface-variant);
+  transition: color var(--duration-medium) var(--ease-standard);
+}
+.itemBtn:hover,
+.item[data-on] .itemBtn {
+  color: var(--color-on-surface);
+}
+
+.item[data-done] .num {
+  background: var(--color-primary-100);
+}
+.section[data-pinned] .item[data-on] .num {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  box-shadow: var(--shadow-glow-primary);
+}
+
+.section[data-pinned] .panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  padding-left: 2.875rem;
+  transition: grid-template-rows 600ms var(--ease-out-expo);
+}
+.section[data-pinned] .item[data-on] .panel {
+  grid-template-rows: 1fr;
+}
+.section[data-pinned] .panel > .text {
+  min-height: 0;
+  overflow: hidden;
+  max-width: 44ch;
+  font-size: var(--text-body-lg);
+  opacity: 0;
+  transition: opacity 400ms var(--ease-standard);
+}
+.section[data-pinned] .item[data-on] .panel > .text {
+  padding-bottom: 0.75rem;
+  opacity: 1;
+  transition-delay: 150ms;
+}
+
+/* Celular con la pantalla de la función activa */
+.visual {
+  --mx: 0;
+  --my: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: center;
+  width: 100%;
+  max-width: 32rem;
+  padding: 1.5rem 0;
+}
+
+.glow {
+  position: absolute;
+  inset: 10% 14%;
+  border-radius: 50%;
+  background:
+    radial-gradient(closest-side, rgb(69 77 244 / 0.24), transparent),
+    radial-gradient(closest-side at 70% 72%, rgb(255 74 61 / 0.16), transparent);
+  filter: blur(32px);
+}
+.section[data-stage="durante"] .glow {
+  background:
+    radial-gradient(closest-side, rgb(255 74 61 / 0.22), transparent),
+    radial-gradient(closest-side at 30% 30%, rgb(69 77 244 / 0.18), transparent);
+}
+
+.phone {
+  position: relative;
+  --w: min(19vw, 16.5rem, 34vh);
+}
+
+/* Bajo el celular: en qué función vas y el CTA */
+.foot {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.counter {
+  padding: 0.375rem 0.875rem;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-1);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-label-lg);
+  line-height: var(--text-label-lg--line-height);
+  color: var(--color-on-surface-variant);
+}
+
+/* Móvil: franja decorativa con UI y emojis que derivan solos */
+.mobileDeco {
+  --mx: 0;
+  --my: 0;
+  position: relative;
+  height: 6rem;
+}
+
+@media (min-width: 40rem) {
+  .item {
+    grid-template-columns: 26% 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Pantallas bajas: se prescinde de la entradilla para que todo quepa */
+@media (max-height: 50rem) {
+  .section[data-pinned] .intro {
+    display: none;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .section[data-pinned] .panel,
+  .section[data-pinned] .panel > .text,
+  .num,
+  .itemBtn {
+    transition: none;
+  }
+}

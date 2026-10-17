@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { home } from "@/content/site";
 import { Subline, Title } from "@/components/ui/Title";
 import { Phone } from "@/components/ui/Phone";
+import { Button } from "@/components/ui/Button";
 import { IconCheck, IconLayers } from "@/components/icons";
 import { useScrollSteps } from "@/components/motion/useScrollSteps";
 import styles from "./Funcionalidades.module.css";
@@ -67,6 +68,7 @@ export function Funcionalidades() {
                 </ul>
               </div>
             </div>
+            <Button action={funcionalidades.link} variant="outline" className={styles.more} />
           </div>
 
           <div className={styles.visual}>

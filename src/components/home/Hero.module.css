@@ -34,24 +34,30 @@
   text-wrap: pretty;
 }
 
+/* "Pling se encarga de todo lo demás:" en un segundo tamaño, más pequeño,
+   para que el label cambiante que lo completa sea el protagonista. */
 .tail {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: var(--text-headline-md);
+  line-height: 1.25;
+  letter-spacing: 0;
   color: var(--color-on-surface);
 }
 
-/* El rotador continúa la frase del H1, en Rojo coral */
 /*
- * El rotador continúa la frase del titular en la tipografía de énfasis
- * (Cookie), en Rojo Pling: es el segundo énfasis. Su tamaño se ajusta al ancho
- * de la columna (cqi) para que la frase más larga quepa en una línea; en
- * pantallas estrechas no baja de 2.25rem y puede partirse.
+ * El rotador continúa la frase en la tipografía de énfasis (Cookie), en Rojo
+ * Pling: es el segundo énfasis. Grande: su tamaño sigue al ancho de la columna
+ * (cqi) y las frases largas ocupan dos líneas; la celda mide siempre lo que la
+ * frase más alta, así nada salta.
  */
 .rotator {
-  margin-top: -1rem;
+  margin-top: -1.25rem;
   width: 100%;
   font-family: var(--font-accent);
   font-weight: var(--font-weight-regular);
-  font-size: clamp(2.25rem, 7.4cqi, calc(var(--text-display-sm) * 1.32));
-  line-height: 1.05;
+  font-size: clamp(2.75rem, 12cqi, 5.25rem);
+  line-height: 0.98;
   color: var(--color-coral);
 }
 
@@ -60,8 +66,8 @@
     font-size: var(--text-display-md);
     line-height: var(--text-display-md--line-height);
   }
-  .rotator {
-    font-size: clamp(2.25rem, 7.4cqi, calc(var(--text-display-md) * 1.32));
+  .tail {
+    font-size: var(--text-headline-lg);
   }
 }
 
@@ -70,9 +76,6 @@
     font-size: var(--text-display-lg);
     line-height: var(--text-display-lg--line-height);
     letter-spacing: var(--text-display-lg--letter-spacing);
-  }
-  .rotator {
-    font-size: clamp(2.25rem, 7.4cqi, calc(var(--text-display-lg) * 1.32));
   }
 }
 
@@ -151,7 +154,7 @@
   border-radius: var(--radius-full);
   color: var(--color-primary);
   background: var(--color-primary-50);
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
 }
 .pause:hover {
   background: var(--color-primary-100);

@@ -12,7 +12,7 @@
   z-index: 1;
   max-width: var(--container-content);
   margin: 0 auto;
-  padding: clamp(3.5rem, 8vw, 6rem) var(--gutter) 0;
+  padding: clamp(3.5rem, 8vw, 6rem) var(--gutter) clamp(3.5rem, 9vw, 6.5rem);
 }
 
 .grid {
@@ -220,23 +220,29 @@ a.contactItem:hover {
   padding: 1.5rem 0 0;
   font-size: var(--text-body-md);
   line-height: var(--text-body-md--line-height);
-  color: var(--color-on-surface-variant);
+  color: var(--color-on-surface);
 }
 .legal a {
   color: var(--color-on-surface);
   font-weight: var(--font-weight-medium);
 }
 
-/* El líquido empieza justo debajo de la línea legal, detrás de todo y al 80% */
+/*
+ * El líquido es el fondo del pie: nace en el borde inferior, sube por detrás de
+ * la línea legal y se desvanece hacia arriba. Va detrás de todo y con baja
+ * opacidad para que el texto conserve el contraste.
+ */
 .liquid {
-  position: relative;
+  position: absolute;
+  inset: auto 0 0;
   z-index: 0;
   display: block;
   width: 100%;
-  height: clamp(10rem, 26vw, 19rem);
-  margin-top: 0.5rem;
-  opacity: 0.8;
+  height: clamp(12rem, 30vw, 22rem);
+  opacity: 0.42;
   pointer-events: none;
+  -webkit-mask-image: linear-gradient(to top, #000 30%, transparent 100%);
+  mask-image: linear-gradient(to top, #000 30%, transparent 100%);
 }
 
 .liquid[data-fallback] {

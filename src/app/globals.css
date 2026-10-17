@@ -289,12 +289,31 @@ html.lenis body {
   overscroll-behavior: contain;
 }
 
+/*
+ * Cursor de marca: flecha en Rojo coral, como la campana del logo. Sobre lo
+ * clicable, la misma flecha suena (las ondas de la campana). Los campos de
+ * texto conservan la barra de escritura.
+ */
+:root {
+  --cursor: url("/cursor/arrow.svg") 4 3, auto;
+  --cursor-pointer: url("/cursor/pointer.svg") 4 3, pointer;
+}
+html {
+  cursor: var(--cursor);
+}
+:where(a[href], button:not(:disabled), [role="tab"], [role="button"], summary, label[for], select, input[type="range"], input[type="checkbox"], input[type="radio"]) {
+  cursor: var(--cursor-pointer);
+}
+:where(input:not([type="range"], [type="checkbox"], [type="radio"]), textarea) {
+  cursor: text;
+}
+
 /* El cursor CTA sustituye al puntero solo cuando su JS está activo */
 .cursor-cta [data-cursor] {
   cursor: none;
 }
 .cursor-cta [data-cursor] :is(a, button) {
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
 }
 
 /* Hueco de contenido pendiente: visible a propósito en la vista previa. */

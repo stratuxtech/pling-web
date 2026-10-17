@@ -85,7 +85,7 @@
   font-size: var(--text-title-md);
   line-height: var(--text-title-md--line-height);
   color: var(--color-on-surface);
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   list-style: none;
 }
 .accSummary::-webkit-details-marker {

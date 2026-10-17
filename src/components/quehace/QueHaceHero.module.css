@@ -1,0 +1,217 @@
+.hero {
+  max-width: var(--container-content);
+  margin: 0 auto;
+  padding: 7rem var(--gutter) 0;
+}
+
+.grid {
+  display: grid;
+  gap: 3.5rem;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 64rem) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.title {
+  font-size: var(--text-display-sm);
+  line-height: var(--text-display-sm--line-height);
+}
+
+@media (min-width: 40rem) {
+  .title {
+    font-size: var(--text-display-md);
+    line-height: var(--text-display-md--line-height);
+  }
+}
+
+.text {
+  max-width: 34rem;
+  font-size: var(--text-body-lg);
+  line-height: 1.65;
+  color: var(--color-on-surface-variant);
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+/* Tres celulares en abanico: la pantalla de cada etapa */
+.visual {
+  --mx: 0;
+  --my: 0;
+  position: relative;
+  width: 100%;
+  max-width: 36rem;
+  justify-self: center;
+  padding: 1.5rem 0 2rem;
+}
+
+.halo {
+  position: absolute;
+  inset: 10% 8%;
+  border-radius: 50%;
+  background:
+    radial-gradient(closest-side, rgb(69 77 244 / 0.22), transparent),
+    radial-gradient(closest-side at 72% 70%, rgb(255 74 61 / 0.18), transparent);
+  filter: blur(30px);
+}
+
+.fan {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slot {
+  position: relative;
+  flex: none;
+  translate: calc(var(--mx) * var(--d) * 10px) calc(var(--my) * var(--d) * 8px);
+  transition: translate 1100ms var(--ease-out-expo);
+  animation: enter 1100ms var(--ease-out-expo) backwards;
+  animation-delay: calc(var(--i) * 120ms + 120ms);
+}
+.slot[data-i="0"] { --i: 0; --d: 0.8; rotate: -9deg; margin-right: -9%; margin-top: 8%; }
+.slot[data-i="1"] { --i: 1; --d: 1.3; z-index: 2; }
+.slot[data-i="2"] { --i: 2; --d: 0.8; rotate: 9deg; margin-left: -9%; margin-top: 8%; }
+
+.phone {
+  --w: min(30vw, 9.5rem);
+}
+.slot[data-i="1"] .phone {
+  --w: min(38vw, 12rem);
+}
+
+@media (min-width: 64rem) {
+  .phone {
+    --w: min(13vw, 12rem, 26vh);
+  }
+  .slot[data-i="1"] .phone {
+    --w: min(16vw, 15rem, 32vh);
+  }
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    translate: 0 48px;
+  }
+}
+
+/* Índice de etapas */
+.index {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+}
+
+.indexList {
+  display: grid;
+  gap: 0.75rem;
+  list-style: none;
+}
+
+@media (min-width: 48rem) {
+  .indexList {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+}
+
+.indexCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-1);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    transform var(--duration-medium) var(--ease-out-expo),
+    box-shadow var(--duration-medium) var(--ease-out-expo);
+}
+.indexCard:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-3);
+}
+
+.indexEmoji {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-50);
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.indexBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.indexKicker {
+  font-size: var(--text-label-md);
+  line-height: var(--text-label-md--line-height);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary-700);
+}
+
+.indexLabel {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-lg);
+  line-height: var(--text-title-lg--line-height);
+  color: var(--color-on-surface);
+}
+
+.indexCount {
+  font-size: var(--text-body-md);
+  line-height: var(--text-body-md--line-height);
+  color: var(--color-on-surface-variant);
+}
+
+.indexArrow {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--color-primary);
+  rotate: 90deg;
+  transition: translate var(--duration-medium) var(--ease-out-expo);
+}
+.indexCard:hover .indexArrow {
+  translate: 0 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slot {
+    animation: none;
+    transition: none;
+  }
+  .indexCard,
+  .indexArrow {
+    transition: none;
+  }
+}

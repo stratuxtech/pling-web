@@ -14,7 +14,8 @@
 export const PENDIENTE = "PENDIENTE" as const;
 type Pendiente = typeof PENDIENTE;
 
-export type Img = { src: string; alt: string; width: number; height: number; credit?: { by: string; url: string } };
+/** `pos`: encuadre de la captura dentro del celular (object-position); por defecto, arriba. */
+export type Img = { src: string; alt: string; width: number; height: number; credit?: { by: string; url: string }; pos?: string };
 
 /* ─────────────────────────── 1. Identidad ─────────────────────────── */
 
@@ -66,6 +67,7 @@ export const routes = {
   ahorro: "/cuanto-te-ahorra",
   nosotros: "/nosotros",
   filosofia: "/filosofia",
+  queHace: "/que-hace-pling",
   faq: "/faq",
   contacto: "/contacto",
   privacidad: "/politicas-de-privacidad",
@@ -230,6 +232,14 @@ export const screens = {
   liveEjecucion: { src: "/screens/live-ejecucion.png", alt: "Pantalla de Pling: live en ejecución, cambiar el producto a emitir", width: 824, height: 2354 },
   ticketera: { src: "/screens/ticketera.png", alt: "Pantalla de Pling: conectar la Ticketera Pling para imprimir etiquetas", width: 824, height: 1834 },
   catalogos: { src: "/screens/catalogos.png", alt: "Pantalla de Pling: catálogos próximos listos para el live", width: 824, height: 1834 },
+  catalogoResumen: { src: "/screens/catalogo-resumen.png", alt: "Pantalla de Pling: resumen del catálogo con fecha, hora, prendas, total y enlace de la tienda", width: 824, height: 2036 },
+  liveSeleccion: { src: "/screens/live-seleccion.png", alt: "Pantalla de Pling: elegir la prenda del catálogo que sale al aire", width: 824, height: 2276 },
+  catalogoFinalizado: { src: "/screens/catalogo-finalizado.png", alt: "Pantalla de Pling: catálogo finalizado, todos los productos vendidos", width: 824, height: 1834 },
+  prendaVendida: { src: "/screens/prenda-vendida.png", alt: "Pantalla de Pling: prenda vendida con su código, su catálogo y la compradora que la compró", width: 824, height: 2404, pos: "bottom" },
+  cotizarEnvio: { src: "/screens/cotizar-envio.png", alt: "Pantalla de Pling: cotizar el costo del envío de una orden", width: 824, height: 2934, pos: "bottom" },
+  envioAprobado: { src: "/screens/envio-aprobado.png", alt: "Pantalla de Pling: envío aprobado, confirmar el envío con su enlace de seguimiento", width: 824, height: 2934, pos: "bottom" },
+  reclamos: { src: "/screens/reclamos.png", alt: "Pantalla de Pling: reclamos con cancelaciones y devoluciones por día", width: 824, height: 1784 },
+  notificaciones: { src: "/screens/notificaciones.png", alt: "Pantalla de Pling: notificaciones de envíos, cancelaciones y devoluciones", width: 824, height: 2240 },
 } satisfies Record<string, Img>;
 
 export const photos = {
@@ -283,7 +293,7 @@ export const modal = {
 } as const;
 
 export const ctaFinal = {
-  subline: "Cómo funciona Pling, paso a paso",
+  subline: "Cómo funciona Pling paso a paso",
   /** Título: el tagline de marca; segundo énfasis en rojo (regla de titulares). */
   title: { lead: "Vende en vivo.", accent: "Cobra seguro.", accent2: "Entrega en orden." },
   text: "Así se ve un día con Pling, de la primera prenda cargada al último paquete entregado.",
@@ -311,6 +321,7 @@ export const footer = {
   links: [
     { label: "Quiero Pling", kind: "modal" as const },
     { label: "Ver Demo", href: demoUrl, external: true },
+    { label: "Qué hace Pling", href: routes.queHace },
     { label: "Nosotros", href: routes.nosotros },
     { label: "Preguntas frecuentes", href: routes.faq },
     { label: "Filosofía de emprendedor a empresario", href: routes.filosofia },
@@ -346,7 +357,7 @@ export const home = {
       "Pling es el sistema de gestión operativa para ventas por TikTok Live: valida pagos QR al instante, identifica cada prenda con un código único y ordena tus envíos.",
   },
   hero: {
-    subline: "App de gestión para vender por TikTok Live",
+    subline: "App para vender por TikTok Live",
     title: { lead: "Vender por TikTok Live", accent: "ya lo haces bien.", tail: "Pling se encarga de todo lo demás:" },
     /** Cada frase se sincroniza con una de las 3 vistas (`view`). */
     rotator: [
@@ -375,7 +386,8 @@ export const home = {
     ],
     join: { lead: "en un solo", accent: "sistema:" },
     results: ["cada prenda con su código", "cada pago QR validado al instante", "cada envío en orden"],
-    close: [{ lead: "Tú vendes." }, { lead: "Pling hace", accent2: "el resto." }],
+    /** "Pling" del cierre va con el logotipo oficial, no escrito. */
+    close: [{ lead: "Tú vendes." }, { logo: true, lead: "hace", accent2: "el resto." }],
   },
   ahorro: {
     subline: "¿Cuánto ahorra Pling?",
@@ -384,11 +396,12 @@ export const home = {
     link: { label: "Ver cuánto te ahorra", kind: "link", href: routes.ahorro } as Action,
   },
   tiendas: {
-    subline: "Tiendas de TikTok que trabajan con Pling",
+    subline: "Tiendas TikTok Live que usan Pling",
   },
   funcionalidades: {
-    subline: "Funciones de Pling para vender en TikTok Live",
-    title: { lead: "Pling te acompaña", accent: "antes, durante y después", tail: "del live" },
+    subline: "Cómo gestionar ventas por TikTok Live",
+    title: { lead: "Pling te acompaña", accent: "antes, durante y después", tail: "del live", red: true },
+    link: { label: "Ver todo lo que hace Pling", kind: "link", href: routes.queHace } as Action,
     borrador: true,
     tabs: [
       {
@@ -421,7 +434,7 @@ export const home = {
     ],
   },
   sistemas: {
-    subline: "Pling conecta TikTok Live, WhatsApp e inventario",
+    subline: "Cómo vender más fácil por TikTok Live",
     title: { lead: "Tres sistemas,", accent: "un solo flujo" },
     borrador: true,
     nodes: [
@@ -497,7 +510,7 @@ export const ahorroPage = {
 export const nosotrosPage = {
   meta: {
     title: "Nosotros",
-    description: "Pling nace en Santa Cruz para ordenar todo lo que pasa detrás del live: código por prenda, cobro verificado por banco y envíos en orden. Creado por Growists.",
+    description: "Pling nace en Bolivia para ordenar todo lo que pasa detrás del live: código por prenda, cobro verificado por banco y envíos en orden. Creado por Growists.",
   },
   breadcrumbs: [
     { label: "Inicio", href: routes.home },
@@ -505,9 +518,9 @@ export const nosotrosPage = {
   ],
   borrador: true,
   hero: {
-    subline: "Quiénes somos: sobre Pling",
+    subline: "¿Para qué es Pling?",
     title: { lead: "Ordenamos todo lo que pasa", accent: "detrás del live" },
-    text: "Pling nace en Santa Cruz para que vender por TikTok Live **deje de significar madrugadas, cuadernos y capturas**. Unimos el código de cada prenda, el cobro validado por el banco y el despacho en un solo flujo.",
+    text: "Pling nace en Bolivia para que vender por TikTok Live **deje de significar madrugadas, cuadernos y capturas**. Unimos el código de cada prenda, el cobro validado por el banco y el despacho en un solo flujo.",
     /** Fotos periféricas que flotan y siguen al ratón (nunca sobre el texto). */
     images: [photos.vendedoraSelfie, photos.empaqueCaja, photos.compradoraPaquete, photos.compradoraCelular],
     primary: ctas.quiero,
@@ -528,19 +541,19 @@ export const nosotrosPage = {
     items: [
       {
         id: "empresarios",
-        title: "Transformar emprendedores en empresarios",
+        title: { lead: "Transformar", accent: "emprendedores", tail: "en", accent2: "empresarios", red: true },
         text: "Muchas tiendas venden cientos de prendas por semana y todavía dependen de la memoria y de la madrugada. Con procesos y datos claros, **un emprendimiento puede crecer, sumar equipo y planificar como una empresa**.",
       },
       {
         id: "confianza",
-        title: "Generar confianza en los compradores",
+        title: { lead: "Generar", accent: "confianza", tail: "en los", accent2: "compradores", red: true },
         text: "Cuando cada compra tiene su código, su pago verificado y su envío en orden, **la compradora vuelve**. Esa confianza es la que hace crecer la venta en vivo en el país.",
       },
     ],
   },
   growists: {
     subline: "¿Quién está detrás de Pling?",
-    title: { lead: "Creado por", accent: "Growists" },
+    title: { lead: "Pling está respaldada por", accent: "Growists" },
     intro: "Pling es un producto de Growists, empresa de tecnología que diseña, desarrolla y financia productos digitales. Esto es lo que le da a Pling:",
     bullets: [
       "**Estabilidad**: una empresa con estructura y visión a largo plazo detrás de cada tienda.",
@@ -571,7 +584,7 @@ export const filosofiaPage = {
   ],
   borrador: true,
   hero: {
-    subline: "Live commerce en Bolivia y Latinoamérica",
+    subline: "Cómo vender por TikTok Live en Bolivia",
     title: { lead: "La venta en vivo ya es", accent: "la nueva vitrina" },
     text: "En Bolivia y Latinoamérica, miles de tiendas abren su live cada noche. **La cámara ya funciona; lo que falta es el sistema** que ordena todo lo demás.",
     stat: {
@@ -584,16 +597,23 @@ export const filosofiaPage = {
     images: [photos.empaqueCasa, photos.fotografiandoPaquetes],
   },
   carrusel: {
-    subline: "Cómo pasar de emprendedor a empresario",
-    title: { lead: "De emprendedores a", accent: "empresarios" },
-    text: "Así crece una tienda: del puesto propio a un equipo que despacha cientos de pedidos. **Cada paso pide más orden.**",
+    subline: "Vender ropa por TikTok Live desde casa",
+    title: { lead: "De emprendedora a", accent: "empresaria" },
+    text: "Con un celular, desde su casa y con la ropa que ya tiene, una mujer puede abrir un live y empezar a vender esa misma noche. **TikTok Live es la forma más fácil de emprender**: democratiza el emprendimiento.",
+    /** El argumento en tres pasos: emprender es fácil, crecer trae problemas, Pling da el salto. */
+    steps: [
+      { id: "emprender", title: "Emprender ya es fácil", text: "Un celular, la ropa que tienes y un live desde casa." },
+      { id: "problemas", title: "Crecer trae problemas", text: "Pedidos en cuadernos, capturas de pago y envíos de madrugada." },
+      { id: "empresa", title: "Pling da el salto", text: "Te ayudamos a pasar de **emprendedora a empresaria**." },
+    ],
     slides: [
-      { label: "El puesto propio", img: photos.duenaTienda },
-      { label: "Las primeras ventas en vivo", img: photos.doblandoPrendas },
+      { label: "Un celular y la ropa que ya tienes", img: photos.vendedoraSelfie },
+      { label: "El primer live desde casa", img: photos.doblandoPrendas },
+      { label: "Las primeras ventas", img: photos.empaqueCasa },
       { label: "Pedidos todos los días", img: photos.empaqueCaja },
-      { label: "La tienda en línea", img: photos.emprendedoraSonrie },
-      { label: "La bodega con orden", img: photos.bodegaOrdenada },
-      { label: "El equipo de despacho", img: photos.empacadoraBodega },
+      { label: "Llegan el cuaderno y las capturas", img: photos.cuadernoPedidos },
+      { label: "Cada prenda con su código", img: photos.bodegaOrdenada },
+      { label: "Un equipo que despacha", img: photos.empacadoraBodega },
       { label: "La empresa", img: photos.equipoBodega },
     ],
   },
@@ -633,7 +653,7 @@ export const filosofiaPage = {
   },
   solucion: {
     subline: "Cómo Pling ordena tu venta en vivo",
-    title: { lead: "Un sistema para", accent: "cada momento" },
+    title: { lead: "Un sistema para", accent: "cada momento", red: true },
     intro: "A cada momento de caos le corresponde una parte de Pling: **antes, durante y después del live**.",
     items: [
       { id: "inventario", stage: "Antes del live", title: "Inventario", text: "Cada prenda lleva un código impreso por la Ticketera Pling. **Sabes qué tienes, qué se vendió y a quién.**", img: screens.productoGuardado },
@@ -641,6 +661,81 @@ export const filosofiaPage = {
       { id: "envio", stage: "Después del live", title: "Envío", text: "Pling agrupa los pedidos por compradora y **ordena los envíos del día**, con seguimiento hasta la entrega.", img: screens.enviosHoy },
     ],
   },
+} as const;
+
+/**
+ * Qué hace Pling: todas las funciones por etapa del live, interpretadas de las
+ * capturas reales de la app (`public/screens app`). Texto en borrador.
+ */
+export const queHacePage = {
+  meta: {
+    title: "Qué hace Pling: todas sus funciones",
+    description:
+      "Todo lo que hace Pling antes, durante y después de tu TikTok Live: catálogo con código por prenda, Ticketera, cobro QR validado por el banco, escaneo de prendas y envíos en orden.",
+  },
+  breadcrumbs: [
+    { label: "Inicio", href: routes.home },
+    { label: "Qué hace Pling", href: routes.queHace },
+  ],
+  borrador: true,
+  hero: {
+    subline: "¿Qué hace Pling?",
+    title: { lead: "Todo lo que Pling hace", accent: "antes, durante", tail: "y", accent2: "después del live" },
+    text: "Pling es la app que ordena tu venta por TikTok Live de principio a fin. **Estas son todas sus funciones**, en el orden en que las usas.",
+    phones: [screens.catalogoResumen, screens.productoComprado, screens.enviosHoy],
+    primary: ctas.probar,
+    secondary: ctas.verDemo,
+  },
+  cta: ctas.probar,
+  stages: [
+    {
+      id: "antes",
+      label: "Antes del live",
+      emoji: "🏷️",
+      subline: "Cómo preparar un catálogo para TikTok Live",
+      title: { lead: "Antes del live,", accent: "todo listo" },
+      intro: "Cargas tus prendas una vez, cada una con su código, y tu catálogo queda listo para salir al aire.",
+      features: [
+        { id: "catalogo", title: "Crea el catálogo de tu live", text: "Le pones nombre, fecha y hora a tu transmisión. Pling arma el resumen: **cuántas prendas llevas, cuánto suman** y el enlace de tu tienda para compartir.", img: screens.catalogoResumen },
+        { id: "cargar", title: "Carga cada prenda con su foto", text: "Tomas la foto o la subes de la galería y completas **precio, talla, color, variante y stock**. Es lo primero que verán tus compradoras.", img: screens.cargarProducto },
+        { id: "codigo", title: "Cada prenda recibe su código", text: "Al guardar, Pling le asigna un **código único como #A1B2**. Así nunca confundes dos prendas parecidas.", img: screens.productoGuardado },
+        { id: "ticketera", title: "Imprime el sticker con la Ticketera Pling", text: "Conectas la Ticketera Pling a tu celular y cada código sale impreso en un sticker. **Adiós a las etiquetas escritas a mano.**", img: screens.ticketera },
+        { id: "organizar", title: "Organiza tus catálogos", text: "Tus lives próximos y finalizados en un solo lugar. **Mueves prendas de un catálogo a otro**, editas precios y empiezas a vender con un toque.", img: screens.catalogos },
+      ],
+    },
+    {
+      id: "durante",
+      label: "Durante el live",
+      emoji: "🔴",
+      subline: "Cómo cobrar con QR en TikTok Live",
+      title: { lead: "Durante el live,", accent: "vende y cobra" },
+      intro: "Tú muestras la prenda frente a la cámara. Pling la pone a la venta, cobra y confirma cada pago.",
+      features: [
+        { id: "empezar", title: "Empieza el catálogo en vivo", text: "Abres el catálogo del día y **eliges qué prenda mostrar**. Todo tu inventario del live, a un toque.", img: screens.liveSeleccion },
+        { id: "aire", title: "La prenda sale al aire", text: "La prenda queda en vivo con su código, su precio y una cuenta regresiva. **Ves cuántas personas intentan comprarla** en ese momento.", img: screens.emisionCatalogo },
+        { id: "pago", title: "Cobro QR validado por el banco", text: "La compradora paga por QR directo a tu cuenta y **el banco confirma el pago en tiempo real**. Suena el ¡Pling!: sin capturas ni comprobantes falsos.", img: screens.productoComprado },
+        { id: "cambiar", title: "Cambia de prenda en un toque", text: "Pasas a la siguiente prenda sin cortar el live, con **el tiempo en vivo** y lo vendido siempre a la vista.", img: screens.liveEjecucion },
+        { id: "cierre", title: "Cierra el live con todo registrado", text: "Al terminar ves el catálogo finalizado: **cada venta ya tiene compradora, pago y código**. No queda nada que anotar.", img: screens.catalogoFinalizado },
+      ],
+    },
+    {
+      id: "despues",
+      label: "Después del live",
+      emoji: "📦",
+      subline: "Cómo organizar los envíos de TikTok Live",
+      title: { lead: "Después del live,", accent: "todo en orden" },
+      intro: "Cada prenda encuentra a su compradora y cada paquete sale a tiempo, sin madrugadas.",
+      features: [
+        { id: "escanear", title: "Escanea el código de la prenda", text: "Apuntas la cámara al sticker #A1B2 o escribes el código. **Pling encuentra la prenda al instante.**", img: screens.leerCodigos },
+        { id: "quien", title: "Sabes de quién es cada prenda", text: "Vendida o sin vender, con su precio, talla y catálogo. Si se vendió, **ves quién la compró** y abres su orden.", img: screens.prendaVendida },
+        { id: "orden", title: "Una compradora, un paquete", text: "Pling junta en una orden **todas las prendas de cada compradora**, con su total, su WhatsApp y su dirección en el mapa.", img: screens.detalleOrden },
+        { id: "cotizar", title: "Cotiza el envío", text: "Escribes el costo del delivery y Pling se lo manda a la compradora. **Cuando lo acepta, el envío queda aprobado.**", img: screens.cotizarEnvio },
+        { id: "envios", title: "Los envíos del día, en orden", text: "Hoy, mañana y entregados, cada orden con su estado. Y **un tope de envíos por día** para que nunca te rebases.", img: screens.enviosHoy },
+        { id: "seguimiento", title: "Seguimiento hasta la entrega", text: "Confirmas el envío con su enlace de seguimiento y **la orden pasa a recibida** cuando llega a su compradora.", img: screens.envioAprobado },
+        { id: "avisos", title: "Avisos, cancelaciones y devoluciones", text: "Las notificaciones te dicen qué toca: cotizar, enviar o **responder una cancelación o devolución**, siempre con su motivo.", img: screens.notificaciones },
+      ],
+    },
+  ],
 } as const;
 
 /**

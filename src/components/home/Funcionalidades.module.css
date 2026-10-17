@@ -81,7 +81,7 @@
   font-size: var(--text-label-lg);
   line-height: var(--text-label-lg--line-height);
   color: var(--color-on-surface-variant);
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   transition: color var(--duration-medium) var(--ease-standard);
 }
 
@@ -212,4 +212,9 @@
 }
 .glow[data-stage="2"] {
   background: var(--color-success-container);
+}
+
+/* Enlace a la página completa de funciones */
+.more {
+  align-self: flex-start;
 }

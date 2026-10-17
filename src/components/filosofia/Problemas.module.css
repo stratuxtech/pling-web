@@ -82,7 +82,7 @@
   font-size: var(--text-title-lg);
   line-height: var(--text-title-lg--line-height);
   color: var(--color-neutral-600);
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   transition:
     color var(--duration-medium) var(--ease-standard),
     background-color var(--duration-medium) var(--ease-standard);

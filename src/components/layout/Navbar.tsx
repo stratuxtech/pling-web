@@ -85,7 +85,11 @@ export function Navbar() {
         </ul>
 
         <div className={styles.actions}>
-          <Button action={navbar.cta} size="sm" />
+          <Button action={navbar.cta} size="sm" className={styles.ctaWide} />
+          {/* Móvil: el CTA se reduce al logo de WhatsApp para que el logo de Pling no se estreche */}
+          <a href={routes.contacto} data-open-modal className={styles.waBtn} aria-label={`${navbar.cta.label} por WhatsApp`}>
+            <IconWhatsapp className="size-5" />
+          </a>
           <button
             ref={toggleRef}
             type="button"

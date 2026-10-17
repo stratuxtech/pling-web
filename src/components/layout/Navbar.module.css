@@ -276,3 +276,38 @@
 }
 
 
+
+/* El logo de Pling nunca se estrecha */
+.logo {
+  flex: none;
+  min-width: max-content;
+}
+
+/* Móvil: el CTA es solo el logo de WhatsApp (abre el mismo Modal) */
+.actions .ctaWide {
+  display: none;
+}
+
+.waBtn {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-success);
+  color: var(--color-white);
+  box-shadow: 0 6px 16px -6px rgb(46 107 54 / 0.6);
+  transition: transform var(--duration-short) var(--ease-standard);
+}
+.waBtn:active {
+  transform: scale(0.94);
+}
+
+@media (min-width: 64rem) {
+  .actions .ctaWide {
+    display: inline-flex;
+  }
+  .waBtn {
+    display: none;
+  }
+}

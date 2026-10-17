@@ -86,12 +86,16 @@
   pointer-events: none;
 }
 
+/* Celular a la izquierda, texto a la derecha: la captura se ve en las tres */
 .card {
   position: relative;
   isolation: isolate;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 38% 1fr;
+  align-items: center;
+  gap: 1.25rem;
   height: 100%;
+  padding: 1rem;
   border-radius: var(--radius-xl);
   background: var(--color-surface);
   box-shadow: var(--shadow-2);
@@ -124,52 +128,29 @@
   opacity: 0.7;
 }
 
-/* Captura de la app que asoma como un celular */
 .media {
   position: relative;
-  height: clamp(9rem, 22vh, 13rem);
-  margin: 0.75rem 0.75rem 0;
-  overflow: hidden;
+  padding: 0.5rem;
   border-radius: var(--radius-lg-plus);
   background:
-    radial-gradient(70% 90% at 50% 100%, rgb(69 77 244 / 0.18), transparent 70%),
+    radial-gradient(80% 60% at 50% 100%, rgb(69 77 244 / 0.2), transparent 70%),
     var(--color-primary-50);
+  transition: transform var(--duration-long) var(--ease-out-expo);
 }
 .card[data-id="pago"] .media {
   background:
-    radial-gradient(70% 90% at 50% 100%, rgb(255 74 61 / 0.16), transparent 70%),
+    radial-gradient(80% 60% at 50% 100%, rgb(255 74 61 / 0.18), transparent 70%),
     var(--color-secondary-50);
 }
-
-.screen {
-  position: absolute;
-  left: 50%;
-  top: 1.25rem;
-  width: 58%;
-  height: 140%;
-  overflow: hidden;
-  border: 5px solid var(--color-neutral-900);
-  border-bottom: 0;
-  border-radius: 1.5rem 1.5rem 0 0;
-  background: var(--color-surface);
-  box-shadow: 0 18px 40px -16px rgb(0 5 95 / 0.45);
-  transform: translateX(-50%);
-  transition: transform var(--duration-long) var(--ease-out-expo);
-}
-.card:hover .screen {
-  transform: translateX(-50%) translateY(-6px);
-}
-
-.img {
-  object-fit: cover;
-  object-position: top;
+.card:hover .media {
+  transform: translateY(-4px) rotate(-2deg);
 }
 
 .body {
   display: flex;
   flex-direction: column;
   gap: 0.375rem;
-  padding: 1.5rem 1.75rem 1.75rem;
+  padding: 0.5rem 0.5rem 0.5rem 0;
 }
 
 .stepNum {
@@ -183,8 +164,8 @@
 .stage {
   font-family: var(--font-display);
   font-weight: var(--font-weight-title);
-  font-size: var(--text-headline-md);
-  line-height: var(--text-headline-md--line-height);
+  font-size: var(--text-headline-sm);
+  line-height: var(--text-headline-sm--line-height);
   color: var(--color-on-surface);
 }
 
@@ -210,7 +191,7 @@
 @media (prefers-reduced-motion: reduce) {
   .slot,
   .card,
-  .screen {
+  .media {
     transition: none;
   }
   .card:hover {

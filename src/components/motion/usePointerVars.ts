@@ -4,9 +4,10 @@ import { useEffect } from "react";
 
 /**
  * Escribe --mx / --my (-1…1) en el elemento (levitación de anubi.io).
- * - Con ratón: siguen al puntero.
- * - En táctil (sin hover): derivan solas con curvas lentas de Lissajous, para
- *   que lo que flota se mueva por sí mismo. Solo mientras está en pantalla.
+ * - Con ratón encima: siguen al puntero.
+ * - Sin acción del ratón (y siempre en táctil): derivan solas con curvas
+ *   lentas de Lissajous, así lo que flota se mueve por sí mismo. Solo
+ *   mientras está en pantalla.
  * - Con reduced-motion: quietas.
  */
 export function usePointerVars(ref: React.RefObject<HTMLElement | null>) {
@@ -18,21 +19,30 @@ export function usePointerVars(ref: React.RefObject<HTMLElement | null>) {
       el.style.setProperty("--my", y.toFixed(3));
     };
 
-    if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
-      const onMove = (e: PointerEvent) => {
-        const r = el.getBoundingClientRect();
-        set(((e.clientX - r.left) / r.width) * 2 - 1, ((e.clientY - r.top) / r.height) * 2 - 1);
-      };
-      const onLeave = () => set(0, 0);
-      el.addEventListener("pointermove", onMove, { passive: true });
-      el.addEventListener("pointerleave", onLeave);
-      return () => {
-        el.removeEventListener("pointermove", onMove);
-        el.removeEventListener("pointerleave", onLeave);
-      };
-    }
+    const drift = () => autoDrift(el, (t) => set(Math.sin(t * 0.55) * 0.8, Math.cos(t * 0.41 + 1.3) * 0.7));
+    if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return drift();
 
-    return autoDrift(el, (t) => set(Math.sin(t * 0.55) * 0.8, Math.cos(t * 0.41 + 1.3) * 0.7));
+    let stopDrift: (() => void) | null = drift();
+    const onEnter = () => {
+      stopDrift?.();
+      stopDrift = null;
+    };
+    const onMove = (e: PointerEvent) => {
+      const r = el.getBoundingClientRect();
+      set(((e.clientX - r.left) / r.width) * 2 - 1, ((e.clientY - r.top) / r.height) * 2 - 1);
+    };
+    const onLeave = () => {
+      stopDrift ??= drift();
+    };
+    el.addEventListener("pointerenter", onEnter);
+    el.addEventListener("pointermove", onMove, { passive: true });
+    el.addEventListener("pointerleave", onLeave);
+    return () => {
+      stopDrift?.();
+      el.removeEventListener("pointerenter", onEnter);
+      el.removeEventListener("pointermove", onMove);
+      el.removeEventListener("pointerleave", onLeave);
+    };
   }, [ref]);
 }
 

@@ -6,7 +6,8 @@ import styles from "./Title.module.css";
  * segundo, en Rojo Pling. `red` pinta de rojo un énfasis único (p. ej. "caos").
  */
 export type TitleParts = { lead: string; accent?: string; tail?: string; accent2?: string; tail2?: string; red?: boolean };
-type Level = "h1" | "h2" | "h3";
+/** El titular grande es diseño; el encabezado SEO es el Subline. Por eso suele ir como "p". */
+type Level = "h1" | "h2" | "h3" | "p";
 
 export function Title({ as: Tag = "h2", parts, className = "", id }: { as?: Level; parts: TitleParts; className?: string; id?: string }) {
   return (
@@ -35,10 +36,28 @@ export function Accent({ children, red = false }: { children: React.ReactNode; r
   return <em className={`accent ${red ? styles.accentRed : styles.accent}`}>{children}</em>;
 }
 
-/** Subline de sección con icono (o punto coral si no lleva). `alert` la pinta en rojo de alarma. */
-export function Subline({ children, icon, className = "", tone }: { children: React.ReactNode; icon?: React.ReactNode; className?: string; tone?: "alert" }) {
+/**
+ * Subline de sección con icono (o punto coral si no lleva). Es el encabezado
+ * real para SEO (h1 en el hero de cada página, h2 en cada sección), redactado
+ * como una búsqueda: "¿Qué es Pling?". `alert` la pinta en rojo de alarma.
+ */
+export function Subline({
+  children,
+  icon,
+  className = "",
+  tone,
+  as: Tag = "p",
+  id,
+}: {
+  children: React.ReactNode;
+  icon?: React.ReactNode;
+  className?: string;
+  tone?: "alert";
+  as?: "p" | "h1" | "h2";
+  id?: string;
+}) {
   return (
-    <p className={`${styles.subline} ${tone === "alert" ? styles.sublineAlert : ""} ${className}`}>
+    <Tag id={id} className={`${styles.subline} ${tone === "alert" ? styles.sublineAlert : ""} ${className}`}>
       {icon ? (
         <span className={styles.icon} aria-hidden>
           {icon}
@@ -47,6 +66,6 @@ export function Subline({ children, icon, className = "", tone }: { children: Re
         <span className={styles.dot} aria-hidden />
       )}
       {children}
-    </p>
+    </Tag>
   );
 }

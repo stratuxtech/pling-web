@@ -95,8 +95,8 @@ export function Tiendas() {
   return (
     <section className={styles.section} aria-labelledby="tiendas-title">
       <div className={styles.head}>
-        <Subline icon={<IconStore />}>
-          <span id="tiendas-title">{home.tiendas.subline}</span>
+        <Subline as="h2" id="tiendas-title" icon={<IconStore />}>
+          {home.tiendas.subline}
         </Subline>
       </div>
       <div ref={zoneRef} className={styles.viewport}>

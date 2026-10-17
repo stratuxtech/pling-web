@@ -31,10 +31,10 @@ export function Problemas() {
       <div className={styles.sticky}>
         <div className={styles.inner}>
           <div className={styles.copy}>
-            <Subline icon={<IconAlert />} tone="alert">
+            <Subline as="h2" id="problemas-title" icon={<IconAlert />} tone="alert">
               {problemas.subline}
             </Subline>
-            <Title id="problemas-title" parts={problemas.title} className={styles.title} />
+            <Title as="p" parts={problemas.title} className={styles.title} />
             <p className={styles.alarm}>
               <Rich text={problemas.alarm} />
             </p>
@@ -58,13 +58,14 @@ export function Problemas() {
               ))}
             </div>
 
-            <div id="problema-panel" role="tabpanel" aria-labelledby={tabIds[active]} className={styles.panel}>
-              <p key={item.id} className={styles.panelText}>
-                <Rich text={item.text} />
-              </p>
-            </div>
           </div>
 
+          {/* Escritorio: nota incrustada al pie de la foto; móvil: bajo las pestañas */}
+          <div id="problema-panel" role="tabpanel" aria-labelledby={tabIds[active]} className={styles.panel}>
+            <p key={item.id} className={styles.panelText}>
+              <Rich text={item.text} />
+            </p>
+          </div>
           <div ref={stageRef} className={styles.stage}>
             {items.map((it, i) => (
               <div key={it.id} className={styles.media} data-active={i === active ? "" : undefined} aria-hidden={i !== active}>

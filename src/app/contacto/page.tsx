@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { contact, contactoPage, parent, routes, socials } from "@/content/site";
 import { Logo } from "@/components/Logo";
-import { Title } from "@/components/ui/Title";
+import { Subline, Title } from "@/components/ui/Title";
 import { WhatsAppCards } from "@/components/WhatsAppCards";
 import { IconArrowUpRight, IconChevronLeft, IconMail, IconPin, IconWhatsapp, socialIcons } from "@/components/icons";
 import styles from "./contacto.module.css";
@@ -29,7 +29,10 @@ export default function ContactoPage() {
       </div>
 
       <section className={styles.hero} aria-labelledby="contacto-title">
-        <Title as="h1" id="contacto-title" parts={contactoPage.title} className={styles.title} />
+        <Subline as="h1" id="contacto-title" icon={<IconWhatsapp />}>
+          {contactoPage.subline}
+        </Subline>
+        <Title as="p" parts={contactoPage.title} className={styles.title} />
         <p className={styles.intro}>{contactoPage.intro}</p>
         <WhatsAppCards />
       </section>

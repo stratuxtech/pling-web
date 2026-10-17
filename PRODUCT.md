@@ -48,6 +48,7 @@ El live, las capturas, el QR, las bolsas, la ticketera y los envíos. Flujo de 8
 - **Regla de titulares (siempre):** el titular en tinta oscura; el primer énfasis en Azul Pling y, si hay un segundo, en Rojo Pling. Ningún titular en blanco ni en color.
 - Escala neutral 50–900 con leve tinte azul, sin negro absoluto (900 = #1D2033); el blanco puro sí se usa.
 - Ornamentación levitante: más piezas de UI que emojis, pero siempre con algún emoji (regla de profundidad de campo). En táctil, todo lo que flota deriva solo.
+- SEO: los sublines son los encabezados reales (h1/h2) y se redactan como búsquedas directas ("¿Qué es Pling?", "Tiendas de TikTok que trabajan con Pling").
 - Navbar siempre visible, con tres contenedores propios (logo · enlaces · Probar Pling). Sin créditos de Pexels visibles.
 - Sin fondos de partículas; iconos en SVG; emojis permitidos solo con la regla de profundidad de campo y la zona central despejada.
 - Respaldo institucional: creado por Growists (https://growists.com).

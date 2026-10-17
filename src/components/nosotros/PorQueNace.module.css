@@ -78,7 +78,23 @@
   display: flex;
 }
 
+/* Escenario de la tarjeta: UI y emojis flotan a su alrededor */
+.stage {
+  --mx: 0;
+  --my: 0;
+  position: relative;
+  padding: 3.75rem 0 4rem;
+}
+
+@media (min-width: 64rem) {
+  .stage {
+    padding: 2.5rem 0;
+  }
+}
+
 .stack {
+  position: relative;
+  z-index: 2;
   display: grid;
   gap: 1.25rem;
   list-style: none;

@@ -201,3 +201,9 @@ export const IconBolt = (p: IconProps) => (
     <path d="M13 3 5 13.5h6L10 21l8-10.5h-6z" />
   </Line>
 );
+export const IconChat = (p: IconProps) => (
+  <Line {...p}>
+    <path d="M5 18.5V7a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H8.5z" />
+    <path d="M9 9.5h6M9 12.5h4" />
+  </Line>
+);

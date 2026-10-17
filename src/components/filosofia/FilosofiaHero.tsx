@@ -63,8 +63,8 @@ export function FilosofiaHero() {
       <Breadcrumbs items={filosofiaPage.breadcrumbs} />
       <div className={styles.grid}>
         <div className={styles.copy}>
-          <Subline icon={<IconTrendUp />}>{hero.subline}</Subline>
-          <Title as="h1" id="filosofia-title" parts={hero.title} className={styles.title} />
+          <Subline as="h1" id="filosofia-title" icon={<IconTrendUp />}>{hero.subline}</Subline>
+          <Title as="p" parts={hero.title} className={styles.title} />
           <p className={styles.text}>
             <Rich text={hero.text} />
           </p>

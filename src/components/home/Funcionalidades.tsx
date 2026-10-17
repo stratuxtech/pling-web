@@ -29,8 +29,8 @@ export function Funcionalidades() {
       <div className={styles.sticky}>
         <div className={styles.inner}>
           <div className={styles.copy}>
-            <Subline icon={<IconLayers />}>{funcionalidades.subline}</Subline>
-            <Title id="func-title" parts={funcionalidades.title} className={styles.title} />
+            <Subline as="h2" id="func-title" icon={<IconLayers />}>{funcionalidades.subline}</Subline>
+            <Title as="p" parts={funcionalidades.title} className={styles.title} />
             <div role="tablist" aria-label="Etapas del live" className={styles.tabs} onKeyDown={onKeyDown}>
               {tabs.map((t, i) => (
                 <button

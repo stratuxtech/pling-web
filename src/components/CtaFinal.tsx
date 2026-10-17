@@ -15,8 +15,8 @@ export function CtaFinal() {
   return (
     <section className={styles.section} aria-labelledby="cta-final-title">
       <div className={styles.head}>
-        <Subline icon={<IconPhone />}>{ctaFinal.subline}</Subline>
-        <Title id="cta-final-title" parts={ctaFinal.title} className={styles.title} />
+        <Subline as="h2" id="cta-final-title" icon={<IconPhone />}>{ctaFinal.subline}</Subline>
+        <Title as="p" parts={ctaFinal.title} className={styles.title} />
         <p className={styles.text}>{ctaFinal.text}</p>
         <div className={styles.buttons}>
           <Button action={ctaFinal.primary} size="lg" />

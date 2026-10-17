@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { ahorroPage, businessModel, routes } from "@/content/site";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
-import { Title } from "@/components/ui/Title";
+import { Subline, Title } from "@/components/ui/Title";
+import { IconCalculator } from "@/components/icons";
 import { AhorroCalculator } from "@/components/ahorro/AhorroCalculator";
 import styles from "./ahorro.module.css";
 
@@ -17,7 +18,10 @@ export default function Page() {
     <div className={styles.page}>
       <Breadcrumbs items={ahorroPage.breadcrumbs} />
       <header className={styles.header}>
-        <Title as="h1" parts={ahorroPage.title} className={styles.title} />
+        <Subline as="h1" icon={<IconCalculator />}>
+          {ahorroPage.subline}
+        </Subline>
+        <Title as="p" parts={ahorroPage.title} className={styles.title} />
         <p className={styles.intro}>{ahorroPage.intro}</p>
         <p className={styles.rule}>{businessModel.goldenRule}</p>
       </header>

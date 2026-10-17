@@ -1,0 +1,149 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.chip {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  translate: calc(var(--mx, 0) * var(--d) * 16px) calc(var(--my, 0) * var(--d) * 14px);
+  transition: translate 1100ms var(--ease-out-expo);
+  animation: float 7s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--r));
+  }
+  50% {
+    transform: translateY(-10px) rotate(calc(var(--r) * -0.6));
+  }
+}
+
+/* Sticker #A1B2 de la Ticketera */
+.code {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.125rem;
+  padding: 0.5rem 0.875rem 0.625rem;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-3);
+}
+.code::before {
+  content: "";
+  position: absolute;
+  inset: 0.25rem;
+  border-radius: 8px;
+  border: 1px dashed var(--color-primary-200);
+}
+
+.codeLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-label-sm);
+  letter-spacing: 0.14em;
+  color: var(--color-on-surface-variant);
+}
+
+.codeValue {
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-title-lg);
+  line-height: 1.1;
+  color: var(--color-on-surface);
+}
+
+/* ¡Pling! +Bs 120 */
+.sale {
+  padding: 0.5rem 0.875rem 0.5rem 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-3);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-md);
+}
+
+.ok {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-full);
+  background: var(--color-success-container);
+  color: var(--color-success);
+}
+
+.saleTitle {
+  color: var(--color-primary);
+}
+
+.saleAmount {
+  color: var(--color-success);
+}
+
+/* QR verificado */
+.qr {
+  padding: 0.5rem 0.875rem 0.5rem 0.625rem;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-body-md);
+  box-shadow: var(--shadow-glow-primary);
+}
+
+/* Mensaje de compradora (WhatsApp) */
+.bubble {
+  padding: 0.5rem 0.875rem;
+  border-radius: 1rem 1rem 0.25rem 1rem;
+  background: var(--color-success-container);
+  color: var(--color-on-surface);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-body-md);
+  box-shadow: var(--shadow-2);
+}
+
+.ticks {
+  color: var(--color-primary);
+  letter-spacing: -0.15em;
+}
+
+/* ● LIVE (decorativo) */
+.live {
+  padding: 0.25rem 0.75rem 0.25rem 0.625rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-coral);
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-title);
+  font-size: var(--text-title-md);
+  letter-spacing: 0.06em;
+  box-shadow: var(--shadow-glow-secondary);
+}
+
+.liveDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+}
+
+@media (max-width: 40rem) {
+  .chip {
+    scale: 0.8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chip {
+    animation: none;
+  }
+}

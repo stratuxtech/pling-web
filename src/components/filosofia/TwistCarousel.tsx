@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { filosofiaPage } from "@/content/site";
-import { Title } from "@/components/ui/Title";
+import { Subline, Title } from "@/components/ui/Title";
+import { IconStore } from "@/components/icons";
 import { Rich } from "@/components/ui/Rich";
 import { ScrollTwist } from "@/components/motion/ScrollTwist";
 import styles from "./TwistCarousel.module.css";
@@ -12,7 +13,12 @@ export function TwistCarousel() {
   return (
     <section className={styles.section} aria-labelledby="carrusel-title">
       <div className={styles.head}>
-        <Title id="carrusel-title" parts={carrusel.title} className={styles.title} />
+        <div className={styles.headCopy}>
+          <Subline as="h2" id="carrusel-title" icon={<IconStore />}>
+            {carrusel.subline}
+          </Subline>
+          <Title as="p" parts={carrusel.title} className={styles.title} />
+        </div>
         <p className={styles.text}>
           <Rich text={carrusel.text} />
         </p>

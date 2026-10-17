@@ -43,8 +43,8 @@ export function Growists() {
   return (
     <section className={styles.section} aria-labelledby="growists-title">
       <div className={styles.copy}>
-        <Subline icon={<IconShield />}>{growists.subline}</Subline>
-        <Title id="growists-title" parts={growists.title} className={styles.title} />
+        <Subline as="h2" id="growists-title" icon={<IconShield />}>{growists.subline}</Subline>
+        <Title as="p" parts={growists.title} className={styles.title} />
         <p className={styles.text}>{growists.intro}</p>
         <ul className={styles.bullets}>
           {growists.bullets.map((b) => (

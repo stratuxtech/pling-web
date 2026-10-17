@@ -283,7 +283,7 @@ export const modal = {
 } as const;
 
 export const ctaFinal = {
-  subline: "Plataforma Pling",
+  subline: "Cómo funciona Pling, paso a paso",
   /** Título: el tagline de marca; segundo énfasis en rojo (regla de titulares). */
   title: { lead: "Vende en vivo.", accent: "Cobra seguro.", accent2: "Entrega en orden." },
   text: "Así se ve un día con Pling, de la primera prenda cargada al último paquete entregado.",
@@ -319,7 +319,7 @@ export const footer = {
   description: "Pling ordena todo lo que pasa detrás de tu live: cada prenda con su código, cada cobro QR validado con el banco y cada paquete con su compradora.",
   contactTitle: "Contacto",
   bigLink: { label: "Adquirir Pling", hoverLabel: "Hablemos por WhatsApp" },
-  copyright: "© Pling 2026",
+  copyright: "© 2026 Pling. Todos los derechos reservados.",
   credit: { prefix: "Pling ha sido creado por", label: "Growists", href: parent.url },
 } as const;
 
@@ -346,7 +346,7 @@ export const home = {
       "Pling es el sistema de gestión operativa para ventas por TikTok Live: valida pagos QR al instante, identifica cada prenda con un código único y ordena tus envíos.",
   },
   hero: {
-    subline: "App de gestión de TikTok Live",
+    subline: "App de gestión para vender por TikTok Live",
     title: { lead: "Vender por TikTok Live", accent: "ya lo haces bien.", tail: "Pling se encarga de todo lo demás:" },
     /** Cada frase se sincroniza con una de las 3 vistas (`view`). */
     rotator: [
@@ -364,23 +364,30 @@ export const home = {
     secondary: ctas.verDemo,
   },
   banderin: {
-    subline: "Qué es Pling",
+    subline: "¿Qué es Pling?",
+    /** Texto plano equivalente (lectores de pantalla y SEO). */
     text: "Pling une tu TikTok Live, tu WhatsApp y tu inventario en un solo sistema: cada prenda con su código, cada pago QR validado al instante y cada envío en orden. Tú vendes. Pling hace el resto.",
-    /** Palabras en la tipografía de énfasis: la primera en azul, la segunda en rojo. */
-    accent: ["sistema:"],
-    accent2: ["resto."],
+    /** Composición dinámica: piezas unidas por ➕ y cierres línea a línea. */
+    sources: [
+      { id: "tiktok", label: "Tu TikTok Live" },
+      { id: "whatsapp", label: "tu WhatsApp" },
+      { id: "inventario", label: "tu inventario" },
+    ],
+    join: { lead: "en un solo", accent: "sistema:" },
+    results: ["cada prenda con su código", "cada pago QR validado al instante", "cada envío en orden"],
+    close: [{ lead: "Tú vendes." }, { lead: "Pling hace", accent2: "el resto." }],
   },
   ahorro: {
-    subline: "Ahorro con Pling",
+    subline: "¿Cuánto ahorra Pling?",
     title: { lead: "Calcula lo que", accent: "recuperas", tail: "cada mes" },
     borrador: true,
     link: { label: "Ver cuánto te ahorra", kind: "link", href: routes.ahorro } as Action,
   },
   tiendas: {
-    subline: "Tiendas de TikTok que trabajan con nosotros",
+    subline: "Tiendas de TikTok que trabajan con Pling",
   },
   funcionalidades: {
-    subline: "Funcionalidades",
+    subline: "Funciones de Pling para vender en TikTok Live",
     title: { lead: "Pling te acompaña", accent: "antes, durante y después", tail: "del live" },
     borrador: true,
     tabs: [
@@ -414,7 +421,7 @@ export const home = {
     ],
   },
   sistemas: {
-    subline: "Todo conectado",
+    subline: "Pling conecta TikTok Live, WhatsApp e inventario",
     title: { lead: "Tres sistemas,", accent: "un solo flujo" },
     borrador: true,
     nodes: [
@@ -432,7 +439,7 @@ export const home = {
     },
   },
   porQue: {
-    subline: "Nuestro propósito",
+    subline: "¿Por qué usar Pling?",
     title: { lead: "Por qué queremos", accent: "ayudarte" },
     cta: { label: "Nuestra filosofía", kind: "link", href: routes.filosofia } as Action,
     columns: [
@@ -464,6 +471,7 @@ export const ahorroPage = {
     { label: "Cuánto te ahorra", href: routes.ahorro },
   ],
   borrador: true,
+  subline: "Cuánto cuesta Pling y cuánto te ahorra",
   title: { lead: "Cuánto te", accent: "ahorra", tail: "Pling" },
   intro: "Mueve los valores de tu tienda y mira en tiempo real las horas y el dinero que recuperas cada mes.",
   controlsTitle: "Tu tienda",
@@ -497,7 +505,7 @@ export const nosotrosPage = {
   ],
   borrador: true,
   hero: {
-    subline: "Sobre Pling",
+    subline: "Quiénes somos: sobre Pling",
     title: { lead: "Ordenamos todo lo que pasa", accent: "detrás del live" },
     text: "Pling nace en Santa Cruz para que vender por TikTok Live **deje de significar madrugadas, cuadernos y capturas**. Unimos el código de cada prenda, el cobro validado por el banco y el despacho en un solo flujo.",
     /** Fotos periféricas que flotan y siguen al ratón (nunca sobre el texto). */
@@ -515,7 +523,7 @@ export const nosotrosPage = {
     img: photos.equipoBodega,
   },
   porQueNace: {
-    subline: "Por qué nace Pling",
+    subline: "¿Por qué nace Pling?",
     title: { lead: "Dos razones para", accent: "empezar" },
     items: [
       {
@@ -531,7 +539,7 @@ export const nosotrosPage = {
     ],
   },
   growists: {
-    subline: "Respaldo",
+    subline: "¿Quién está detrás de Pling?",
     title: { lead: "Creado por", accent: "Growists" },
     intro: "Pling es un producto de Growists, empresa de tecnología que diseña, desarrolla y financia productos digitales. Esto es lo que le da a Pling:",
     bullets: [
@@ -563,7 +571,7 @@ export const filosofiaPage = {
   ],
   borrador: true,
   hero: {
-    subline: "Filosofía",
+    subline: "Live commerce en Bolivia y Latinoamérica",
     title: { lead: "La venta en vivo ya es", accent: "la nueva vitrina" },
     text: "En Bolivia y Latinoamérica, miles de tiendas abren su live cada noche. **La cámara ya funciona; lo que falta es el sistema** que ordena todo lo demás.",
     stat: {
@@ -576,6 +584,7 @@ export const filosofiaPage = {
     images: [photos.empaqueCasa, photos.fotografiandoPaquetes],
   },
   carrusel: {
+    subline: "Cómo pasar de emprendedor a empresario",
     title: { lead: "De emprendedores a", accent: "empresarios" },
     text: "Así crece una tienda: del puesto propio a un equipo que despacha cientos de pedidos. **Cada paso pide más orden.**",
     slides: [
@@ -589,7 +598,7 @@ export const filosofiaPage = {
     ],
   },
   problemas: {
-    subline: "Problemas al vender",
+    subline: "Problemas al vender por TikTok Live",
     title: { lead: "Tres momentos de", accent: "caos", red: true },
     alarm: "Así termina hoy un live en Bolivia. **Cada uno de estos momentos cuesta horas, dinero y compradoras**, y es justo lo que Pling vino a resolver.",
     items: [
@@ -623,7 +632,7 @@ export const filosofiaPage = {
     ],
   },
   solucion: {
-    subline: "Pling como solución",
+    subline: "Cómo Pling ordena tu venta en vivo",
     title: { lead: "Un sistema para", accent: "cada momento" },
     intro: "A cada momento de caos le corresponde una parte de Pling: **antes, durante y después del live**.",
     items: [
@@ -648,6 +657,7 @@ export const faqPage = {
     { label: "Preguntas frecuentes", href: routes.faq },
   ],
   ejemplo: true,
+  subline: "Preguntas frecuentes sobre Pling",
   title: { lead: "Preguntas", accent: "frecuentes" },
   intro: "Si tu duda no está aquí, escríbenos por WhatsApp y te respondemos al momento.",
   categories: [
@@ -717,6 +727,7 @@ export const contactoPage = {
     title: "Contacto",
     description: "Habla con el equipo de Pling por WhatsApp: elige tu pregunta y te respondemos al momento.",
   },
+  subline: "Contacto de Pling por WhatsApp",
   title: { lead: "Hablemos por", accent: "WhatsApp" },
   intro: "Sin formularios ni esperas: elige tu pregunta y abre la conversación con el mensaje ya escrito.",
   borrador: true,
@@ -741,6 +752,7 @@ export const privacidadPage = {
   ],
   borrador: true,
   notice: "Borrador pendiente de revisión legal.",
+  subline: "Política de privacidad de Pling",
   title: { lead: "Políticas de", accent: "privacidad" },
   updated: "Última actualización: 16 de octubre de 2026",
   intro: "En Pling cuidamos la información de las tiendas que usan la plataforma y de las personas que les compran. Aquí explicamos qué datos tratamos, para qué y qué derechos tienes.",

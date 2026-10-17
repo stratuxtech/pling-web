@@ -94,7 +94,7 @@ Los valores por defecto de Tailwind están anulados (`--color-*: initial`); solo
 - **`Button`:**
   - variantes `primary`, `secondary`, `outline`, `inverse`, `ghost`; tamaños `sm/md/lg`;
   - las acciones `modal` son `<a href="/contacto" data-open-modal>`, que funcionan sin JS.
-- **`Title` / `Accent` / `Subline`:** titular con lead + énfasis + cola; subline con punto coral.
+- **`Title` / `Accent` / `Subline`:** el **Subline es el encabezado SEO** (h1 en el hero de cada página, h2 en cada sección), con icono y redactado como búsqueda ("¿Qué es Pling?", "¿Cuánto ahorra Pling?"); el titular grande (`Title as="p"`) es diseño: lead + énfasis azul + segundo énfasis rojo.
 - **`Breadcrumbs`:** migas "Inicio / Página" con BreadcrumbList JSON-LD. No se usan en `/contacto`.
 - **`Phone`:** carcasa 3D CSS con fundido entre capturas.
 - **`WhatsAppCards`:** las 4 tarjetas con mensaje precargado, navegables con flechas.

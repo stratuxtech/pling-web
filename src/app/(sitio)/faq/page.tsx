@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { faqPage, routes } from "@/content/site";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
-import { Title } from "@/components/ui/Title";
+import { Subline, Title } from "@/components/ui/Title";
 import { Button } from "@/components/ui/Button";
 import { JsonLd } from "@/components/JsonLd";
-import { IconPlus } from "@/components/icons";
+import { IconChat, IconPlus } from "@/components/icons";
 import { FaqNav } from "@/components/faq/FaqNav";
 import styles from "@/components/faq/Faq.module.css";
 
@@ -22,7 +22,10 @@ export default function Page() {
     <div className={styles.page}>
       <Breadcrumbs items={faqPage.breadcrumbs} />
       <header className={styles.header}>
-        <Title as="h1" parts={faqPage.title} className={styles.title} />
+        <Subline as="h1" icon={<IconChat />}>
+          {faqPage.subline}
+        </Subline>
+        <Title as="p" parts={faqPage.title} className={styles.title} />
         <p className={styles.intro}>{faqPage.intro}</p>
       </header>
 

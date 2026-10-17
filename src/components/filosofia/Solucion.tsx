@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { useRef } from "react";
 import { filosofiaPage } from "@/content/site";
 import { Title, Subline } from "@/components/ui/Title";
 import { Rich } from "@/components/ui/Rich";
+import { Phone } from "@/components/ui/Phone";
 import { IconCheck } from "@/components/icons";
 import { useScrollSteps } from "@/components/motion/useScrollSteps";
 import styles from "./Solucion.module.css";
@@ -29,8 +29,8 @@ export function Solucion() {
       <div className={styles.sticky}>
         <div className={styles.inner}>
           <div className={styles.head}>
-            <Subline icon={<IconCheck />}>{solucion.subline}</Subline>
-            <Title id="solucion-title" parts={solucion.title} className={styles.title} />
+            <Subline as="h2" id="solucion-title" icon={<IconCheck />}>{solucion.subline}</Subline>
+            <Title as="p" parts={solucion.title} className={styles.title} />
             <p className={styles.intro}>
               <Rich text={solucion.intro} />
             </p>
@@ -45,9 +45,7 @@ export function Solucion() {
               >
                 <article className={styles.card} data-id={it.id}>
                   <div className={styles.media} aria-hidden>
-                    <div className={styles.screen}>
-                      <Image src={it.img.src} alt="" fill sizes="(min-width: 64rem) 16vw, 60vw" className={styles.img} />
-                    </div>
+                    <Phone screens={[{ ...it.img, alt: "" }]} tilt={false} sizes="(min-width: 64rem) 9vw, 32vw" />
                   </div>
                   <div className={styles.body}>
                     <p className={styles.stepNum}>Paso {i + 1}</p>

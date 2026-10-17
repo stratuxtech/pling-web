@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { privacidadPage, routes } from "@/content/site";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
-import { Title } from "@/components/ui/Title";
+import { Subline, Title } from "@/components/ui/Title";
+import { IconShield } from "@/components/icons";
 import styles from "./privacidad.module.css";
 
 export const metadata: Metadata = {
@@ -18,7 +19,10 @@ export default function Page() {
       <Breadcrumbs items={p.breadcrumbs} />
       <header className={styles.header}>
         <p className={styles.notice}>{p.notice}</p>
-        <Title as="h1" parts={p.title} className={styles.title} />
+        <Subline as="h1" icon={<IconShield />}>
+          {p.subline}
+        </Subline>
+        <Title as="p" parts={p.title} className={styles.title} />
         <p className={styles.updated}>{p.updated}</p>
         <p className={styles.intro}>{p.intro}</p>
       </header>

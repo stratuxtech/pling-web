@@ -18,6 +18,7 @@
 }
 
 .copy {
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -39,15 +40,17 @@
 
 /* El rotador continúa la frase del H1, en Rojo coral */
 /*
- * El rotador continúa la frase del H1 en la tipografía de énfasis (Cookie),
- * en Rojo Pling: es el segundo énfasis del titular. Tamaño ×1.32, como .accent.
+ * El rotador continúa la frase del titular en la tipografía de énfasis
+ * (Cookie), en Rojo Pling: es el segundo énfasis. Su tamaño se ajusta al ancho
+ * de la columna (cqi) para que la frase más larga quepa en una línea; en
+ * pantallas estrechas no baja de 2.25rem y puede partirse.
  */
 .rotator {
   margin-top: -1rem;
   width: 100%;
   font-family: var(--font-accent);
   font-weight: var(--font-weight-regular);
-  font-size: calc(var(--text-display-sm) * 1.32);
+  font-size: clamp(2.25rem, 7.4cqi, calc(var(--text-display-sm) * 1.32));
   line-height: 1.05;
   color: var(--color-coral);
 }
@@ -58,7 +61,7 @@
     line-height: var(--text-display-md--line-height);
   }
   .rotator {
-    font-size: calc(var(--text-display-md) * 1.32);
+    font-size: clamp(2.25rem, 7.4cqi, calc(var(--text-display-md) * 1.32));
   }
 }
 
@@ -69,7 +72,7 @@
     letter-spacing: var(--text-display-lg--letter-spacing);
   }
   .rotator {
-    font-size: calc(var(--text-display-lg) * 1.32);
+    font-size: clamp(2.25rem, 7.4cqi, calc(var(--text-display-lg) * 1.32));
   }
 }
 

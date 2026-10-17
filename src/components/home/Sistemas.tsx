@@ -73,8 +73,8 @@ export function Sistemas() {
       <div className={styles.sticky}>
         <div className={styles.inner}>
           <div className={styles.head}>
-            <Subline icon={<IconLink />}>{sistemas.subline}</Subline>
-            <Title id="sistemas-title" parts={sistemas.title} className={styles.title} />
+            <Subline as="h2" id="sistemas-title" icon={<IconLink />}>{sistemas.subline}</Subline>
+            <Title as="p" parts={sistemas.title} className={styles.title} />
             <div className={styles.switch} role="radiogroup" aria-label="Comparar">
               {[false, true].map((on) => (
                 <button

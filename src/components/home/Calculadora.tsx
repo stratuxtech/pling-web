@@ -21,8 +21,8 @@ export function Calculadora() {
     <section className={styles.section} aria-labelledby="ahorro-title">
       <div className={styles.head}>
         <div className={styles.headCopy}>
-          <Subline icon={<IconCalculator />}>{home.ahorro.subline}</Subline>
-          <Title id="ahorro-title" parts={home.ahorro.title} className={styles.title} />
+          <Subline as="h2" id="ahorro-title" icon={<IconCalculator />}>{home.ahorro.subline}</Subline>
+          <Title as="p" parts={home.ahorro.title} className={styles.title} />
         </div>
         <Button action={home.ahorro.link} variant="outline" />
       </div>

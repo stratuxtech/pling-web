@@ -18,8 +18,8 @@ export function PorQue() {
       <div className={styles.inner}>
         <div className={styles.head}>
           <div className={styles.headCopy}>
-            <Subline icon={<IconHeart />}>{porQue.subline}</Subline>
-            <Title id="porque-title" parts={porQue.title} className={styles.title} />
+            <Subline as="h2" id="porque-title" icon={<IconHeart />}>{porQue.subline}</Subline>
+            <Title as="p" parts={porQue.title} className={styles.title} />
           </div>
           <Button action={porQue.cta} variant="outline" />
         </div>

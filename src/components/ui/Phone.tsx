@@ -9,7 +9,7 @@ import styles from "./Phone.module.css";
 /**
  * Celular 3D con las capturas reales de Pling. Se inclina siguiendo al ratón
  * (valores medidos en anubi.io: ±7° X, ±9° Y, imagen ±3px; entra en .45s y
- * vuelve en .65s). En táctil se balancea solo, despacio. `screens` + `active`
+ * vuelve en .65s). Sin ratón encima (o en táctil) se balancea y levita solo. `screens` + `active`
  * hacen fundido entre pantallas.
  */
 export function Phone({
@@ -46,26 +46,38 @@ export function Phone({
       el.style.setProperty("--img-y", `${(-3 * y).toFixed(2)}px`);
       el.style.setProperty("--light-x", `${(50 + 30 * x).toFixed(1)}%`);
     };
-    if (!matchMedia("(hover: hover) and (pointer: fine)").matches) {
-      return autoDrift(el, (t) => set(Math.sin(t * 0.5) * 0.55, Math.cos(t * 0.37) * 0.4, 1200));
-    }
+    // Sin acción del ratón (o en táctil) se balancea solo, despacio
+    const drift = () => autoDrift(el, (t) => set(Math.sin(t * 0.5) * 0.55, Math.cos(t * 0.37) * 0.4, 1200));
+    if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return drift();
+
+    let stopDrift: (() => void) | null = drift();
     const clamp = (v: number) => Math.max(-1, Math.min(1, v));
+    const onEnter = () => {
+      stopDrift?.();
+      stopDrift = null;
+    };
     const onMove = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
       const r = zone.getBoundingClientRect();
       set(clamp(((e.clientX - r.left) / r.width) * 2 - 1), clamp(((e.clientY - r.top) / r.height) * 2 - 1), 450);
     };
-    const onLeave = () => set(0, 0, 650);
+    const onLeave = () => {
+      set(0, 0, 650);
+      stopDrift ??= drift();
+    };
+    zone.addEventListener("pointerenter", onEnter);
     zone.addEventListener("pointermove", onMove, { passive: true });
     zone.addEventListener("pointerleave", onLeave);
     return () => {
+      stopDrift?.();
+      zone.removeEventListener("pointerenter", onEnter);
       zone.removeEventListener("pointermove", onMove);
       zone.removeEventListener("pointerleave", onLeave);
     };
   }, [tilt, zoneRef]);
 
   return (
-    <div ref={ref} className={`${styles.phone} ${className}`}>
+    <div ref={ref} className={`${styles.phone} ${className}`} data-float={tilt ? "" : undefined}>
       <div className={styles.body}>
         <div className={styles.screen}>
           <div className={styles.viewport}>

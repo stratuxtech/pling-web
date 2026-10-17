@@ -36,11 +36,13 @@ export function Hero() {
   return (
     <section className={styles.hero} aria-labelledby="hero-title">
       <div className={styles.copy}>
-        <Subline icon={<IconTiktok />}>{hero.subline}</Subline>
-        <h1 id="hero-title" className={styles.title}>
+        <Subline as="h1" id="hero-title" icon={<IconTiktok />}>
+          {hero.subline}
+        </Subline>
+        <p className={styles.title}>
           {hero.title.lead} <Accent>{hero.title.accent}</Accent> <span className={styles.tail}>{hero.title.tail}</span>
           <span className="sr-only"> {hero.rotator.map((r) => r.text).join(", ")}.</span>
-        </h1>
+        </p>
         <Rotator phrases={hero.rotator.map((r) => r.text)} index={index} className={styles.rotator} />
         <div className={styles.ctas}>
           <Button action={hero.primary} size="lg" />

@@ -33,8 +33,8 @@ export function NosotrosHero() {
       <Breadcrumbs items={nosotrosPage.breadcrumbs} className={styles.crumbs} />
 
       <div className={styles.copy}>
-        <Subline icon={<IconUsers />}>{hero.subline}</Subline>
-        <Title as="h1" id="nosotros-title" parts={hero.title} className={styles.title} />
+        <Subline as="h1" id="nosotros-title" icon={<IconUsers />}>{hero.subline}</Subline>
+        <Title as="p" parts={hero.title} className={styles.title} />
         <p className={styles.text}>
           <Rich text={hero.text} />
         </p>

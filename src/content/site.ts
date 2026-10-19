@@ -43,9 +43,9 @@ export const contact = {
 } as const;
 
 export const parent = {
-  name: "Growists",
+  name: "Growiststech",
   url: "https://growists.com",
-  credit: "Pling ha sido creado por Growists",
+  credit: "Pling ha sido creado por Growiststech",
   logo: PENDIENTE as Pendiente,
 } as const;
 
@@ -336,7 +336,7 @@ export const footer = {
   contactTitle: "Contacto",
   bigLink: { label: "Adquirir Pling", hoverLabel: "Hablemos por WhatsApp" },
   copyright: "© 2026 Pling. Todos los derechos reservados.",
-  credit: { prefix: "Pling ha sido creado por", label: "Growists", href: parent.url },
+  credit: { prefix: "Pling ha sido creado por", label: "Growiststech", href: parent.url },
 } as const;
 
 /* ──────────────────────── 6. Contenido por página ─────────────────── */
@@ -515,7 +515,7 @@ export const ahorroPage = {
 export const nosotrosPage = {
   meta: {
     title: "Nosotros",
-    description: "Pling nace en Bolivia para ordenar todo lo que pasa detrás del live: código por prenda, cobro verificado por banco y envíos en orden. Creado por Growists.",
+    description: "Pling nace en Bolivia para ordenar todo lo que pasa detrás del live: código por prenda, cobro verificado por banco y envíos en orden. Creado por Growiststech.",
   },
   breadcrumbs: [
     { label: "Inicio", href: routes.home },
@@ -558,8 +558,8 @@ export const nosotrosPage = {
   },
   growists: {
     subline: "¿Quién está detrás de Pling?",
-    title: { lead: "Pling está respaldada por", accent: "Growists" },
-    intro: "Pling es un producto de Growists, empresa de tecnología que diseña, desarrolla y financia productos digitales. Esto es lo que le da a Pling:",
+    title: { lead: "Pling está respaldada por", accent: "Growiststech" },
+    intro: "Pling es un producto de Growiststech, empresa de tecnología que diseña, desarrolla y financia productos digitales. Esto es lo que le da a Pling:",
     /** En móvil solo se muestra el nombre de cada aporte (sin la explicación). */
     bullets: [
       { label: "Estabilidad", text: "una empresa con estructura y visión a largo plazo detrás de cada tienda." },
@@ -567,8 +567,8 @@ export const nosotrosPage = {
       { label: "Respaldo tecnológico", text: "equipo de producto, ingeniería y soporte que acompaña a cada tienda." },
       { label: "Financiamiento", text: "inversión para que Pling crezca al ritmo de sus tiendas." },
     ],
-    link: { label: "Conocer Growists", href: parent.url },
-    logo: { src: "/logo/growists-color.png", width: 1600, height: 349, alt: "Growists" },
+    link: { label: "Conocer Growiststech", href: parent.url },
+    logo: { src: "/logo/growists-color.png", width: 1600, height: 349, alt: "Growiststech" },
     /** Lo que Growists le da a Pling: nodos con micro-información al pasar el ratón o enfocar. */
     nodes: [
       { id: "estabilidad", label: "Estabilidad", detail: "Estructura y visión a largo plazo" },
@@ -861,7 +861,7 @@ export const privacidadPage = {
     {
       id: "responsable",
       title: "Quién es responsable",
-      body: [`Pling es un producto creado por Growists, con domicilio en ${contact.city}. Para cualquier consulta sobre privacidad puedes escribirnos a ${contact.email}.`],
+      body: [`Pling es un producto creado por Growiststech, con domicilio en ${contact.city}. Para cualquier consulta sobre privacidad puedes escribirnos a ${contact.email}.`],
     },
     {
       id: "datos",

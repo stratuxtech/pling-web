@@ -41,7 +41,7 @@ export default function ContactoPage() {
         <div className={styles.map}>
           <iframe
             src={contact.mapsEmbed}
-            title="Mapa: ubicación de Growists en Santa Cruz de la Sierra"
+            title="Mapa: ubicación de Growiststech en Santa Cruz de la Sierra"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />

@@ -87,7 +87,7 @@ export function Growists() {
           <Logo height={28} />
         </div>
 
-        <ul className={styles.nodes} aria-label="Lo que Growists le da a Pling">
+        <ul className={styles.nodes} aria-label="Lo que Growiststech le da a Pling">
           {growists.nodes.map((n, i) => {
             const [x, y, d] = LAYOUT[n.id];
             return (
